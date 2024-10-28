@@ -3,55 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-@font-face {
-    font-family: 'Rowdies';
-    src: url('../assets/fonts/Rowdies-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Rowdies';
-    src: url('../assets/fonts/Rowdies-Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Rowdies';
-    src: url('../assets/fonts/Rowdies-Light.ttf') format('truetype');
-    font-weight: light;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'FontinSans';
-    src: url('../assets/fonts/FontinSans-Regular.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'FontinSans';
-    src: url('../assets/fonts/FontinSans-Bold.otf') format('opentype');
-    font-weight: bold;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'FontinSans';
-    src: url('../assets/fonts/FontinSans-Italic.otf') format('opentype');
-    font-weight: normal;
-    font-style: italic;
-}
-
-@font-face {
-    font-family: 'FontinSans';
-    src: url('../assets/fonts/FontinSans-Bold-Italic.otf') format('opentype');
-    font-weight: bold;
-    font-style: italic;
+    font-size: 16px;
 }
 
 /* Typography */
@@ -59,10 +11,114 @@ body {
     font-family: Rowdies, sans-serif;
     font-size: 16px;
     line-height: 1.5;
+    background-color: pink;
 }
 
 /* Colors and Backgrounds */
 :root {
     --primary-color: #007bff;
     --secondary-color: #6c757d;
+    --highlight-color: #ffc107;
+}
+
+header{
+    display: flex;
+    flex-direction: column;
+}
+
+nav{
+    display: flex;
+    padding: 16px;
+    flex: 1 0 0;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+header:first-child {
+    background-color: rgb(89, 89, 89);
+}
+header nav:nth-child(2) {
+    background-color: rgb(190, 21, 21);
+}
+
+.logo{
+    background-image: url("../assets/logo/cardforge-logo.svg");
+    height: 40px;
+    width: 40px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.app-name{
+    text-transform: uppercase;
+    font-size: 2em;
+    color: #fff;
+}
+
+.header-avatar{
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.header-avatar:hover{
+    border: solid 1px var(--highlight-color);
+}
+
+.hidden{
+    display: none;
+}
+
+.header-cart{
+    width: 24px;
+    height: 24px;
+}
+
+.cart-icon{
+    background-image: url("../assets/icons/cart.svg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.search-bar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    border: none;
+    flex: 1 0 0;
+    background-color: #fff;
+    height: 32px;
+}
+
+.search-bar input[type="text"]{
+    border: none;
+    padding: 16px 8px;
+    flex: 1 0 0;
+}
+
+.search-bar input[type="submit"]{
+    width: 48px;
+    height: 32px;
+    padding: 8px 8px;
+    background-color: #000;
+    border: none;
+}
+
+.search-icon{
+    background-image: url("../assets/icons/search.svg");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: block;
 }
