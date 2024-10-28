@@ -21,6 +21,8 @@ body {
     --highlight-color: #ffc107;
 }
 
+/*HEADER*/
+
 header{
     display: flex;
     flex-direction: column;
@@ -121,4 +123,21 @@ header nav:nth-child(2) {
     background-position: center;
     background-repeat: no-repeat;
     display: block;
+}
+
+/*BANNER*/
+
+
+
+.caret-icon{
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("../assets/icons/caret.svg");
+    cursor: pointer;
+}
+
+.banner-caret{
+    width: 30px;
+    height: 30px;
 }
