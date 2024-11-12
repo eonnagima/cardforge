@@ -1,6 +1,6 @@
 <?php
     include_once(__DIR__."/classes/Db.php");
-    include_once(__DIR__."/classes/Users.php");
+    include_once(__DIR__."/classes/User.php");
 
     $feedback = "";
 
@@ -12,6 +12,10 @@
 
         if($result){
             $feedback = "User was created successfully!";
+            session_start();
+            $_SESSION['user'] = $user->getEmail();
+            $_SESSION['loggedIn'] = true;
+            header("Location: index.php");
         }
     }
 ?><!DOCTYPE html>
@@ -23,37 +27,6 @@
     <link rel="stylesheet" href="./css/fonts.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <style>
-        .password-toggle {
-            position: relative;
-        }
-        .password-toggle input[type="password"] {
-            padding-right: 30px;
-        }
-        .password-toggle .toggle-icon {
-            position: absolute;
-            bottom: 20px;
-            transform: translateY(+50%);
-            right: 10px;
-            cursor: pointer;
-        }
-    </style>
-    <script>
-        function togglePasswordVisibility() {
-            var passwordInput = document.getElementById("password");
-            var toggleIcon = document.getElementById("toggle-icon");
-
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-                toggleIcon.classList.remove("fa-eye");
-                toggleIcon.classList.add("fa-eye-slash");
-            } else {
-                passwordInput.type = "password";
-                toggleIcon.classList.remove("fa-eye-slash");
-                toggleIcon.classList.add("fa-eye");
-            }
-        }
-    </script>
 </head>
 <body>
     <?php include_once(__DIR__."/includes/header.inc.php");?>
@@ -78,5 +51,6 @@
             </section>      
         </form>
     </main>
+    <script src="./js/script.js"></script>
 </body>
 </html>

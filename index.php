@@ -1,5 +1,6 @@
 <?php
-
+    session_start();
+    include_once __DIR__."/classes/User.php";
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +9,7 @@
     <title>Home | Cardforge</title>
     <link rel="stylesheet" href="./css/fonts.css">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         .banner-wrap {
             position: relative;
@@ -113,8 +115,30 @@
             <div class="orb"></div>
         </div>
     </section>
-
+    <main>
+        <?php if(isset($_SESSION['user'])): ?>
+            <span>Welcome, <?php echo $_SESSION['user'];?></span>
+        <?php endif; ?>
+    </main>
     
+<!-- Add the HTML structure for the footer -->
+<footer>
+    <section id="contact">
+        <div>
+            <h4>Account</h4>
+            <i class="fas fa-caret-up fa-2x"></i>
+        </div>
+        <ul>
+            <?php if(isset($_SESSION['user'])): ?>
+                <li><a href="account.php">My account</a></li>
+                <li><a href="logout.php">Logout</a></li>
+            <?php else: ?>
+                <li><a href="login.php">Login</a></li>
+                <li><a href="register.php">Signup</a></li>
+            <?php endif; ?>
+        </ul>
+    </section>
+</footer>
 
     <script>
         // const orbs = document.querySelectorAll('.orb');

@@ -29,6 +29,12 @@ h1{
     margin-left: 24px;
 }
 
+h4{
+    text-transform: capitalize;
+    font-size: 1.25em;
+    font-weight: normal;
+}
+
 /*HEADER*/
 
 header{
@@ -155,6 +161,40 @@ main{
     gap: 32px;
 }
 
+.seperator{
+    border-bottom: 1px solid #000;
+}
+
+footer{
+    color: #fff;
+}
+footer section div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 32px;
+    background-color: var(--secondary-color);
+}
+
+footer section ul{
+    background-color: #848484;
+}
+
+footer section li{
+    background-color: #848484;
+    font-family: FontinSans, sans-serif;
+    font-size: 1.25em;
+    font-weight: normal;
+    padding: 8px 32px;
+}
+
+footer section a{
+    text-decoration: none;
+    color: #fff;
+}
+
+/*Form*/
 .form{
     display: flex;
     flex-direction: column;
@@ -179,6 +219,29 @@ main{
     border-radius: 8px;
 }
 
-.seperator{
-    border-bottom: 1px solid #000;
+.password-toggle {
+    position: relative;
+}
+
+.password-toggle input[type="password"] {
+    padding-right: 30px;
+}
+
+.password-toggle .toggle-icon {
+    position: absolute;
+    bottom: 20px;
+    transform: translateY(+50%);
+    right: 10px;
+    cursor: pointer;
+}
+
+.error {
+    background-color: #ffcccc;
+    color: #ff0000;
+    border: 2px solid #ff0000;
+    padding: 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0 24px;
 }
