@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<?php
+    include_once(__DIR__."/classes/Db.php");
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">

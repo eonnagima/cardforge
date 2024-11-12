@@ -21,6 +21,14 @@ body {
     --highlight-color: #ffc107;
 }
 
+h1{
+    color: #000;
+    text-transform: uppercase;
+    font-size: 2em;
+    font-weight: regular;
+    margin-left: 24px;
+}
+
 /*HEADER*/
 
 header{
@@ -127,8 +135,6 @@ header nav:nth-child(2) {
 
 /*BANNER*/
 
-
-
 .caret-icon{
     background-size: cover;
     background-position: center;
@@ -140,4 +146,39 @@ header nav:nth-child(2) {
 .banner-caret{
     width: 30px;
     height: 30px;
+}
+
+main{
+    padding: 24px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+}
+
+.form section{
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.form section div{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form section input{
+    padding: 8px;
+    border: 2px solid #000;
+    border-radius: 8px;
+}
+
+.seperator{
+    border-bottom: 1px solid #000;
 }
