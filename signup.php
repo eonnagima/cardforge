@@ -1,11 +1,9 @@
 <?php
-    include_once(__DIR__."/classes/Db.php");
-    include_once(__DIR__."/classes/User.php");
+    require_once __DIR__."/bootstrap.php";
 
-    $feedback = "";
-
+    //add trycatch
     if(!empty($_POST)){
-        $user = new User();
+        $user = new Codinari\Cardforge\Customer();
         $user->setEmail($_POST['email']);
         $user->setPassword($_POST['password']);
         $result = $user->save();

@@ -1,21 +1,25 @@
 <?php
 
-include_once(__DIR__."/Db.php");
+namespace Codinari\Cardforge;
+
+//enable class Db.php to be used in this file with composer
+use Codinari\Cardforge\Db;
 
 class User {
-    private $first_name;
-    private $last_name;
-    private $email;
-    private $avatar;
-    private $date_of_birth;
-    private $phone_number;
-    private $adress_street;
-    private $adress_number;
-    private $adress_extra;
-    private $adress_zip;
-    private $adress_province;
-    private $adress_country;
-    private $password;
+    
+    public $first_name;
+    public $last_name;
+    public $email;
+    public $avatar;
+    public $date_of_birth;
+    public $phone_number;
+    public $adress_street;
+    public $adress_number;
+    public $adress_extra;
+    public $adress_zip;
+    public $adress_province;
+    public $adress_country;
+    public $password;
 
     /**
      * Get the value of first_name
@@ -277,13 +281,24 @@ class User {
         return $this;
     }
 
-    public function save(){
-        $conn = Db::getConnection();
-        $stmt = $conn->prepare("INSERT INTO users (email, password) VALUES (:email, :password)");
-        $stmt->bindParam(":email", $this->email);
-        $stmt->bindParam(":password", $this->password);
-        
-        return $stmt->execute();
-    }
+    public function verifyLogin($email, $pw){
+		$conn = Db::getConnection();
+		
+		$stmt = $conn->prepare('SELECT * FROM users WHERE email = :email');
+		$stmt->bindParam(':email', $email);
+		$stmt->execute();
 
+		$user = $stmt->fetch(\PDO::FETCH_ASSOC);
+		//if no user is found, fetch will return false
+		if($user){
+			$hash = $user['password'];
+			if(password_verify($pw, $hash)){
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			return false;
+		}
+	}
 }

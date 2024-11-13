@@ -1,5 +1,9 @@
 <?php
 
+namespace Codinari\Cardforge;
+//enable class Db.php to be used in this file with composer
+use Codinari\Cardforge\Db;
+
 class Product{
     private $name;
     private $description;

@@ -1,5 +1,6 @@
 {
     "name": "codinari/cardforge",
+    "version": "1.0.0",
     "autoload": {
         "psr-4": {
             "Codinari\\Cardforge\\": "src/"

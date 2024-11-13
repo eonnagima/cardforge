@@ -1,40 +1,33 @@
 <?php
-    include_once(__DIR__."/classes/Db.php");
-    include_once(__DIR__."/classes/User.php");
 
-    function verifyLogin($email, $pw){//p makes clear this is a function parameter
-		$conn = Db::getConnection();
-		
-		$stmt = $conn->prepare('SELECT * FROM users WHERE email = :email');
-		$stmt->bindParam(':email', $email);
-		$stmt->execute();
-
-		$user = $stmt->fetch(PDO::FETCH_ASSOC);
-		//if no user is found, fetch will return false
-		if($user){
-			$hash = $user['password'];
-			if(password_verify($pw, $hash)){
-				return true;
-			}else{
-				return false;
-			}
-		}else{
-			return false;
-		}
-	}
+    require_once __DIR__."/bootstrap.php";
 
     if(!empty($_POST)){
-        $email = $_POST['email'];
-        $password = $_POST['password'];
+        // $email = $_POST['email'];
+        // $password = $_POST['password'];
 
-        if(verifyLogin($email, $password)){
-            session_start();
-            $_SESSION['user'] = $email;
-            $_SESSION['loggedIn'] = true;
-            header("Location: index.php");
-        }else{
-            $error = true;
-        };
+        // if(verifyLogin($email, $password)){
+        //     session_start();
+        //     $_SESSION['user'] = $email;
+        //     $_SESSION['loggedIn'] = true;
+        //     header("Location: index.php");
+        // }else{
+        //     $error = true;
+        // };
+
+        // create 
+
+
+        // User::isAdmin()
+        //     Product::create(
+
+        
+        //     )
+        //cloudinary image upload
+        // $cloudinary = new Cloudinary();
+        // $cloudinary->uploadImage($_FILES['image']);
+
+        // $product = new Product();
 
     }
 ?><!DOCTYPE html>
