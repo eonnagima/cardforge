@@ -1,0 +1,15 @@
+{
+    "name": "codinari/cardforge",
+    "autoload": {
+        "psr-4": {
+            "Codinari\\Cardforge\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ben devos",
+            "email": "bendevos07@gmail.com"
+        }
+    ],
+    "require": {}
+}
