@@ -16,16 +16,8 @@ class Admin extends User{
         return $stmt->execute();
     }
 
-    public function checkAdmin($email){
-        $conn = Db::getConnection();
-        $query = $conn->prepare("SELECT * FROM users WHERE email = :email");
-        $query->bindValue(":email", $email);
-        $query->execute();
-        $user = $query->fetch();
-        if($user['role'] === 1){
-            return true;
-        }else {
-            return false;
-        }
+    public function loginRedirect(){
+        header("Location: index.php");
+        exit();
     }
 }

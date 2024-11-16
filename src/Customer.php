@@ -15,4 +15,10 @@ class Customer extends User{
         
         return $stmt->execute();
     }
+
+    public function loginRedirect(){
+        header("Location: index.php");
+        exit();
+    }
 }
+

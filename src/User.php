@@ -7,19 +7,21 @@ use Codinari\Cardforge\Db;
 
 class User {
     
-    public $first_name;
-    public $last_name;
-    public $email;
-    public $avatar;
-    public $date_of_birth;
-    public $phone_number;
-    public $adress_street;
-    public $adress_number;
-    public $adress_extra;
-    public $adress_zip;
-    public $adress_province;
-    public $adress_country;
-    public $password;
+    
+    protected $first_name;
+    protected $last_name;
+    protected $email;
+    protected $avatar;
+    protected $date_of_birth;
+    protected $phone_number;
+    protected $adress_street;
+    protected $adress_number;
+    protected $adress_extra;
+    protected $adress_zip;
+    protected $adress_province;
+    protected $adress_country;
+    protected $password;
+    protected $role;
 
     /**
      * Get the value of first_name
@@ -37,7 +39,6 @@ class User {
     public function setFirst_name($first_name)
     {
         $this->first_name = $first_name;
-
         return $this;
     }
 
@@ -69,16 +70,16 @@ class User {
         return $this->email;
     }
 
-    /**
-     * Set the value of email
-     *
-     * @return  self
-     */ 
     public function setEmail($email)
     {
-        $this->email = $email;
+        if (empty($first_name)) {
+            throw new \Exception("Email can't be empty");
+        } else {
+            $this->email = $email;
+            return $this;
+        }
+        
 
-        return $this;
     }
 
     /**
@@ -276,29 +277,85 @@ class User {
      */ 
     public function setPassword($password)
     {
-        $this->password = password_hash($password, PASSWORD_DEFAULT);
+        if (empty($first_name)) {
+            throw new \Exception("Password can't be empty");
+        } else {
+            $this->password = password_hash($password, PASSWORD_DEFAULT);
+            return $this;
+        }
+    }
+
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    public function setRole($role)
+    {
+        $this->role = $role;
 
         return $this;
     }
 
-    public function verifyLogin($email, $pw){
-		$conn = Db::getConnection();
+    // public function verifyLogin($email, $pw){
+	// 	$conn = Db::getConnection();
 		
-		$stmt = $conn->prepare('SELECT * FROM users WHERE email = :email');
-		$stmt->bindParam(':email', $email);
-		$stmt->execute();
+	// 	$stmt = $conn->prepare('SELECT * FROM users WHERE email = :email');
+	// 	$stmt->bindParam(':email', $email);
+	// 	$stmt->execute();
 
-		$user = $stmt->fetch(\PDO::FETCH_ASSOC);
-		//if no user is found, fetch will return false
-		if($user){
-			$hash = $user['password'];
-			if(password_verify($pw, $hash)){
-				return true;
-			}else{
-				return false;
-			}
-		}else{
-			return false;
-		}
-	}
+	// 	$user = $stmt->fetch(\PDO::FETCH_ASSOC);
+	// 	//if no user is found, fetch will return false
+	// 	if($user){
+	// 		$hash = $user['password'];
+	// 		if(password_verify($pw, $hash)){
+	// 			return true;
+	// 		}else{
+	// 			return false;
+	// 		}
+	// 	}else{
+	// 		return false;
+	// 	}
+	// }
+
+    public static function verifyLogin($email, $password){
+        $conn = Db::getConnection();
+        $query = $conn->prepare("SELECT * FROM users WHERE email = :email");
+        $query->bindValue(":email", $email);
+        $query->execute();
+        $user = $query->fetch();
+
+        if ($user) {
+            $hash = $user['password'];
+            if (password_verify($password, $hash)) {
+                return $user->login($user);
+            } else {
+                throw new \Exception("Invalid email or password");
+            }
+        } else {
+            throw new \Exception("Invalid email or password");
+        }
+    }
+
+
+    public function login($user){
+        if($user['role'] === 0){
+            $currentUser = new Customer();
+        } else if($user['role'] === 1){
+            $currentUser = new Admin();
+        }
+        $currentUser->setEmail($user['email']);
+        $currentUser->setPassword($user['password']);
+        $currentUser->setRole($user['role']);
+        return $currentUser;
+    }
+
+    public function getRoleFromDb($email){
+        $conn = Db::getConnection();
+        $query = $conn->prepare("SELECT * FROM users WHERE email = :email");
+        $query->bindValue(":email", $email);
+        $query->execute();
+        $user = $query->fetch();
+        return $user['role'];
+    }
 }

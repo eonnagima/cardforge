@@ -3,18 +3,23 @@
 
     //add trycatch
     if(!empty($_POST)){
-        $user = new Codinari\Cardforge\Customer();
-        $user->setEmail($_POST['email']);
-        $user->setPassword($_POST['password']);
-        $result = $user->save();
-
-        if($result){
-            $feedback = "User was created successfully!";
-            session_start();
-            $_SESSION['user'] = $user->getEmail();
-            $_SESSION['loggedIn'] = true;
-            header("Location: index.php");
+        try{
+            $user = new Codinari\Cardforge\Customer();
+            $user->setEmail($_POST['email']);
+            $user->setPassword($_POST['password']);
+            $result = $user->save();
+    
+            if($result){
+                $feedback = "User was created successfully!";
+                session_start();
+                $_SESSION['user'] = $user->getEmail();
+                $_SESSION['loggedIn'] = true;
+                header("Location: index.php");
+            }
+        }catch(\Throwable $th){
+            $error = $th->getMessage();
         }
+
     }
 ?><!DOCTYPE html>
 <html lang="en">
@@ -30,6 +35,9 @@
     <?php include_once(__DIR__."/includes/header.inc.php");?>
     <main>
         <h1>Signup</h1>
+        <?php if(isset($error)):?>
+            <div class="error"><?php echo $feedback;?></div>
+        <?php endif;?>
         <form class="form" action="" method="post">
             <section>
                 <div class="input-wrap">
