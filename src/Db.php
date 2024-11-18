@@ -9,7 +9,12 @@ class Db{
 
     public static function getConnection(){
         if(self::$conn === null){
-            return self::$conn = new \PDO('mysql:host='.CONFIG['db']['host'].';dbname='.CONFIG['db']['dbname'], CONFIG['db']['user'], CONFIG['db']['password']);
+            try{
+                return self::$conn = new \PDO('mysql:host='.CONFIG['db']['host'].';dbname='.CONFIG['db']['dbname'], CONFIG['db']['user'], CONFIG['db']['password']);
+            }
+            catch(\PDOException $e){
+                throw new \Exception("Error Connection Failed: ".$e->getMessage());
+            }
         }else{
             return self::$conn;
         }

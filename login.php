@@ -1,34 +1,26 @@
 <?php
-
     require_once __DIR__."/bootstrap.php";
 
     if(!empty($_POST)){
-        // $email = $_POST['email'];
-        // $password = $_POST['password'];
+        try{
+            $user = new Codinari\Cardforge\User();
+            $user->setEmail($_POST['email']);
+            $user->setPassword($_POST['password']);
 
-        // if(verifyLogin($email, $password)){
-        //     session_start();
-        //     $_SESSION['user'] = $email;
-        //     $_SESSION['loggedIn'] = true;
-        //     header("Location: index.php");
-        // }else{
-        //     $error = true;
-        // };
+            $user->login();
 
-        // create 
-
-
-        // User::isAdmin()
-        //     Product::create(
-
-        
-        //     )
-        //cloudinary image upload
-        // $cloudinary = new Cloudinary();
-        // $cloudinary->uploadImage($_FILES['image']);
-
-        // $product = new Product();
-
+            if($user->isAdmin($user->getEmail())){
+                //redirect to admin page
+                header("Location: admin.php");
+                exit();
+            }else{
+                //redirect to user page
+                header("Location: index.php");
+                exit();
+            }
+        }catch(\Throwable $th){
+            $error = $th->getMessage();
+        }
     }
 ?><!DOCTYPE html>
 <html lang="en">
@@ -45,7 +37,7 @@
     <main>
         <h1>Login</h1>
         <?php if(isset($error)):?>
-            <div class="error">Invalid email or password</div>
+            <div class="error"><?php echo $error;?></div>
         <?php endif;?>
         <form class="form" action="" method="post">
             <section>

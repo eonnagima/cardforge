@@ -10,10 +10,8 @@
             $result = $user->save();
     
             if($result){
-                session_start();
-                $_SESSION['user'] = $user->getEmail();
-                $_SESSION['loggedIn'] = true;
-                header("Location: index.php");
+                $user->login();
+                //$user->loginRedirect();
             }
         }catch(\Throwable $th){
             $error = $th->getMessage();
@@ -35,13 +33,13 @@
     <main>
         <h1>Signup</h1>
         <?php if(isset($error)):?>
-            <div class="error"><?php echo $feedback;?></div>
+            <div class="error"><?php echo $error;?></div>
         <?php endif;?>
         <form class="form" action="" method="post">
             <section>
                 <div class="input-wrap">
                     <label for="email">Email:<span>*</span></label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="text" id="email" name="email" required>
                 </div>
                 <div class="input-wrap password-toggle">
                     <label for="password">Password:<span>*</span></label>

@@ -279,17 +279,41 @@ class User {
         return $this->password;
     }
 
-    /**
-     * Set the value of password
-     *
-     * @return  self
-     */ 
+    public function validatePassword($password){
+        $errors = [];
+
+        if (strlen($password) < 8) {
+            $errors[] = "be at least 8 characters long";
+        }
+    
+        // Check for at least one uppercase letter
+        if (!preg_match('/[A-Z]/', $password)) {
+            $errors[] = "contain at least one uppercase letter";
+        }
+    
+        // Check for at least one lowercase letter
+        if (!preg_match('/[a-z]/', $password)) {
+            $errors[] = "contain at least one lowercase letter";
+        }
+    
+        // Check for at least one number
+        if (!preg_match('/[0-9]/', $password)) {
+            $errors[] = "contain at least one number";
+        }
+    
+        if (!empty($errors)) {
+            throw new \Exception("Password must ".implode(" and ", $errors));
+        }
+
+    }
+
     public function setPassword($password)
     {
-        if (empty($first_name)) {
+        if (empty($password)) {
             throw new \Exception("Password can't be empty");
         } else {
-            $this->password = password_hash($password, PASSWORD_DEFAULT);
+            $this->validatePassword($password);
+            $this->password = $password;
             return $this;
         }
     }
@@ -341,43 +365,75 @@ class User {
         }
     }
 
-    public static function verifyLogin($email, $password){
+    public function login(){
         $conn = Db::getConnection();
-        $query = $conn->prepare("SELECT * FROM users WHERE email = :email");
-        $query->bindValue(":email", $email);
-        $query->execute();
-        $user = $query->fetch();
+        $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
+        $stmt->bindParam(':email', $this->email);
+        $stmt->execute();
+        $user = $stmt->fetch(\PDO::FETCH_ASSOC);
 
-        if ($user) {
-            $hash = $user['password'];
-            if (password_verify($password, $hash)) {
-                return $user->login($user);
+        if ($user && password_verify($this->password, $user['password'])) {
+            
+            // Generate a unique token for the user
+            $token = $this->generateLoginToken();
+            // // Store the token in the database
+            $this->saveLoginToken($token);
+            // // Set session variables
+            session_start();
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['login_token'] = $token;
+            return true;
+        } else {
+            //throw exception invalid password or email
+            throw new \Exception("The entered email or password is incorrect");
+        }
+    }
+
+    protected function  generateLoginToken(){
+        return bin2hex(random_bytes(32));
+    }
+
+    protected function saveLoginToken($token){
+        $conn = Db::getConnection();
+        $stmt = $conn->prepare("UPDATE users SET login_token = '$token' WHERE email = :email");
+        $stmt->bindParam(':email', $this->email);
+        $stmt->execute();
+    }
+
+    public static function validateLogin(){
+        if (!empty($_SESSION['user_id']) && !empty($_SESSION['login_token'])) {
+            $conn = Db::getConnection();
+            // Checks if there is a user with the email in the session variable exists and if it's token matches the one in the session variable
+            $stmt = $conn->prepare("SELECT * FROM users WHERE id = :id AND login_token = :token");
+            $stmt->bindParam(':id', $_SESSION['email']);
+            $stmt->bindParam(':token', $_SESSION['login_token']);
+            $stmt->execute();
+            $user = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+            if ($user) {
+                //if login is valld, return true
+                return true;
             } else {
-                throw new \Exception("Invalid email or password");
+                // Invalid session, destroy it
+                session_destroy();
+                return false;
             }
         } else {
-            throw new \Exception("Invalid email or password");
+            return false;
         }
     }
-
-    public function login($user){
-        if($user['role'] === 0){
-            $currentUser = new Customer();
-        } else if($user['role'] === 1){
-            $currentUser = new Admin();
-        }
-        $currentUser->setEmail($user['email']);
-        $currentUser->setPassword($user['password']);
-        $currentUser->setRole($user['role']);
-        return $currentUser;
-    }
-
-    public function getRoleFromDb($email){
+    
+    public function isAdmin($email){
         $conn = Db::getConnection();
         $query = $conn->prepare("SELECT * FROM users WHERE email = :email");
         $query->bindValue(":email", $email);
         $query->execute();
         $user = $query->fetch();
-        return $user['role'];
+        
+        if ($user['role'] == 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

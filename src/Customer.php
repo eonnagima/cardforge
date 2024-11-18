@@ -4,6 +4,7 @@ namespace Codinari\Cardforge;
 
 //enable class Db.php to be used in this file with composer
 use Codinari\Cardforge\Db;
+use PDOException;
 
 class Customer extends User{
     
@@ -11,13 +12,19 @@ class Customer extends User{
         if($this->userExists($this->getEmail())){
             throw new \Exception("User with this email already exists");
         }
-        
+
+        $hash = password_hash($this->password, PASSWORD_DEFAULT);
+
         $conn = Db::getConnection();
-        $stmt = $conn->prepare("INSERT INTO users (email, password, role) VALUES (:email, :password, 0)");
+        $stmt = $conn->prepare("INSERT INTO users (email, password) VALUES (:email, :password)");
         $stmt->bindParam(":email", $this->email);
-        $stmt->bindParam(":password", $this->password);
+        $stmt->bindParam(":password", $hash);
+        try{
+            return $stmt->execute();
+        }catch(\PDOException $e){
+            throw new \Exception("Error: ".$e->getMessage());
+        }
         
-        return $stmt->execute();
     }
 
     public function loginRedirect(){
