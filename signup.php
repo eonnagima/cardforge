@@ -10,7 +10,6 @@
             $result = $user->save();
     
             if($result){
-                $feedback = "User was created successfully!";
                 session_start();
                 $_SESSION['user'] = $user->getEmail();
                 $_SESSION['loggedIn'] = true;

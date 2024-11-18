@@ -8,6 +8,10 @@ use Codinari\Cardforge\Db;
 class Customer extends User{
     
     public function save(){
+        if($this->userExists($this->getEmail())){
+            throw new \Exception("User with this email already exists");
+        }
+        
         $conn = Db::getConnection();
         $stmt = $conn->prepare("INSERT INTO users (email, password, role) VALUES (:email, :password, 0)");
         $stmt->bindParam(":email", $this->email);

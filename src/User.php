@@ -23,9 +23,6 @@ class User {
     protected $password;
     protected $role;
 
-    /**
-     * Get the value of first_name
-     */ 
     public function getFirst_name()
     {
         return $this->first_name;
@@ -72,14 +69,17 @@ class User {
 
     public function setEmail($email)
     {
-        if (empty($first_name)) {
+        if (empty($email)) {
             throw new \Exception("Email can't be empty");
         } else {
+            //check if email is valid
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                throw new \Exception("Invalid email");
+            }
+
             $this->email = $email;
             return $this;
         }
-        
-
     }
 
     /**
@@ -137,9 +137,18 @@ class User {
      */ 
     public function setPhone_number($phone_number)
     {
-        $this->phone_number = $phone_number;
+        if (!empty($phone_number)) {
+            //check if phone number is valid
+            $pattern = "/^\+?[1-9]\d{1,14}$/";
+    
+            // Check if the phone number matches the pattern
+            if (preg_match($pattern, $phone_number)) {
+                throw new \Exception("Invalid phone number");
+            }
 
-        return $this;
+            $this->phone_number = $phone_number;
+            return $this;
+        }
     }
 
     /**
@@ -318,6 +327,20 @@ class User {
 	// 	}
 	// }
 
+    public static function userExists($email){
+        $conn = Db::getConnection();
+        $query = $conn->prepare("SELECT * FROM users WHERE email = :email");
+        $query->bindValue(":email", $email);
+        $query->execute();
+        $user = $query->fetch();
+
+        if ($user) {
+            throw new \Exception("User with this email already exists");
+        } else {
+            return false;
+        }
+    }
+
     public static function verifyLogin($email, $password){
         $conn = Db::getConnection();
         $query = $conn->prepare("SELECT * FROM users WHERE email = :email");
@@ -336,7 +359,6 @@ class User {
             throw new \Exception("Invalid email or password");
         }
     }
-
 
     public function login($user){
         if($user['role'] === 0){
