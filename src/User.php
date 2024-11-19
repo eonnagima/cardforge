@@ -4,8 +4,9 @@ namespace Codinari\Cardforge;
 
 //enable class Db.php to be used in this file with composer
 use Codinari\Cardforge\Db;
+use Codinari\Cardforge\Interfaces\iUser;
 
-class User {
+class User implements iUser{
     //required properties
     protected $email;
     protected $password;
@@ -333,10 +334,10 @@ class User {
 
     public static function userExists($email){
         $conn = Db::getConnection();
-        $query = $conn->prepare("SELECT * FROM users WHERE email = :email");
-        $query->bindValue(":email", $email);
-        $query->execute();
-        $user = $query->fetch();
+        $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
+        $stmt->bindValue(":email", $email);
+        $stmt->execute();
+        $user = $stmt->fetch();
 
         if ($user) {
             throw new \Exception("User with this email already exists");
@@ -368,7 +369,7 @@ class User {
         }
     }
 
-    protected function  generateLoginToken(){
+    protected function generateLoginToken(){
         return bin2hex(random_bytes(32));
     }
 
