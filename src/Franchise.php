@@ -146,5 +146,4 @@ class Franchise implements iFranchise{
         $stmt->execute();
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
-
 }

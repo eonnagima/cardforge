@@ -2,6 +2,7 @@
 
     require_once __DIR__."/../bootstrap.php";
     use Codinari\Cardforge\Franchise;
+    use Codinari\Cardforge\Product;
 
     if(empty($user) || $user->getRole() !== "admin"){
         header("Location: ../index.php");
@@ -9,6 +10,32 @@
     }
 
     $allFranchises = Franchise::getAllExceptEverything();
+
+    if(!empty($_POST)){
+        try{
+            $product = new Product();
+            $product->setName($_POST['name']);
+            $product->setDescription($_POST['description']);
+            $product->setAlias();
+            $product->setPrice($_POST['price']);
+            $product->setStock($_POST['stock']);
+            $product->setFranchise($_POST['franchise']);
+            $product->setCategory(1); //placeholder
+            $product->setImage(""); //placeholder
+            $product->setSetName($_POST['setName']);
+            $product->setReleaseDate($_POST['releaseDate']);
+
+            $result = $product->save();
+    
+            if($result){
+                header("Location: ./dashboard.php");
+                exit();
+            }
+        }catch(\Throwable $th){
+            $error = $th->getMessage();
+        }
+
+    }
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -40,7 +67,7 @@
                     <select id="franchise" name="franchise" required>
                         <option>Select Franchise</option>
                         <?php foreach($allFranchises as $franchise):?>
-                            <option value="<?php echo $franchise['alias'];?>"><?php echo $franchise['name'];?></option>
+                            <option value="<?php echo $franchise['id'];?>"><?php echo htmlspecialchars($franchise['name']);?></option>
                         <?php endforeach;?>
                     </select>
                 </div>
