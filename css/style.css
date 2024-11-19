@@ -394,7 +394,12 @@ footer section a{
     text-transform: uppercase;
     font-size: 1.5em;
     font-weight: regular;
-    margin-left: 24px;
+}
+
+.form label span{
+    color: var(--red);
+    font-size: 1.5em;
+    font-weight: 300;
 }
 
 .form section input{

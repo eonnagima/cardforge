@@ -42,11 +42,11 @@
         <form class="form" action="" method="post">
             <section>
                 <div class="input-wrap">
-                    <label for="email">Email:<span>*</span></label>
+                    <label for="email">Email<span>*</span></label>
                     <input type="email" id="email" name="email" required>
                 </div>
                 <div class="input-wrap password-toggle">
-                    <label for="password">Password:<span>*</span></label>
+                    <label for="password">Password<span>*</span></label>
                     <input type="password" id="password" name="password" required>
                     <i id="toggle-icon" class="fas fa-eye toggle-icon" onclick="togglePasswordVisibility()"></i>
                 </div>
