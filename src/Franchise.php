@@ -105,7 +105,7 @@ class Franchise implements iFranchise{
         }
 
         $conn = Db::getConnection();
-        $stmt = $conn->prepare("INSERT INTO franchises (name, alias, image) VALUES (:name, :alias, :image)");
+        $stmt = $conn->prepare("INSERT INTO franchises (name, alias, img) VALUES (:name, :alias, :image)");
 
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":alias", $this->alias);
@@ -126,6 +126,25 @@ class Franchise implements iFranchise{
         $stmt = $conn->prepare("SELECT * FROM franchises");
         $stmt->execute();
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    //function to get all except the one with the name 'all'
+    public static function getAllExceptEverything()
+    {
+        // Get all franchises from the database
+        $conn = Db::getConnection();
+        $stmt = $conn->prepare("SELECT * FROM franchises WHERE name != 'everything'");
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    //function to get franchise by alias
+    public static function getByAlias($alias){
+        $conn = Db::getConnection();
+        $stmt = $conn->prepare("SELECT * FROM franchises WHERE alias = :alias");
+        $stmt->bindParam(":alias", $alias);
+        $stmt->execute();
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
 }

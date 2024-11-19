@@ -8,7 +8,8 @@
         exit();
     }
 
-    $allFranchises = Franchise::getAll();
+    $allFranchises = Franchise::getAllExceptEverything();
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,8 +64,8 @@
             </section>
             <div class="seperator"></div>
             <section>
-                <input class="btn" type="submit" value="LOGIN">
-                <a class="btn btn--secondary" href="signup.php">Back to Dashboard</a>
+                <input class="btn" type="submit" value="ADD">
+                <a class="btn btn--secondary" href="./dashboard.php">Back to Dashboard</a>
             </section>      
         </form>
     </main>
