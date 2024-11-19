@@ -1,5 +1,8 @@
 <?php
     require_once __DIR__."/bootstrap.php";
+    use Codinari\Cardforge\Franchise;
+
+    $allFranchises = Franchise::getAll();
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -10,90 +13,6 @@
     <link rel="stylesheet" href="./css/fonts.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <style>
-        .banner-wrap {
-            position: relative;
-            background-color: #f2f2f2;
-        }
-
-        .progress-bar {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: red;
-            padding: 16px;
-        }
-
-        .progress-bar .orb {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background-color: #ccc;
-            margin: 0 5px;
-            cursor: pointer;
-        }
-
-        .progress-bar .orb.active {
-            background-color: #333;
-        }
-
-        .slideshow-container {
-            height: 300px;
-            min-width: 100%;
-            display: inline-block;
-            overflow: hidden;
-        }
-
-        .slideshow-container .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            height: 300px;
-            width: 100vw;
-            position: relative;
-            background-color: blue;
-            transition: 0.5s;
-        }
-
-        .slideshow-container {
-            height: 300px;
-            min-width: 100%;
-            display: flex; /* Change display to flex */
-            overflow: hidden;
-        }
-
-        .slideshow-container .slide {
-            flex: 0 0 100%; /* Set each slide to occupy full width */
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            height: 300px;
-            position: relative;
-            background-color: blue;
-            transition: 0.5s;
-            display: none;
-        }
-
-        .slideshow-container .slide.active {
-            opacity: 1;
-            display: block;
-        }
-
-        .slide-logo{
-            position: absolute;
-            bottom: 16px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 250px;
-        }
-    </style>
 </head>
 <body>
     <?php include_once __DIR__."/includes/header.inc.php";?>
@@ -116,14 +35,24 @@
         </div>
     </section>
     <main>
-        <?php if(!empty($user)): ?>
-            <h1>Welcome, <?php echo $user->getEmail(); ?></h1>
-            <p>You are logged in as a <?php echo $user->getRole(); ?></p>
-        <?php endif; ?>
+        <h1>Home</h1>
+        <h2>New Arrivals</h2>
+        <section class="product-list">
+            
+        </section>
+        <h2>Cardgames</h2>
+        <section class="franchises">
+            <?php foreach($allFranchises as $franchise): ?>
+                <a href="products.php?f=<?=htmlspecialchars($franchise['alias'])?>">
+                    <img src=".<?=$franchise['img']?>" alt="<?=htmlspecialchars($franchise['name'])?>">
+                </a>
+            <?php endforeach;?>
+            <a href="products.php?f=pokemon">
+                <img src="./assets/img/franchises/placeholder.png" alt="placeholderimg">
+            </a>
+        </section>
     </main>
-    
-<!-- Add the HTML structure for the footer -->
-<footer>
+    <footer>
     <section id="contact">
         <div>
             <h4>Account</h4>
@@ -142,7 +71,7 @@
             <?php endif; ?>
         </ul>
     </section>
-</footer>
+    </footer>
 
     <script>
         // const orbs = document.querySelectorAll('.orb');

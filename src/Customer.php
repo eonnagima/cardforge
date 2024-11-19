@@ -10,7 +10,7 @@ class Customer extends User{
     
     public function save(){
         if($this->userExists($this->getEmail())){
-            
+            return;
         }
 
         $hash = password_hash($this->password, PASSWORD_DEFAULT);

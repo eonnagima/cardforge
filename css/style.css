@@ -6,27 +6,43 @@
     font-size: 16px;
 }
 
-/* Typography */
+/* Colors and Backgrounds */
+:root {
+    --black: #0a0a0a;
+    --dark-grey: #312f2f;
+    --grey: #5e5959;
+    --red: #c9595d;
+    --red-hover: #de6b6f;
+    --blue: #8a9fb3;
+    --off-white: #f4f8fa;
+}
+
 body {
     font-family: Rowdies, sans-serif;
     font-size: 16px;
     line-height: 1.5;
-    background-color: pink;
-}
-
-/* Colors and Backgrounds */
-:root {
-    --primary-color: #007bff;
-    --secondary-color: #6c757d;
-    --highlight-color: #ffc107;
+    background-color: var(--off-white)
 }
 
 h1{
-    color: #000;
+    color: var(--black);
     text-transform: uppercase;
     font-size: 2em;
     font-weight: regular;
-    margin-left: 24px;
+}
+
+h2{
+    color: var(--dark-grey);
+    text-transform: uppercase;
+    font-size: 1.7em;
+    font-weight: regular;
+}
+
+h3{
+    color: var(--grey);
+    text-transform: uppercase;
+    font-size: 1.5em;
+    font-weight: regular;
 }
 
 h4{
@@ -52,10 +68,10 @@ nav{
 }
 
 header:first-child {
-    background-color: rgb(89, 89, 89);
+    background-color: var(--dark-grey);
 }
 header nav:nth-child(2) {
-    background-color: rgb(190, 21, 21);
+    background-color: var(--red);
 }
 
 .logo{
@@ -81,10 +97,6 @@ header nav:nth-child(2) {
     background-repeat: no-repeat;
     border-radius: 50%;
     transition: 0.3s;
-}
-
-.header-avatar:hover{
-    border: solid 1px var(--highlight-color);
 }
 
 .hidden{
@@ -113,7 +125,7 @@ header nav:nth-child(2) {
     overflow: hidden;
     border: none;
     flex: 1 0 0;
-    background-color: #fff;
+    background-color: var(--off-white);
     height: 32px;
 }
 
@@ -127,7 +139,7 @@ header nav:nth-child(2) {
     width: 48px;
     height: 32px;
     padding: 8px 8px;
-    background-color: #000;
+    background-color: var(--black);
     border: none;
 }
 
@@ -154,35 +166,154 @@ header nav:nth-child(2) {
     height: 30px;
 }
 
+/*experimental banner start */
+.banner-wrap {
+    position: relative;
+    background-color: #f2f2f2;
+}
+
+.progress-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+}
+
+.progress-bar .orb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.progress-bar .orb.active {
+    background-color: #333;
+}
+
+.slideshow-container {
+    height: 300px;
+    min-width: 100%;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.slideshow-container .slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 300px;
+    width: 100vw;
+    position: relative;
+    background-color: blue;
+    transition: 0.5s;
+}
+
+.slideshow-container {
+    height: 300px;
+    min-width: 100%;
+    display: flex; /* Change display to flex */
+    overflow: hidden;
+}
+
+.slideshow-container .slide {
+    flex: 0 0 100%; /* Set each slide to occupy full width */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 300px;
+    position: relative;
+    background-color: blue;
+    transition: 0.5s;
+    display: none;
+}
+
+.slideshow-container .slide.active {
+    opacity: 1;
+    display: block;
+}
+
+.slide-logo{
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 250px;
+}
+/*experimental banner end */
+
+/*Main*/
+
 main{
-    padding: 24px 8px;
+    padding: 24px 24px;
     display: flex;
     flex-direction: column;
     gap: 32px;
 }
 
 .seperator{
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid var(--black);
 }
 
-footer{
-    color: #fff;
+/*Franchises*/
+.franchises{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    align-self: stretch;
 }
+
+.franchises a{
+    display: block;
+    width: 100%;
+    height: 220px;
+    padding: 32px 24px;
+    background-color: var(--red);
+    border-radius: 8px;
+    transition: 0.5s;
+}
+
+.franchises a:hover{
+    background-color: var(--red-hover);
+    cursor: pointer;
+}
+
+.franchises a img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Footer */
+
+footer{
+    color: var(--off-white);
+}
+
 footer section div{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 16px 32px;
-    background-color: var(--secondary-color);
+    background-color: var(--dark-grey);
 }
 
 footer section ul{
-    background-color: #848484;
+    background-color: var(--grey);
 }
 
 footer section li{
-    background-color: #848484;
+    background-color: var(--grey);
     font-family: FontinSans, sans-serif;
     font-size: 1.25em;
     font-weight: normal;
@@ -211,6 +342,14 @@ footer section a{
     display: flex;
     flex-direction: column;
     gap: 8px;
+}
+
+.form label{
+    color: var(--grey);
+    text-transform: uppercase;
+    font-size: 1.5em;
+    font-weight: regular;
+    margin-left: 24px;
 }
 
 .form section input{
