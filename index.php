@@ -38,7 +38,26 @@
         <h1>Home</h1>
         <h2>New Arrivals</h2>
         <section class="product-list">
-            
+            <a class="product-listing">
+                <img src="./assets/img/products/placeholder.png" alt="Product 1">
+                <h5>Product 1</h5>
+                <span>$10.00</span>
+            </a>
+            <a class="product-listing">
+                <img src="./assets/img/products/placeholder.png" alt="Product 1">
+                <h5>Product 1</h5>
+                <span>$10.00</span>
+            </a>
+            <a class="product-listing">
+                <img src="./assets/img/products/placeholder.png" alt="Product 1">
+                <h5>Product 1</h5>
+                <span>$10.00</span>
+            </a>
+            <a class="product-listing">
+                <img src="./assets/img/products/placeholder.png" alt="Product 1">
+                <h5>Product 1</h5>
+                <span>$10.00</span>
+            </a>
         </section>
         <h2>Cardgames</h2>
         <section class="franchises">
