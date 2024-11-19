@@ -6,23 +6,24 @@ namespace Codinari\Cardforge;
 use Codinari\Cardforge\Db;
 
 class User {
-    
-    
+    //required properties
+    protected $email;
+    protected $password;
+    protected $role;
+    //optional user detail properties
     protected $first_name;
     protected $last_name;
-    protected $email;
     protected $avatar;
     protected $date_of_birth;
     protected $phone_number;
+    //optional adress properties
     protected $adress_street;
     protected $adress_number;
     protected $adress_extra;
     protected $adress_zip;
     protected $adress_province;
     protected $adress_country;
-    protected $password;
-    protected $role;
-
+    
     public function getFirst_name()
     {
         return $this->first_name;
@@ -330,27 +331,6 @@ class User {
         return $this;
     }
 
-    // public function verifyLogin($email, $pw){
-	// 	$conn = Db::getConnection();
-		
-	// 	$stmt = $conn->prepare('SELECT * FROM users WHERE email = :email');
-	// 	$stmt->bindParam(':email', $email);
-	// 	$stmt->execute();
-
-	// 	$user = $stmt->fetch(\PDO::FETCH_ASSOC);
-	// 	//if no user is found, fetch will return false
-	// 	if($user){
-	// 		$hash = $user['password'];
-	// 		if(password_verify($pw, $hash)){
-	// 			return true;
-	// 		}else{
-	// 			return false;
-	// 		}
-	// 	}else{
-	// 		return false;
-	// 	}
-	// }
-
     public static function userExists($email){
         $conn = Db::getConnection();
         $query = $conn->prepare("SELECT * FROM users WHERE email = :email");
@@ -379,7 +359,6 @@ class User {
             // // Store the token in the database
             $this->saveLoginToken($token);
             // // Set session variables
-            session_start();
             $_SESSION['email'] = $user['email'];
             $_SESSION['login_token'] = $token;
             return true;
@@ -395,23 +374,24 @@ class User {
 
     protected function saveLoginToken($token){
         $conn = Db::getConnection();
-        $stmt = $conn->prepare("UPDATE users SET login_token = '$token' WHERE email = :email");
+        
+        $stmt = $conn->prepare("UPDATE users SET login_token = '$token', updated = CURRENT_TIMESTAMP WHERE email = :email");
         $stmt->bindParam(':email', $this->email);
         $stmt->execute();
     }
 
     public static function validateLogin(){
-        if (!empty($_SESSION['user_id']) && !empty($_SESSION['login_token'])) {
+        if (!empty($_SESSION['email']) && !empty($_SESSION['login_token'])) {
             $conn = Db::getConnection();
             // Checks if there is a user with the email in the session variable exists and if it's token matches the one in the session variable
-            $stmt = $conn->prepare("SELECT * FROM users WHERE id = :id AND login_token = :token");
-            $stmt->bindParam(':id', $_SESSION['email']);
+            $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email AND login_token = :token");
+            $stmt->bindParam(':email', $_SESSION['email']);
             $stmt->bindParam(':token', $_SESSION['login_token']);
             $stmt->execute();
-            $user = $stmt->fetch(\PDO::FETCH_ASSOC);
+            $user = $stmt->fetch();
 
             if ($user) {
-                //if login is valld, return true
+                //if login is valid, return true
                 return true;
             } else {
                 // Invalid session, destroy it
@@ -423,14 +403,14 @@ class User {
         }
     }
     
-    public function isAdmin($email){
+    public static function isAdmin($email){
         $conn = Db::getConnection();
         $query = $conn->prepare("SELECT * FROM users WHERE email = :email");
         $query->bindValue(":email", $email);
         $query->execute();
         $user = $query->fetch();
         
-        if ($user['role'] == 1) {
+        if($user['role'] == 1) {
             return true;
         } else {
             return false;

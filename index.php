@@ -1,5 +1,6 @@
 <?php
     require_once __DIR__."/bootstrap.php";
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -115,8 +116,9 @@
         </div>
     </section>
     <main>
-        <?php if(isset($_SESSION['user'])): ?>
-            <span>Welcome, <?php echo $_SESSION['user'];?></span>
+        <?php if(!empty($user)): ?>
+            <h1>Welcome, <?php echo $user->getEmail(); ?></h1>
+            <p>You are logged in as a <?php echo $user->getRole(); ?></p>
         <?php endif; ?>
     </main>
     
@@ -128,9 +130,12 @@
             <i class="fas fa-caret-up fa-2x"></i>
         </div>
         <ul>
-            <?php if(isset($_SESSION['user'])): ?>
+            <?php if(!empty($user)): ?>
                 <li><a href="account.php">My account</a></li>
                 <li><a href="logout.php">Logout</a></li>
+                <?php if($user->getRole() == "admin"): ?>
+                    <li><a href="./admin/dashboard.php">Admin Dashboard</a></li>
+                <?php endif; ?>
             <?php else: ?>
                 <li><a href="login.php">Login</a></li>
                 <li><a href="signup.php">Signup</a></li>
