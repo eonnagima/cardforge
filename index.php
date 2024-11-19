@@ -10,9 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | Cardforge</title>
-    <link rel="stylesheet" href="./css/fonts.css">
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <?php include_once __DIR__."/includes/stylesheets.inc.php";?>
 </head>
 <body>
     <?php include_once __DIR__."/includes/header.inc.php";?>
