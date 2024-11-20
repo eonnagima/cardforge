@@ -216,6 +216,9 @@ class Product{
         if($this->aliasExists($this->getAlias())){
             return;
         }
+    
+        $franchise = Franchise::getByAlias($this->franchise);
+
 
         $conn = Db::getConnection();
         $stmt = $conn->prepare("INSERT INTO products (name, description, alias, price, stock, img, category_id, franchise_id, release_date, set_name) VALUES (:name, :description, :alias, :price, :stock, :image, :category, :franchise, :release_date, :set_name)");
@@ -227,7 +230,7 @@ class Product{
         $stmt->bindParam(":stock", $this->stock);
         $stmt->bindParam(":image", $this->image);
         $stmt->bindParam(":category", $this->category);
-        $stmt->bindParam(":franchise", $this->franchise);
+        $stmt->bindParam(":franchise", $franchise['id']);
         $stmt->bindParam(":release_date", $this->releaseDate);
         $stmt->bindParam(":set_name", $this->setName);
 
@@ -256,7 +259,7 @@ class Product{
     public static function getAllProductsByFranchise($franchise){
         $conn = Db::getConnection();
         //query with inner join between products and franchises
-        $stmt = $conn->prepare("SELECT * FROM products INNER JOIN franchises ON products.franchise_id = franchises.id WHERE franchises.alias = :franchise");
+        $stmt = $conn->prepare("SELECT products.* FROM products INNER JOIN franchises ON products.franchise_id = franchises.id WHERE products.franchise_id = :franchise");
         $stmt->bindParam(":franchise", $franchise);
         $stmt->execute();
         $result = $stmt->fetchAll();

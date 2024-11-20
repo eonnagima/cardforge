@@ -54,8 +54,8 @@
         <h2>Cardgames</h2>
         <section class="franchises">
             <?php foreach($allFranchises as $franchise): ?>
-                <a href="products.php?f=<?=htmlspecialchars($franchise['alias'])?>">
-                    <img src=".<?=$franchise['img']?>" alt="<?=htmlspecialchars($franchise['name'])?>">
+                <a href="store.php?f=<?=htmlspecialchars($franchise['alias'])?>">
+                    <img src=".<?= $franchise['img']?>" alt="<?=htmlspecialchars($franchise['name'])?>">
                 </a>
             <?php endforeach;?>
             <a href="products.php?f=pokemon">

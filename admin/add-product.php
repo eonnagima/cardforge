@@ -67,7 +67,7 @@
                     <select id="franchise" name="franchise" required>
                         <option>Select Franchise</option>
                         <?php foreach($allFranchises as $franchise):?>
-                            <option value="<?php echo $franchise['id'];?>"><?php echo htmlspecialchars($franchise['name']);?></option>
+                            <option value="<?php echo $franchise['alias'];?>"><?php echo htmlspecialchars($franchise['name']);?></option>
                         <?php endforeach;?>
                     </select>
                 </div>
