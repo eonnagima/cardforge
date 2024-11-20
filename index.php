@@ -1,9 +1,10 @@
 <?php
     require_once __DIR__."/bootstrap.php";
     use Codinari\Cardforge\Franchise;
+    use Codinari\Cardforge\Product;
 
     $allFranchises = Franchise::getAll();
-
+    $newArrivals = Product::getNewArrivals();
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,26 +37,19 @@
         <h1>Home</h1>
         <h2>New Arrivals</h2>
         <section class="product-list">
-            <a class="product-listing">
+            <?php foreach($newArrivals as $product): ?>
+                <a class="product-listing" href="product.php?p=<?=htmlspecialchars($product['alias'])?>">
+                    <img src=".<?=$product['img']?>" alt="<?=htmlspecialchars($product['name'])?>">
+                    <h5><?=htmlspecialchars($product['name'])?></h5>
+                    <span>$<?=htmlspecialchars($product['price'])?></span>
+                </a>
+            <?php endforeach;?>
+            <!-- product listing template -->
+            <!-- <a class="product-listing">
                 <img src="./assets/img/products/placeholder.png" alt="Product 1">
                 <h5>Product 1</h5>
                 <span>$10.00</span>
-            </a>
-            <a class="product-listing">
-                <img src="./assets/img/products/placeholder.png" alt="Product 1">
-                <h5>Product 1</h5>
-                <span>$10.00</span>
-            </a>
-            <a class="product-listing">
-                <img src="./assets/img/products/placeholder.png" alt="Product 1">
-                <h5>Product 1</h5>
-                <span>$10.00</span>
-            </a>
-            <a class="product-listing">
-                <img src="./assets/img/products/placeholder.png" alt="Product 1">
-                <h5>Product 1</h5>
-                <span>$10.00</span>
-            </a>
+            </a> -->
         </section>
         <h2>Cardgames</h2>
         <section class="franchises">

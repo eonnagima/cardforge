@@ -11,7 +11,7 @@
 
             if($user->isAdmin($user->getEmail())){
                 //redirect to admin page
-                header("Location: /admin/dashboard.php");
+                header("Location: ./admin/dashboard.php");
                 exit();
             }else{
                 //redirect to user page

@@ -335,6 +335,7 @@ main{
     background-color: var(--off-white);
     transition: 0.5s;
     border-radius: 8px;
+    text-decoration: none;
 }
 
 .product-listing img {
@@ -348,6 +349,17 @@ main{
     font-family: 'Rowdies', sans-serif;
     font-weight: 300;
     line-height: normal;
+    text-align: center;
+    /* limit to 3 lines and handle overflow */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: -moz-box;
+    -moz-line-clamp: 3;
+    -moz-box-orient: vertical;
 }
 
 .product-listing span{
