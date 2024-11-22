@@ -401,10 +401,11 @@ footer section ul{
 
 footer section li{
     background-color: var(--grey);
-    font-family: FontinSans, sans-serif;
+    font-family: 'FontinSans', sans-serif;
     font-size: 1.25em;
     font-weight: normal;
     padding: 8px 32px;
+    color: #fff;
 }
 
 footer section a{
