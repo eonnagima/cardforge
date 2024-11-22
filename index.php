@@ -15,22 +15,31 @@
 </head>
 <body>
     <?php include_once __DIR__."/includes/header.inc.php";?>
-    <section class="banner-wrap">
-        <div class="slideshow-container">
-            <div class="slide" style="background-image: url('./assets/img/banner/sv08-banner.png');">
-                <img src="assets/img/banner/sv08-banner-logo.png" alt="Pokémon Scarlet & Violet Surging Sparks" class="slide-logo">
+    <section class="bannerGallery">
+        <div class="slideshow-container slideshow-container--banner" data-autoplay="true">
+            <a href="#" class="prev">&#10094;</a>
+            <div class="slider-wrap">
+                <div class="slider">
+                    <div class="slide">
+                        <img class="slide-img" src="./assets/img/banner/sv08-banner.png" alt="Image 1">
+                        <img src="assets/img/banner/sv08-banner-logo.png" alt="Pokémon Scarlet & Violet Surging Sparks" class="slide-logo"> 
+                    </div>
+                    <div class="slide">
+                        <img class="slide-img" src="./assets/img/banner/mtg-foundations-banner.webp" alt="Image 2">
+                        <img src="assets/img/banner/mtg-foundations-banner-logo.png" alt="Magic: The Gathering Foundations" class="slide-logo"> 
+                    </div>
+                    <div class="slide">
+                        <img class="slide-img" src="./assets/img/banner/sv08-banner.png" alt="Image 3">
+                        <img src="assets/img/banner/sv08-banner-logo.png" alt="Pokémon Scarlet & Violet Surging Sparks" class="slide-logo"> 
+                    </div>
+                </div>  
             </div>
-            <div class="slide active" style="background-image: url('assets/img/banner/mtg-foundations-banner.webp');">
-                <img src="assets/img/banner/mtg-foundations-banner-logo.png" alt="Magic: The Gathering Foundations" class="slide-logo">
-            </div>
-            <div class="slide" style="background-image: url('./assets/img/banner/sv08-banner.png');">
-                <img src="assets/img/banner/sv08-banner-logo.png" alt="Pokémon Scarlet & Violet Surging Sparks" class="slide-logo">
-            </div>
+            <a href="#" class="next">&#10095;</a>
         </div>
-        <div class="progress-bar">
-            <div class="orb active"></div>
-            <div class="orb active"></div>
-            <div class="orb"></div>
+        <div class="dots-container">
+            <span class="dot active" data-index="0"></span>
+            <span class="dot" data-index="1"></span>
+            <span class="dot" data-index="2"></span>
         </div>
     </section>
     <main>
@@ -83,28 +92,6 @@
             </ul>
         </section>
     </footer>
-
-    <script>
-        // const orbs = document.querySelectorAll('.orb');
-        // const slides = document.querySelectorAll('.slide');
-
-        // orbs.forEach((orb, index) => {
-        //     orb.addEventListener('click', () => {
-        //         setActiveOrb(index);
-        //     });
-        // });
-
-        // function setActiveOrb(index) {
-        //     orbs.forEach((orb, i) => {
-        //         if (i === index) {
-        //             orb.classList.add('active');
-        //             slides[i].classList.add('active');
-        //         } else {
-        //             orb.classList.remove('active');
-        //             slides[i].classList.remove('active');
-        //         }
-        //     });
-        // }
-    </script>
+    <script src="./js/slider.js"></script>
 </body>
 </html>

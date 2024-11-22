@@ -5,6 +5,7 @@ const next = document.querySelector('.next');
 const dots = document.querySelectorAll('.dot');
 const slideshowContainer = document.querySelector('.slideshow-container');
 const dotsContainer = document.querySelector('.dots-container');
+const autoPlay = slideshowContainer.dataset.autoplay;
 
 let currentIndex = 0;
 
@@ -38,25 +39,44 @@ function prevSlide(){
     showSlides(currentIndex - 1);
 }
 
+function startAutoPlay(){
+    autoPlayInterval = setInterval(() => {
+        nextSlide();
+    }, 5000);
+}
+
+function stopAutoPlay(){
+    clearInterval(autoPlayInterval);
+}
+
 //Bubbling for dots
 dotsContainer.addEventListener('click', (e) => {
     if(e.target.classList.contains('dot')){
-        showSlides(parseInt(e.target.dataset.index));
-        console.log(parseInt(e.target.dataset.index));
+        if(autoPlay == 'true'){
+            stopAutoPlay();
+            showSlides(parseInt(e.target.dataset.index));
+            startAutoPlay();
+        }else{
+            showSlides(parseInt(e.target.dataset.index));
+        }
     }
 });
 
 //eventlistener on prev and next buttons with prevent default
 prev.addEventListener('click', (e) => {
     e.preventDefault();
-    console.log('prev clicked');
     prevSlide();
 });
 
 next.addEventListener('click', (e) => {
     e.preventDefault();
-    console.log('next clicked');
     nextSlide();
 });
+
+if(autoPlay == 'true'){
+    slideshowContainer.addEventListener('mouseenter', stopAutoPlay);
+    slideshowContainer.addEventListener('mouseleave', startAutoPlay);
+    startAutoPlay();
+}
 
 updateDots();
