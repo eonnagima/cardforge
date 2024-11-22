@@ -38,5 +38,7 @@
             <?php endforeach;?>
         </section>
     </main>
+    <?php include_once __DIR__."/includes/footer.inc.php";?>
+    <script src="./js/footer.js"></script>
 </body>
 </html>

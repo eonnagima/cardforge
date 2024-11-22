@@ -56,6 +56,8 @@
             </section>      
         </form>
     </main>
+    <?php include_once __DIR__."/includes/footer.inc.php";?>
+    <script src="./js/footer.js"></script>
     <script src="./js/pwToggle.js"></script>
 </body>
 </html>
