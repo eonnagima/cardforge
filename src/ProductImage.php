@@ -92,7 +92,7 @@ class ProductImage{
         if($result){
             return true;
         }else{
-            throw new \Exception("Failed to save product");
+            throw new \Exception("Failed to save image");
         }
     }
 
