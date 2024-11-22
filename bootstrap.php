@@ -18,13 +18,24 @@ $user;
 $email = htmlspecialchars($_SESSION['email'] ?? "");
 
 if(User::validateLogin()){
-   if(User::isAdmin($email)){
-       $user = new Admin();
-       $user->setEmail($email);
-       $user->setRole("admin");
-   }else{
-       $user = new Customer();
-       $user->setEmail($email);
-       $user->setRole("customer");
-   }
+    if(User::isAdmin($email)){
+        $user = new Admin();
+        $user->setRole("admin");
+    }else{
+        $user = new Customer();
+        $user->setRole("customer");
+    }
+    $userData = User::getByEmail($email);
+    
+    $user->setEmail($email);
+    $user->setFirst_name($userData['first_name']);
+    $user->setLast_name($userData['last_name']);
+    $user->setAvatar($userData['avatar']);
+    $user->setDate_of_birth($userData['date_of_birth']);
+    $user->setPhone_number($userData['phone_number']);
+    $user->setAdress_street($userData['adress_street']);
+    $user->setAdress_number($userData['adress_number']);
+    $user->setAdress_extra($userData['adress_extra']);
+    $user->setAdress_zip($userData['adress_zip']);
+    $user->setAdress_country($userData['adress_country']);
 }
