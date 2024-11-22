@@ -6,12 +6,12 @@
     $franchise = $_GET["f"] ?? null;
 
     if(!empty($franchise) && $franchise !== "everything"){
-        $allProducts = Product::getAllProductsByFranchise(Franchise::getByAlias($franchise)['id']);
+        $allProducts = Product::getAllByFranchise(Franchise::getByAlias($franchise)['id']);
         $header1 = Franchise::getByAlias($franchise)['name'];
     }
 
     if(!empty($franchise) && $franchise === "everything"){
-        $allProducts = Product::getAllProducts();
+        $allProducts = Product::getAll();
         $header1 = "All Products";
     }
 

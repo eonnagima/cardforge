@@ -64,24 +64,24 @@
         </section>
     </main>
     <footer>
-    <section id="contact">
-        <div>
-            <h4>Account</h4>
-            <i class="fas fa-caret-up fa-2x"></i>
-        </div>
-        <ul>
-            <?php if(!empty($user)): ?>
-                <li><a href="account.php">My account</a></li>
-                <li><a href="logout.php">Logout</a></li>
-                <?php if($user->getRole() == "admin"): ?>
-                    <li><a href="./admin/dashboard.php">Admin Dashboard</a></li>
+        <section id="contact">
+            <div>
+                <h4>Account</h4>
+                <i class="fas fa-caret-up fa-2x"></i>
+            </div>
+            <ul>
+                <?php if(!empty($user)): ?>
+                    <li><a href="account.php">My account</a></li>
+                    <li><a href="logout.php">Logout</a></li>
+                    <?php if($user->getRole() == "admin"): ?>
+                        <li><a href="./admin/dashboard.php">Admin Dashboard</a></li>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <li><a href="login.php">Login</a></li>
+                    <li><a href="signup.php">Signup</a></li>
                 <?php endif; ?>
-            <?php else: ?>
-                <li><a href="login.php">Login</a></li>
-                <li><a href="signup.php">Signup</a></li>
-            <?php endif; ?>
-        </ul>
-    </section>
+            </ul>
+        </section>
     </footer>
 
     <script>

@@ -10,7 +10,8 @@ class Product{
     private $alias;
     private $price;
     private $stock;
-    private $image;
+    private $primaryImage;
+    private $images = [];
     private $category;
     private $franchise;
     private $releaseDate;
@@ -102,14 +103,25 @@ class Product{
         }
     }
 
-    public function getImage()
+    public function getPrimaryImage()
     {
-        return $this->image;
+        return $this->primaryImage;
     }
 
-    public function setImage($image)
+    public function setPrimaryImage($primaryImage)
     {
         $this->image = "/assets/img/products/placeholder.png";
+        return $this;
+    }
+
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    public function setImages($image)
+    {
+        $this->images += $image;
         return $this;
     }
 
@@ -228,7 +240,7 @@ class Product{
         $stmt->bindParam(":alias", $this->alias);
         $stmt->bindParam(":price", $this->price);
         $stmt->bindParam(":stock", $this->stock);
-        $stmt->bindParam(":image", $this->image);
+        $stmt->bindParam(":image", $this->primaryImage);
         $stmt->bindParam(":category", $this->category);
         $stmt->bindParam(":franchise", $franchise['id']);
         $stmt->bindParam(":release_date", $this->releaseDate);
@@ -243,7 +255,7 @@ class Product{
         }
     }
 
-    public static function getAllProducts(){
+    public static function getAll(){
         $conn = Db::getConnection();
         $stmt = $conn->prepare("SELECT * FROM products");
         $stmt->execute();
@@ -256,7 +268,7 @@ class Product{
         }
     }
 
-    public static function getAllProductsByFranchise($franchise){
+    public static function getAllByFranchise($franchise){
         $conn = Db::getConnection();
         //query with inner join between products and franchises
         $stmt = $conn->prepare("SELECT products.* FROM products INNER JOIN franchises ON products.franchise_id = franchises.id WHERE products.franchise_id = :franchise");
@@ -271,7 +283,7 @@ class Product{
         }
     }
 
-    public static function getProductByAlias($alias){
+    public static function getByAlias($alias){
         $conn = Db::getConnection();
         $stmt = $conn->prepare("SELECT * FROM products WHERE alias = :alias");
         $stmt->bindParam(":alias", $alias);

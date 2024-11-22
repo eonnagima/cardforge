@@ -52,6 +52,6 @@
             </section>      
         </form>
     </main>
-    <script src="./js/script.js"></script>
+    <script src="./js/pwToggle.js"></script>
 </body>
 </html>
