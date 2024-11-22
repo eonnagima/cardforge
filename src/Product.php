@@ -10,8 +10,6 @@ class Product{
     private $alias;
     private $price;
     private $stock;
-    private $primaryImage;
-    private $images = [];
     private $category;
     private $franchise;
     private $releaseDate;
@@ -271,7 +269,9 @@ class Product{
     public static function getAllByFranchise($franchise){
         $conn = Db::getConnection();
         //query with inner join between products and franchises
-        $stmt = $conn->prepare("SELECT products.* FROM products INNER JOIN franchises ON products.franchise_id = franchises.id WHERE products.franchise_id = :franchise");
+        $query = "SELECT products.* FROM products INNER JOIN franchises ON products.franchise_id = franchises.id WHERE products.franchise_id = :franchise";
+
+        $stmt = $conn->prepare($query);
         $stmt->bindParam(":franchise", $franchise);
         $stmt->execute();
         $result = $stmt->fetchAll();
