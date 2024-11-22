@@ -101,27 +101,6 @@ class Product{
         }
     }
 
-    public function getPrimaryImage()
-    {
-        return $this->primaryImage;
-    }
-
-    public function setPrimaryImage($primaryImage)
-    {
-        $this->image = "/assets/img/products/placeholder.png";
-        return $this;
-    }
-
-    public function getImages()
-    {
-        return $this->images;
-    }
-
-    public function setImages($image)
-    {
-        $this->images += $image;
-        return $this;
-    }
 
     public function getCategory()
     {
@@ -226,21 +205,30 @@ class Product{
         if($this->aliasExists($this->getAlias())){
             return;
         }
-    
-        $franchise = Franchise::getByAlias($this->franchise);
-
 
         $conn = Db::getConnection();
-        $stmt = $conn->prepare("INSERT INTO products (name, description, alias, price, stock, img, category_id, franchise_id, release_date, set_name) VALUES (:name, :description, :alias, :price, :stock, :image, :category, :franchise, :release_date, :set_name)");
+
+        $query = "INSTER INTO products (name, description, alias, price, stock, franchise_id, category_id, set_name, release_date) VALUES (
+            :name,
+            :description,
+            :alias,
+            :price,
+            :stock,
+            (SELECT franchises.id FROM franchises WHERE franchises.alias = :franchise),
+            (SELECT categories.id FROM categories WHERE categories.alias = :category),
+            :set_name,
+            :release_date
+        )";
+
+        $stmt = $conn->prepare($query);
 
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":description", $this->description);
         $stmt->bindParam(":alias", $this->alias);
         $stmt->bindParam(":price", $this->price);
         $stmt->bindParam(":stock", $this->stock);
-        $stmt->bindParam(":image", $this->primaryImage);
         $stmt->bindParam(":category", $this->category);
-        $stmt->bindParam(":franchise", $franchise['id']);
+        $stmt->bindParam(":franchise", $this->franchise);
         $stmt->bindParam(":release_date", $this->releaseDate);
         $stmt->bindParam(":set_name", $this->setName);
 
@@ -269,7 +257,7 @@ class Product{
     public static function getAllByFranchise($franchise){
         $conn = Db::getConnection();
         //query with inner join between products and franchises
-        $query = "SELECT products.* FROM products INNER JOIN franchises ON products.franchise_id = franchises.id WHERE products.franchise_id = :franchise";
+        $query = "SELECT products.* FROM products INNER JOIN franchises ON products.franchise_id = franchises.id WHERE franchises.alias = :franchise";
 
         $stmt = $conn->prepare($query);
         $stmt->bindParam(":franchise", $franchise);
