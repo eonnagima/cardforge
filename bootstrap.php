@@ -27,7 +27,9 @@ if(User::validateLogin()){
     }
     $userData = User::getByEmail($email);
     
+    $user->setId($userData['id']);
     $user->setEmail($email);
+    $user->setPassword($userData['password']);
     $user->setFirst_name($userData['first_name']);
     $user->setLast_name($userData['last_name']);
     $user->setAvatar($userData['avatar']);

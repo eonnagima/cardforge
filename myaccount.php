@@ -29,9 +29,9 @@
             </div>
             <div>
                 <h3>Avatar</h3>
-                <img src="./<?=$user->getAvatar()?>" class="account-avatar">
+                <img src="<?=$user->getAvatar()?>" class="account-avatar">
             </div>
-            <a href="accountinfo.php" class="btn">EDIT</a>
+            <a href="account-settings.php" class="btn">EDIT</a>
         </section>
         <div class="seperator"></div>
         <section class="myaccount-section">
@@ -52,7 +52,7 @@
                 <h3>Phone Number</h3>
                 <span><?=$user->getPhone_number()?></span>
             </div>
-            <a href="personalinfo.php" class="btn">EDIT</a>
+            <a href="personal-settings.php" class="btn">EDIT</a>
         </section>
         <div class="seperator"></div>
         <section class="myaccount-section">
@@ -77,7 +77,7 @@
                 <h3>Country</h3>
                 <span><?=$user->getAdress_country()?></span>
             </div>
-            <a href="adressinfo.php" class="btn">EDIT</a>
+            <a href="adress-settings.php" class="btn">EDIT</a>
         </section>
     </main>
     <?php include_once __DIR__."/includes/footer.inc.php";?>

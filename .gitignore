@@ -4,3 +4,4 @@ vendor/
 settings/
 test.php
 composer.phar
+assets/test/

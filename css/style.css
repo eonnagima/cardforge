@@ -108,11 +108,12 @@ header nav:nth-child(2) {
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 50%;
+    border: 2px solid var(--dark-grey);
 }
 
 .header-avatar:hover{
     cursor: pointer;
-    border: 2px solid var(--red)
+    border: 2px solid var(--red-hover)
 }
 
 .hidden{
@@ -583,6 +584,42 @@ footer section a{
     border-radius: 8px;
     font-family: "FontinSans", sans-serif;
     background-color: #fff;
+}
+
+.form .input-image-wrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40vw;
+    height: 40vw;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 2px solid var(--grey);
+    border-radius: 50%;
+    background-color: pink;
+    margin: 0 auto;
+}
+
+.form input[type="file"]{
+    width: 0.1px;
+    height: 0.1px;
+    display: none;
+}
+
+.form .img-label{
+    background-color: rgba(97, 93, 93, 0.6);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 30%;
+}
+
+.form .img-label i{
+    color: var(--off-white);
+    font-size: calc(1em + 0.5vw);
 }
 
 .password-toggle {

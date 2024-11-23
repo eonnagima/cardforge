@@ -7,7 +7,7 @@ use Codinari\Cardforge\Db;
 use Codinari\Cardforge\Interfaces\iUser;
 
 class User implements iUser{
-    //required properties
+    protected $id;
     protected $email;
     protected $password;
     protected $role;
@@ -23,6 +23,19 @@ class User implements iUser{
     protected $adress_extra;
     protected $adress_zip;
     protected $adress_country;
+
+    use Traits\ImageUploadTrait;
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
     
     public function getFirst_name()
     {
@@ -96,7 +109,12 @@ class User implements iUser{
     public function setAvatar($avatar)
     {
         if(empty($avatar)){
-            $avatar = "assets/img/avatar/default.png";
+            $avatar = "https://res.cloudinary.com/codinari/image/upload/v1732362678/rxtz6j9unmhj7wliqdya.jpg";
+        }
+
+        //check if $avatar is url
+        if (!filter_var($avatar, FILTER_VALIDATE_URL)) {
+            throw new \Exception("Invalid avatar url");
         }
 
         $this->avatar = $avatar;
@@ -285,7 +303,6 @@ class User implements iUser{
         if (!empty($errors)) {
             throw new \Exception("Password must ".implode(" and ", $errors));
         }
-
     }
 
     public function setPassword($password)
@@ -405,5 +422,55 @@ class User implements iUser{
         } else {
             return false;
         }
+    }
+
+    public function update(){
+        $conn = Db::getConnection();
+        
+        //query to update user where :id = $this->id
+        $query = "UPDATE users SET 
+            email = :email, 
+            first_name = :first_name, 
+            last_name = :last_name, 
+            avatar = :avatar, 
+            date_of_birth = :date_of_birth, 
+            phone_number = :phone_number, 
+            adress_street = :adress_street, 
+            adress_number = :adress_number, 
+            adress_extra = :adress_extra, 
+            adress_zip = :adress_zip, 
+            adress_country = :adress_country,
+            updated = CURRENT_TIMESTAMP
+            WHERE id = :id
+        ";
+
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':email', $this->email);
+        $stmt->bindParam(':first_name', $this->first_name);
+        $stmt->bindParam(':last_name', $this->last_name);
+        $stmt->bindParam(':avatar', $this->avatar);
+        $stmt->bindParam(':date_of_birth', $this->date_of_birth);
+        $stmt->bindParam(':phone_number', $this->phone_number);
+        $stmt->bindParam(':adress_street', $this->adress_street);
+        $stmt->bindParam(':adress_number', $this->adress_number);
+        $stmt->bindParam(':adress_extra', $this->adress_extra);
+        $stmt->bindParam(':adress_zip', $this->adress_zip);
+        $stmt->bindParam(':adress_country', $this->adress_country);
+
+        return $stmt->execute();
+    }
+
+    public function updatePassword(){
+        $hash = password_hash($this->password, PASSWORD_DEFAULT);
+        
+        $conn = Db::getConnection();
+        $query = "UPDATE users SET password = :password WHERE id = :id";
+
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':password', $hash);
+
+        return $stmt->execute();
     }
 }
