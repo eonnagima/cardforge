@@ -12,5 +12,7 @@
             "email": "bendevos07@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "cloudinary/cloudinary_php": "^2.14"
+    }
 }
