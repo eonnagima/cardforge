@@ -21,6 +21,7 @@ class User implements iUser{
     protected $adress_street;
     protected $adress_number;
     protected $adress_extra;
+    protected $adress_city;
     protected $adress_zip;
     protected $adress_country;
 
@@ -228,6 +229,26 @@ class User implements iUser{
             $this->adress_extra = null;
         }else{
             $this->adress_extra = $adress_extra;
+        }
+
+        return $this;
+    }
+
+    public function getAdress_city()
+    {
+        if(empty($this->adress_city)){
+            return "No city";
+        }else{
+            return $this->adress_city;
+        }
+    }
+
+    public function setAdress_city($adress_city)
+    {
+        if(empty($adress_city)){
+            $this->adress_city = null;
+        }else{
+            $this->adress_city = $adress_city;
         }
 
         return $this;
