@@ -29,7 +29,7 @@
             </div>
             <div>
                 <h3>Avatar</h3>
-                <img src=".<?=$user->getAvatar()?>" class="avatar-img">
+                <img src="./<?=$user->getAvatar()?>" class="account-avatar">
             </div>
             <a href="accountinfo.php" class="btn">EDIT</a>
         </section>

@@ -2,7 +2,11 @@
     <nav>
         <a href="index.php" class="logo"></a>
         <h2 class="app-name">cardforge</h2>
-        <a href="#" class="header-avatar" style="background-image: url('./assets/img/user-avatar/default.jpg');"></a>
+        <?php if(empty($user)):?>
+            <a href="#" class="header-avatar" style="background-image: url('./assets/img/user-avatar/default.jpg');"></a>
+        <?php else:?>
+            <a href="login.php" class="header-avatar" style="background-image: url('./<?=$user->getAvatar()?>');"></a>
+        <?php endif;?>
     </nav>
     <nav>
         <a href="cart/php" class="header-cart cart-icon"></a>

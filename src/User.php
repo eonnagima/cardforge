@@ -137,11 +137,6 @@ class User implements iUser{
         }
     }
 
-    /**
-     * Set the value of phone_number
-     *
-     * @return  self
-     */ 
     public function setPhone_number($phone_number)
     {
         if (!empty($phone_number)) {
@@ -151,9 +146,10 @@ class User implements iUser{
             // Check if the phone number matches the pattern
             if (preg_match($pattern, $phone_number)) {
                 throw new \Exception("Invalid phone number");
+            }else{
+                $this->phone_number = $phone_number;
             }
 
-            $this->phone_number = $phone_number;
             return $this;
         }
     }

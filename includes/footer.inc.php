@@ -68,3 +68,4 @@
         </ul>
     </section>
 </footer>
+<script src="./js/footer.js"></script> <!-- included here so it doesn't need to be manually added to every page with the footer -->

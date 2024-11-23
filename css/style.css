@@ -255,6 +255,8 @@ main{
     border-radius: 8px;
     transition: 0.5s;
     width: 100%;
+    font-family: 'Rowdies', sans-serif;
+    font-weight: 300;
 }
 
 .btn--secondary{
@@ -298,6 +300,15 @@ main{
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+.account-avatar{
+    width: 80px;
+    height: 80px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
 }
 
 /*products*/
@@ -529,7 +540,7 @@ footer section a{
     gap: 8px;
 }
 
-.form label{
+.form label, .form .label{
     color: var(--grey);
     text-transform: uppercase;
     font-size: 1.5em;
