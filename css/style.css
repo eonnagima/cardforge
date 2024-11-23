@@ -24,7 +24,7 @@ body {
     font-family: Rowdies, sans-serif;
     font-size: 16px;
     line-height: 1.5;
-    background-color: var(--off-white)
+    background-color: #fff;
 }
 
 h1{
@@ -431,10 +431,16 @@ footer section a{
     text-decoration: none;
     color: var(--light-grey);
     font-weight: 300;
+    text-transform: capitalize;
+    transition: color 0.3s ease;
 }
 
 .product-nav .current{
     color: var(--grey);
+}
+
+.product-nav a:hover{
+    color: var(--blue);
 }
 
 .price-like-wrap{

@@ -6,7 +6,7 @@ use Codinari\Cardforge\Db;
 
 class ProductImage{
     private $product;
-    private $img;
+    private $url;
     private $alt;
     private $primaryImg;
 
@@ -25,17 +25,17 @@ class ProductImage{
         }
     }
 
-    public function getImg()
+    public function getUrl()
     {
-        return $this->img;
+        return $this->url;
     }
 
-    public function setImg($img)
+    public function setUrl($url)
     {
-        if (empty($img)) {
+        if (empty($url)) {
             throw new \Exception("Image can't be empty");
         } else {
-            $this->img = $img;
+            $this->url = $url;
             return $this;
         }
     }
@@ -73,19 +73,19 @@ class ProductImage{
     public function save(){
         $conn = Db::getConnection();
 
-        $query = "INSERT INTO product_images (product_id, img, alt, primary_img) VALUES (
+        $query = "INSERT INTO product_images (product_id, url, alt, primary_image) VALUES (
             (SELECT products.id FROM products WHERE products.alias = :product),
             :img, 
             :alt, 
-            :primary_img
+            :primary_image
         )";
 
         $stmt = $conn->prepare($query);
 
         $stmt->bindParam(":product", $this->product);
-        $stmt->bindParam(":img", $this->img);
+        $stmt->bindParam(":url", $this->url);
         $stmt->bindParam(":alt", $this->alt);
-        $stmt->bindParam(":primary_img", $this->primaryImg);
+        $stmt->bindParam(":primary_image", $this->primaryImg);
 
         $result = $stmt->execute();
 
@@ -110,11 +110,29 @@ class ProductImage{
     public static function getPrimaryByProduct($product){
         $conn = Db::getConnection();
 
-        $query = "SELECT * FROM product_images INNER JOIN products ON product_images.product_id = products.id WHERE product.alias = :product AND product_images.primary_img = 1";
+        $query = "SELECT * FROM product_images WHERE product_id = (SELECT products.id FROM products WHERE products.alias = :product) AND primary_image = 1";
 
         $stmt = $conn->prepare($query);
-        $stmt->bindParam(":product_id", $product_id);
+        $stmt->bindParam(":product", $product);
         $stmt->execute();
         return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public static function getOtherImagesByProduct($product){
+        $conn = Db::getConnection();
+
+        $query = "SELECT * FROM product_images WHERE product_id = (SELECT products.id FROM products WHERE products.alias = :product) AND primary_image = 0";
+
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(":product", $product);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public static function drawImage($image, $alt){
+
+        $image = "<div class='slide'><img class='slide-img' src='{$image}' alt='{$alt}'></div>";
+
+        return $image;
     }
 }

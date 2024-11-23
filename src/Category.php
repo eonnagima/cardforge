@@ -106,4 +106,18 @@ class Category{
 
         return $categories;
     }
+
+    public static function getById($id){
+        $conn = Db::getConnection();
+
+        $query = 'SELECT * FROM categories WHERE id = :id';
+
+        $stmt = $conn->prepare($query);
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+
+        $category = $stmt->fetch();
+
+        return $category;
+    }
 }

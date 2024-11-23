@@ -7,6 +7,7 @@ use Codinari\Cardforge\Db;
 class Product{
     private $name;
     private $description;
+    private $details;
     private $alias;
     private $price;
     private $stock;
@@ -43,6 +44,21 @@ class Product{
             throw new \Exception("Description can't be empty");
         } else {
             $this->description = $description;
+            return $this;
+        }
+    }
+
+    public function getDetails()
+    {
+        return $this->details;
+    }
+
+    public function setDetails($details)
+    {
+        if (empty($details)) {
+            $this->details = null;
+        } else {
+            $this->details = $details;
             return $this;
         }
     }
