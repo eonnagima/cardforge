@@ -24,6 +24,7 @@ class User implements iUser{
     protected $adress_city;
     protected $adress_zip;
     protected $adress_country;
+    protected $wallet;
 
     use Traits\ImageUploadTrait;
 
@@ -349,6 +350,24 @@ class User implements iUser{
         return $this;
     }
 
+    public function getWallet()
+    {
+        return $this->wallet;
+    }
+
+    public function setWallet($wallet)
+    {
+        if(!empty($wallet)){
+            floatval($wallet);
+            $this->wallet = $wallet;
+            return $this;
+        }else{
+            throw new \Exception("Wallet can't be empty");
+        }
+
+
+    }
+
     public static function userExists($email){
         $conn = Db::getConnection();
         $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
@@ -491,6 +510,20 @@ class User implements iUser{
         $stmt = $conn->prepare($query);
         $stmt->bindParam(':id', $this->id);
         $stmt->bindParam(':password', $hash);
+
+        return $stmt->execute();
+    }
+
+    public function topUpWallet($ammount){
+        $conn = Db::getConnection();
+
+        $this->wallet += $ammount;
+
+        $query = "UPDATE users SET wallet = :wallet WHERE id = :id";
+
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':wallet', $this->wallet);
 
         return $stmt->execute();
     }

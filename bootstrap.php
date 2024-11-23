@@ -30,6 +30,7 @@ if(User::validateLogin()){
     $user->setId($userData['id']);
     $user->setEmail($email);
     $user->setPassword($userData['password']);
+    $user->setWallet($userData['wallet']);
     $user->setFirst_name($userData['first_name']);
     $user->setLast_name($userData['last_name']);
     $user->setAvatar($userData['avatar']);

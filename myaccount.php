@@ -17,6 +17,15 @@
     <?php include_once __DIR__."/includes/header.inc.php";?>
     <main>
         <h1>My Account</h1>
+        <!-- section wallet -->
+        <section class="myaccount-section">
+            <h2>Wallet</h2>
+            <div>
+                <h3>Balance</h3>
+                <span>€<?=$user->getWallet()?></span>
+            </div>
+            <a href="top-up-wallet.php" class="btn">Top Up</a>
+        <div class="seperator"></div>
         <section class="myaccount-section">
             <h2>Account info</h2>
             <div>
