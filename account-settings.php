@@ -1,6 +1,5 @@
 <?php
     require_once __DIR__."/bootstrap.php";
-    use Codinari\Cardforge\User;
 
     if(empty($user)){
         header("Location: login.php");
@@ -13,14 +12,13 @@
                 $newAvatar = $userUpdate->imageUpload($filePath);
                 $user->setAvatar($newAvatar);
                   
-                //File Path Test Code
                 // $destinationPath = __DIR__."/assets/test/".basename($_FILES['avatar']['name']);
                 // if(move_uploaded_file($filePath, $destinationPath)){
                 //     // Display the image from the new location
                 //     $webPath = 'assets/test/' . basename($_FILES['avatar']['name']);
                 //     echo "<img src='$webPath' alt='' style='width: 100px; height: 100px;'>";
                 // }else{
-                //     $error = "<img src='$webPath' alt='' style='width: 100px; height: 100px;'>";
+                //     $error = x"<img src='$webPath' alt='' style='width: 100px; height: 100px;'>";
                 // }
 
             }
@@ -33,7 +31,7 @@
             }
             
             $user->update();
-            //header("Location: myaccount.php");
+            header("Location: myaccount.php");
         }catch(\Throwable $th){
             $error = $th->getMessage();
         }
