@@ -19,6 +19,7 @@
         <h1>Admin Dashboard</h1>
         <a href="./add-product.php" class="btn">Add New Product</a>
         <a href="./add-franchise.php" class="btn">Add New Franchise</a>
+        <a href="./add-category.php" class="btn">Add New Category</a>
     </main>
 </body>
 </html>

@@ -50,8 +50,6 @@ class Category{
         if (empty($franchise)) {
             throw new \Exception("Franchise can't be empty");
         } else {
-            $franchise = Franchise::getByAlias($franchise);
-
             $this->franchise = $franchise;
             return $this;
         }
