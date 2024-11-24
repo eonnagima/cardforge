@@ -68,7 +68,7 @@
                         <label for="avatar" class=" img-label">
                             <i class="fas fa-image"></i>
                         </label>
-                        <input type="file" id="avatar" name="avatar">
+                        <input type="file" id="avatar" name="avatar" accept="image/*">
                     </div>
                 </div>
             </section>

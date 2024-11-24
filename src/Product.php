@@ -75,6 +75,7 @@ class Product{
         //also remove specialchars from alias
         $alias = preg_replace('/[^A-Za-z0-9\-]/', '', $alias);
         $this->alias = $alias;
+        return $this;
     }
 
     public function getPrice()
@@ -224,7 +225,7 @@ class Product{
 
         $conn = Db::getConnection();
 
-        $query = "INSTER INTO products (name, description, alias, price, stock, franchise_id, category_id, set_name, release_date) VALUES (
+        $query = "INSERT INTO products (name, description, alias, price, stock, franchise_id, category_id, set_name, release_date) VALUES (
             :name,
             :description,
             :alias,

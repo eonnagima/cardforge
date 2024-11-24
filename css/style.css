@@ -559,12 +559,17 @@ footer section a{
     text-transform: uppercase;
     font-size: 1.5em;
     font-weight: regular;
+    line-height: 1em;
 }
 
-.form label span{
+.form label span, .form .label span{
     color: var(--red);
     font-size: 1.5em;
     font-weight: 300;
+}
+
+.form .instruction{
+    font-family: 'fontinSans', sans-serif;
 }
 
 .form input[type="text"], .form input[type="email"], .form input[type="password"], .form input[type="number"], .form input[type="tel"]{
@@ -610,8 +615,12 @@ footer section a{
     background-repeat: no-repeat;
     border: 2px solid var(--grey);
     border-radius: 50%;
-    background-color: pink;
+    background-color: var(--off-white);
     margin: 0 auto;
+}
+
+.form .input-image-wrap--product{
+    border-radius: 8px;
 }
 
 .form input[type="file"]{
@@ -655,6 +664,17 @@ footer section a{
     background-color: #ffcccc;
     color: #ff0000;
     border: 2px solid #ff0000;
+    padding: 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0 24px;
+}
+
+.success{
+    background-color: #ccffcc;
+    color: #00ff00;
+    border: 2px solid #00ff00;
     padding: 16px;
     border-radius: 8px;
     font-weight: bold;
