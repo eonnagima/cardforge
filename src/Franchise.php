@@ -10,6 +10,9 @@ class Franchise implements iFranchise{
     private $alias;
     private $image;
 
+    use Traits\ImageUploadTrait;
+    use Traits\isImageTrait;
+
     public function getName()
     {
         return $this->name;
@@ -60,7 +63,7 @@ class Franchise implements iFranchise{
     }
 
     public function setImage($image){
-        $this->image = "/assets/img/franchises/placeholder.png";
+        $this->image = $image;
         return $this;
     }
 
