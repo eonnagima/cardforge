@@ -9,7 +9,9 @@
         <?php endif;?>
     </nav>
     <nav>
-        <a href="cart/php" class="header-cart cart-icon"></a>
+        <a href="cart/php" class="header-cart cart-icon">
+            <span id="cart-count">0</span>
+        </a>
         <form class="search-bar" method="post" action="">
             <input type="text" name="search-request" placeholder="I'm looking for...">
             <input type="submit" value="" class="search-icon">
