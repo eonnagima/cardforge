@@ -2,6 +2,7 @@
     require_once __DIR__."/bootstrap.php";
     use Codinari\Cardforge\Franchise;
     use Codinari\Cardforge\Product;
+    use Codinari\Cardforge\ProductImage;
 
     $allFranchises = Franchise::getAll();
     $newArrivals = Product::getNewArrivals();
@@ -48,7 +49,7 @@
         <section class="product-list">
             <?php foreach($newArrivals as $product): ?>
                 <a class="product-listing" href="product.php?p=<?=htmlspecialchars($product['alias'])?>">
-                    <img src=".<?=$product['img']?>" alt="<?=htmlspecialchars($product['name'])?>">
+                    <img src="<?=ProductImage::getPrimaryByProduct($product['alias'])['url']?>" alt="<?=htmlspecialchars($product['name'])?>">
                     <h5><?=htmlspecialchars($product['name'])?></h5>
                     <span>$<?=htmlspecialchars($product['price'])?></span>
                 </a>
@@ -64,12 +65,12 @@
         <section class="franchises">
             <?php foreach($allFranchises as $franchise): ?>
                 <a href="store.php?f=<?=htmlspecialchars($franchise['alias'])?>">
-                    <img src=".<?= $franchise['img']?>" alt="<?=htmlspecialchars($franchise['name'])?>">
+                    <img src="<?=$franchise['img']?>" alt="<?=htmlspecialchars($franchise['name'])?>">
                 </a>
             <?php endforeach;?>
-            <a href="products.php?f=pokemon">
+            <!-- <a href="products.php?f=pokemon">
                 <img src="./assets/img/franchises/placeholder.png" alt="placeholderimg">
-            </a>
+            </a> -->
         </section>
     </main>
     <?php include_once __DIR__."/includes/footer.inc.php";?>
