@@ -16,13 +16,13 @@
             
             if(isset($_FILES['logo']) && $_FILES['logo']['error'] == UPLOAD_ERR_OK){
                 $filePath = $_FILES['logo']['tmp_name'];
-                if(!$franchise->isImage($_FILES['logo']['type'])){
-                    $error = "Please upload an image file";
+                if(!$franchise->isImage($filePath)){
+                    throw new \Exception("Please upload an image file");
                 }
                 $logoUrl = $franchise->imageUpload($filePath);
                 $franchise->setImage($logoUrl);
             }else{
-                $error = "Error uploading logo";
+                throw new \Exception("Error uploading logo: " . $_FILES['logo']['error']);
             }
 
             $result = $franchise->save();

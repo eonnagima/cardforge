@@ -10,6 +10,9 @@ class ProductImage{
     private $alt;
     private $primaryImg;
 
+    use Traits\ImageUploadTrait;
+    use Traits\IsImageTrait;
+
     public function getProduct()
     {
         return $this->product;
@@ -62,7 +65,7 @@ class ProductImage{
 
     public function setPrimaryImg($primaryImg)
     {
-        if (empty($primaryImg)) {
+        if ($primaryImg === null || $primaryImg === '') {
             throw new \Exception("Primary Image can't be empty");
         } else {
             $this->primaryImg = $primaryImg;
@@ -75,7 +78,7 @@ class ProductImage{
 
         $query = "INSERT INTO product_images (product_id, url, alt, primary_image) VALUES (
             (SELECT products.id FROM products WHERE products.alias = :product),
-            :img, 
+            :url, 
             :alt, 
             :primary_image
         )";

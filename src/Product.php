@@ -225,9 +225,10 @@ class Product{
 
         $conn = Db::getConnection();
 
-        $query = "INSERT INTO products (name, description, alias, price, stock, franchise_id, category_id, set_name, release_date) VALUES (
+        $query = "INSERT INTO products (name, description, details,  alias, price, stock, franchise_id, category_id, set_name, release_date) VALUES (
             :name,
             :description,
+            :details,
             :alias,
             :price,
             :stock,
@@ -241,6 +242,7 @@ class Product{
 
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":description", $this->description);
+        $stmt->bindParam(":details", $this->details);
         $stmt->bindParam(":alias", $this->alias);
         $stmt->bindParam(":price", $this->price);
         $stmt->bindParam(":stock", $this->stock);
