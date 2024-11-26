@@ -906,3 +906,7 @@ footer section a{
     font-size: 1.8em;
     color: var(--red);
 }
+
+.btn--cart{
+    background-color: var(--red);
+}
