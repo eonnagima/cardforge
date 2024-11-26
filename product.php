@@ -8,8 +8,10 @@
 
     $product = $_GET["p"] ?? null;
     $product = Product::getByAlias($product);
+    
     $franchise = Franchise::getById($product['franchise_id']);
     $category = Category::getById($product['category_id']);
+    
     if(!empty($product['set_name'])){
         $set = $product['set_name'];
     }
@@ -78,9 +80,7 @@
                 </div>
                 <span class="num-reviews"><?=Review::countReviews($product['alias'])?> Reviews</span>
             </section>
-            <section class="product-actions">
-                <button class="btn btn--buy" id="cart-btn">Add to Cart</button>
-            </section>
+            <a href="#" class="btn btn--cart" id="cart-btn" data-product-alias="<?=$product['alias']?>">Add to Cart</a>
         </section>
         <div class="seperator"></div>
         <section class="product-section">
@@ -123,24 +123,45 @@
     <?php include_once __DIR__."/includes/footer.inc.php";?>
     <script src="./js/slider.js"></script>
     <script>
-        //when clicking cart btn, product gets saved to cart in local storage
-        document.getElementById("cart-btn").addEventListener("click", function(){
-            let cart = JSON.parse(localStorage.getItem("cart")) || [];
-            let product = {
-                //generate a unique id for the product
-                id: Math.random().toString(36).substr(2, 9),
-                name: "<?=$product['name']?>",
-                alias: "<?=$product['alias']?>",
-                price: <?=$product['price']?>,
-                image: "<?=$primaryImage['url']?>",
-                quantity: 1
+        document.querySelector("#cart-btn").addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('clicked');
+
+            // Retrieve the product alias from the button's dataset
+            var productAlias = this.dataset.productAlias;
+            
+            // Create a new XMLHttpRequest object
+            var xhr = new XMLHttpRequest();
+            
+            // Configure the AJAX request
+            xhr.open('POST', 'ajax/add_to_cart.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            
+            // Define a function to handle the server response
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        try {
+                            // Parse the JSON response from the server
+                            var response = JSON.parse(xhr.responseText);
+                            // Update the cart count in the header
+                            document.getElementById('cart-count').innerText = response.cartCount;
+                            // Log debugging information
+                            console.log('Debug info:', response.debug);
+                        } catch (e) {
+                            console.error('Error parsing JSON response:', e);
+                            console.error('Response text:', xhr.responseText);
+                        }
+                    } else {
+                        console.error('Request failed with status:', xhr.status);
+                        console.error('Response text:', xhr.responseText);
+                    }
+                }
             };
-            cart.push(product);
-            localStorage.setItem("cart", JSON.stringify(cart));
-            document.getElementById("cart-count").innerText = cart.length;
-            console.log(cart);
+            
+            // Send the AJAX request with the product alias in JSON format
+            xhr.send(JSON.stringify({ product_alias: productAlias }));
         });
     </script>
-    <script src="./js/cart.js"></script>
 </body>
 </html> 

@@ -2,7 +2,9 @@
 
 require_once __DIR__."/vendor/autoload.php";
 
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Set error reporting level
 error_reporting(E_ALL);

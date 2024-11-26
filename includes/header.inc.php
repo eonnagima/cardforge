@@ -10,7 +10,7 @@
     </nav>
     <nav>
         <a href="./cart.php" class="header-cart cart-icon">
-            <span id="cart-count">0</span>
+            <span id="cart-count"><?=count($_SESSION['cart'])?></span>
         </a>
         <form class="search-bar" method="post" action="">
             <input type="text" name="search-request" placeholder="I'm looking for...">
