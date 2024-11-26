@@ -2,7 +2,7 @@
 
 namespace Codinari\Cardforge;
 
-include_once __DIR__.'/../settings/config.php';
+require_once __DIR__.'/../config.php';
 
 class Db{
     private static $conn = null;

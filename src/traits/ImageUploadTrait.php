@@ -2,7 +2,7 @@
 
 namespace Codinari\Cardforge\Traits;
 
-require_once __DIR__."/../../settings/config.php";
+require_once __DIR__."/../../config.php";
 
 use Cloudinary\Api\Upload\UploadApi;
 use Cloudinary\Api\Exception\ApiError;
