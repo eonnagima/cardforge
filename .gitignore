@@ -1,7 +1,8 @@
 .DS_Store
 .Thumbs.db
 vendor/
-settings/
 test.php
+settings/configOld.php
 composer.phar
 assets/test/
+.env
