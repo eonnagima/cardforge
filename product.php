@@ -80,7 +80,12 @@
                 </div>
                 <span class="num-reviews"><?=Review::countReviews($product['alias'])?> Reviews</span>
             </section>
-            <a href="#" class="btn btn--cart" id="cart-btn" data-product-alias="<?=$product['alias']?>">Add to Cart</a>
+            <a href="#" class="btn btn--cart" id="add-to-cart" data-product-alias="<?=$product['alias']?>">Add to Cart</a>
+            <div id="go-to-cart" class="hidden">
+                <span>Product was added to your cart</span>
+                <a href="./cart.php" class="btn btn--secondary" data-product-alias="<?=$product['alias']?>">Go to Cart</a>
+            </div>
+         
         </section>
         <div class="seperator"></div>
         <section class="product-section">
@@ -123,7 +128,7 @@
     <?php include_once __DIR__."/includes/footer.inc.php";?>
     <script src="./js/slider.js"></script>
     <script>
-        document.querySelector("#cart-btn").addEventListener('click', function(e) {
+        document.querySelector("#add-to-cart").addEventListener('click', function(e) {
             e.preventDefault();
             console.log('clicked');
 
@@ -161,6 +166,9 @@
             
             // Send the AJAX request with the product alias in JSON format
             xhr.send(JSON.stringify({ product_alias: productAlias }));
+
+            document.querySelector("#go-to-cart").classList.toggle('hidden');
+            document.querySelector("#add-to-cart").classList.toggle('hidden');
         });
     </script>
 </body>

@@ -37,7 +37,7 @@
                         <img src="<?=ProductImage::getPrimaryByProduct($product['alias'])['url']?>" alt="" class="cart-img">
                         <span class="product-name"><?=$product['name']?></span>
                         <span class="price">€<?=$product['price']?></span>
-                        <a href="" class="btn btn--small">-</a>
+                        <a href="" class="btn btn--remove" data-product-alias="<?=$product['alias']?>">-</a>
                     </section>
                 <?php endforeach;?>
             <?php endif;?>
@@ -60,6 +60,32 @@
     </main>
     <?php include_once __DIR__."/includes/footer.inc.php";?>
     <script src="./js/pwToggle.js"></script>
-    <script src="./js/cart.js"></script>
+    <script>
+        //bubble on click event over btn--remove in cart-items
+        
+        document.querySelectorAll('.btn--remove').forEach(btn => {
+            btn.addEventListener('click', function(e){
+                e.preventDefault();
+                const productAlias = this.getAttribute('data-product-alias');
+                fetch('./ajax/remove_from_cart.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        product_alias: productAlias,
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.error){
+                        alert(data.error);
+                    } else {
+                        window.location.reload();
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

@@ -278,7 +278,7 @@ main{
     background-color: var(--grey);
 }
 
-.btn--small{
+.btn--remove{
     height: 32px;
     width: 32px;
     font-size: 1.5em;
