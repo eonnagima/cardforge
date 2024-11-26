@@ -81,7 +81,23 @@
                     if(data.error){
                         alert(data.error);
                     } else {
-                        window.location.reload();
+                    // Remove the product from the DOM
+                    const cartItem = this.closest('.cart-item');
+                    cartItem.remove();
+
+                    // Update the total price
+                    const totalPriceElement = document.querySelector('.cart-total .price');
+                    totalPriceElement.textContent = `€${data.new_total}`;
+
+                    // Update the cart count in the header
+                    const cartCountElement = document.querySelector('#cart-count');
+                    cartCountElement.textContent = data.cart_count;
+
+                    // Display "no items in cart" message if cart is empty
+                    if (data.cart_count === 0) {
+                        const cartItemsSection = document.querySelector('.cart-items');
+                        cartItemsSection.innerHTML = '<p>Your cart is empty</p>';
+                    }
                     }
                 });
             });
