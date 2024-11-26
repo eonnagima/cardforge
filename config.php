@@ -5,6 +5,10 @@ require_once __DIR__."/vendor/autoload.php";
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
+putenv('cloudinaryCloudname=' . $_ENV['cloudinaryCloudname']);
+putenv('cloudinaryApiKey=' . $_ENV['cloudinaryApiKey']);
+putenv('cloudinaryApiSecret=' . $_ENV['cloudinaryApiSecret']);
+
 
 $pathToSSL = __DIR__."/BaltimoreCyberTrustRoot.crt.pem";
 $options =[
@@ -14,9 +18,9 @@ $options =[
 //Database configuration
 // const CONFIG = [
 //     "db" => [
-//         "user"      => $_ENV['cardforgeDbUser'],
-//         "password"  => $_ENV['cardforgeDbPassword'],
-//         "host"      => $_ENV['cardforgeDbHost'],
+//         "user"      => getenv('cardforgeDbUser'),
+//         "password"  => getenv('cardforgeDbPassword'),
+//         "host"      => getenv('cardforgeDbHost'),
 //         "dbname"    => "cardforge",
 //     ]
 // ];
@@ -34,7 +38,7 @@ const CONFIG = [
 use Cloudinary\Configuration\Configuration;
 
 $config = Configuration::instance();
-$config->cloud->cloudName = $_ENV['cloudinaryCloudname'];
-$config->cloud->apiKey = $_ENV['cloudinaryApiKey'];
-$config->cloud->apiSecret = $_ENV['cloudinaryApiSecret'];
+$config->cloud->cloudName = getenv('cloudinaryCloudname');
+$config->cloud->apiKey = getenv('cloudinaryApiKey');
+$config->cloud->apiSecret = getenv('cloudinaryApiSecret');
 $config->url->secure = true; 
