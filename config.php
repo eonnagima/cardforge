@@ -2,13 +2,14 @@
 
 require_once __DIR__."/vendor/autoload.php";
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+if (file_exists(__DIR__ . '/.env')) {
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
 
-putenv('cloudinaryCloudname=' . $_ENV['cloudinaryCloudname']);
-putenv('cloudinaryApiKey=' . $_ENV['cloudinaryApiKey']);
-putenv('cloudinaryApiSecret=' . $_ENV['cloudinaryApiSecret']);
-
+    putenv('cloudinaryCloudname=' . $_ENV['cloudinaryCloudname']);
+    putenv('cloudinaryApiKey=' . $_ENV['cloudinaryApiKey']);
+    putenv('cloudinaryApiSecret=' . $_ENV['cloudinaryApiSecret']);
+}
 
 $pathToSSL = __DIR__."/BaltimoreCyberTrustRoot.crt.pem";
 $options =[
