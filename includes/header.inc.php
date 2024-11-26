@@ -9,7 +9,7 @@
         <?php endif;?>
     </nav>
     <nav>
-        <a href="cart/php" class="header-cart cart-icon">
+        <a href="./cart.php" class="header-cart cart-icon">
             <span id="cart-count">0</span>
         </a>
         <form class="search-bar" method="post" action="">

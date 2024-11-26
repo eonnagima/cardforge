@@ -78,6 +78,9 @@
                 </div>
                 <span class="num-reviews"><?=Review::countReviews($product['alias'])?> Reviews</span>
             </section>
+            <section class="product-actions">
+                <button class="btn btn--buy" id="cart-btn">Add to Cart</button>
+            </section>
         </section>
         <div class="seperator"></div>
         <section class="product-section">
@@ -118,7 +121,26 @@
         </section>
     </main>
     <?php include_once __DIR__."/includes/footer.inc.php";?>
-    <script src="./js/footer.js"></script>
     <script src="./js/slider.js"></script>
+    <script>
+        //when clicking cart btn, product gets saved to cart in local storage
+        document.getElementById("cart-btn").addEventListener("click", function(){
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let product = {
+                //generate a unique id for the product
+                id: Math.random().toString(36).substr(2, 9),
+                name: "<?=$product['name']?>",
+                alias: "<?=$product['alias']?>",
+                price: <?=$product['price']?>,
+                image: "<?=$primaryImage['url']?>",
+                quantity: 1
+            };
+            cart.push(product);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            document.getElementById("cart-count").innerText = cart.length;
+            console.log(cart);
+        });
+    </script>
+    <script src="./js/cart.js"></script>
 </body>
 </html> 
