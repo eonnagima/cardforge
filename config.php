@@ -15,7 +15,12 @@ if (file_exists(__DIR__ . '/.env')) {
 }
 
 $pathToSSL = __DIR__."/ssl/DigiCertGlobalRootCA.crt.pem";
-$options = [PDO::MYSQL_ATTR_SSL_CA => $pathToSSL];
+$options = [
+    \PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    \PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    \PDO::ATTR_EMULATE_PREPARES => false,
+    \PDO::MYSQL_ATTR_SSL_CA => $pathToSSL
+];
 
 //Database configuration
 $dbConfig = [
