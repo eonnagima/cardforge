@@ -2,7 +2,6 @@
 .Thumbs.db
 vendor/
 test.php
-settings/configOld.php
 composer.phar
 assets/test/
 .env

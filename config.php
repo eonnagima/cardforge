@@ -9,30 +9,21 @@ if (file_exists(__DIR__ . '/.env')) {
     putenv('cloudinaryCloudname=' . $_ENV['cloudinaryCloudname']);
     putenv('cloudinaryApiKey=' . $_ENV['cloudinaryApiKey']);
     putenv('cloudinaryApiSecret=' . $_ENV['cloudinaryApiSecret']);
+    putenv('cardforgeDbUser=' . $_ENV['cardforgeDbUser']);
+    putenv('cardforgeDbPassword=' . $_ENV['cardforgeDbPassword']);
+    putenv('cardforgeDbHost=' . $_ENV['cardforgeDbHost']);
 }
 
-$pathToSSL = __DIR__."/BaltimoreCyberTrustRoot.crt.pem";
-$options =[
-    PDO::MYSQL_ATTR_SSL_CA => $pathToSSL
-];
+$pathToSSL = __DIR__."/ssl/DigiCertGlobalRootCA.crt.pem";
+$options = [PDO::MYSQL_ATTR_SSL_CA => $pathToSSL];
 
 //Database configuration
-// const CONFIG = [
-//     "db" => [
-//         "user"      => getenv('cardforgeDbUser'),
-//         "password"  => getenv('cardforgeDbPassword'),
-//         "host"      => getenv('cardforgeDbHost'),
-//         "dbname"    => "cardforge",
-//     ]
-// ];
-
-const CONFIG = [
-    "db" => [
-        "user"      => "root",
-        "password"  => "",
-        "host"      => "localhost",
-        "dbname"    => "cardforge",
-    ]
+$dbConfig = [
+    "user"      => getenv('cardforgeDbUser'),
+    "password"  => getenv('cardforgeDbPassword'),
+    "host"      => getenv('cardforgeDbHost'),
+    "dbname"    => "cardforgedb",
+    "options"   => $options
 ];
 
 //Cloudinary API configuration

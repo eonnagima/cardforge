@@ -2,20 +2,23 @@
 
 namespace Codinari\Cardforge;
 
-require_once __DIR__.'/../config.php';
-
-class Db{
+class Db {
     private static $conn = null;
 
-    public static function getConnection(){
-        if(self::$conn === null){
-            try{
-                return self::$conn = new \PDO('mysql:host='.CONFIG['db']['host'].';dbname='.CONFIG['db']['dbname'], CONFIG['db']['user'], CONFIG['db']['password']);
+    public static function getConnection() {
+        if (self::$conn === null) {
+            try {
+                global $dbConfig;
+                $dsn = 'mysql:host=' . $dbConfig['host'] . ';dbname=' . $dbConfig['dbname'];
+                $user = $dbConfig['user'];
+                $password = $dbConfig['password'];
+                $options = $dbConfig['options'];
+
+                return self::$conn = new \PDO($dsn, $user, $password, $options);
+            } catch (\PDOException $e) {
+                throw new \Exception("Error Connection Failed: " . $e->getMessage());
             }
-            catch(\PDOException $e){
-                throw new \Exception("Error Connection Failed: ".$e->getMessage());
-            }
-        }else{
+        } else {
             return self::$conn;
         }
     }
