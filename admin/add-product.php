@@ -20,7 +20,7 @@
             $product->setName($_POST['name']);
             $product->setDescription($_POST['description']);
             $product->setDetails($_POST['details']);
-            $product->setAlias();
+            $product->setAlias(null);
             $product->setPrice($_POST['price']);
             $product->setStock($_POST['stock']);
             $product->setFranchise($_POST['franchise']);
