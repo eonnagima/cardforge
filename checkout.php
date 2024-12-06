@@ -2,8 +2,9 @@
     require_once __DIR__."/bootstrap.php";
     use Codinari\Cardforge\Product;
     use Codinari\Cardforge\ProductImage;
-
     use Codinari\Cardforge\CountryCodes;
+    use Codinari\Cardforge\Order;
+    use Codinari\Cardforge\OrderProduct;
 
     $countryCodes = new CountryCodes();
     $countryList = $countryCodes->getCountryList();
@@ -19,7 +20,60 @@
         $products[] = $product;
     }
 
-    //echo count($_SESSION['cart']);
+    if(!empty($_POST)){
+        try{
+            $userWallet = $user->getWallet();
+
+            if($total > $userWallet){
+                throw new \Exception("You don't have enough money in your wallet to complete this purchase");
+            }
+
+            $order = new Order();
+            if(!empty($user)){
+                $order->setUser($user->getEmail());
+            }else{
+                $order->setUser(null);
+            }
+
+            $order->setAlias(null);
+            $order->setFirstName($_POST['first-name']);
+            $order->setLastName($_POST['last-name']);
+            $order->setEmail($_POST['email']);
+            $order->setPhone($_POST['phone']);
+            $order->setStreet($_POST['street']);
+            $order->setHouseNumber($_POST['house_number']);
+            $order->setAdressExtra($_POST['address_extra']);
+            $order->setCity($_POST['city']);
+            $order->setZip($_POST['zip']);
+            $order->setCountry($_POST['country']);
+            $order->setStatus('Order is being processed');
+
+            $result = $order->save();
+
+            if(!$result){
+                throw new \Exception("Error saving order");
+            }
+
+            foreach($products as $product){
+                $orderProduct = new OrderProduct;
+                $orderProduct->setOrder($order->getAlias());
+                $orderProduct->setProduct($product['alias']);
+                $orderProduct->setQuantity(1);
+
+                $result = $orderProduct->save();
+            }
+
+            $userWallet = $userWallet - $total;
+            $user->setWallet($userWallet);
+
+            $_SESSION['cart'] = [];
+
+            header("Location: order-confirm.php?o=".$order->getAlias());
+            exit();
+        }catch(\Exception $e){
+            $error = $e->getMessage();
+        }
+    }
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -35,6 +89,9 @@
         <h1>Checkout</h1>
         <?php if(empty($user)):?>
             <span>You're currently not logged in. <a href="login.php" class="btn btn--secondary">Sign up here</a> or continue as guest</span>
+        <?php endif;?>
+        <?php if(isset($error)):?>
+            <div class="error"><?=$error;?></div>
         <?php endif;?>
         <div>
             <section class="cart-items">
@@ -90,8 +147,8 @@
                                 <input type="text" id="house_number" name="house_number" placeholder="50" required>
                             </div>
                             <div class="input-wrap">
-                                <label for="adress_extra">Extra</label>
-                                <input type="text" id="adress_extra" name="adress_extra" placeholder="bus 3" required>
+                                <label for="address_extra">Extra</label>
+                                <input type="text" id="address_extra" name="address_extra" placeholder="bus 3" required>
                             </div>
                             <div class="input-wrap">
                                 <label for="city">City</label>
@@ -142,8 +199,8 @@
                                 <input type="text" id="house_number" name="house_number" value="<?=$user->getAdress_number()?>" placeholder="50" required>
                             </div>
                             <div class="input-wrap">
-                                <label for="adress_extra">Extra</label>
-                                <input type="text" id="adress_extra" name="adress_extra" value="<?=$user->getAdress_extra()?>" placeholder="bus 3" required>
+                                <label for="address_extra">Extra</label>
+                                <input type="text" id="address_extra" name="address_extra" value="<?=$user->getAdress_extra()?>" placeholder="bus 3" required>
                             </div>
                             <div class="input-wrap">
                                 <label for="city">City<span>*</span></label>
@@ -177,7 +234,6 @@
         </div>
     </main>
     <?php include_once __DIR__."/includes/footer.inc.php";?>
-    <script src="./js/pwToggle.js"></script>
     <script>
         //bubble on click event over btn--remove in cart-items
         

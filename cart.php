@@ -61,7 +61,6 @@
         <?php endif;?>
     </main>
     <?php include_once __DIR__."/includes/footer.inc.php";?>
-    <script src="./js/pwToggle.js"></script>
     <script>
         //bubble on click event over btn--remove in cart-items
         

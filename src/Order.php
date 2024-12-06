@@ -13,7 +13,7 @@ class Order{
     private $phone;
     private $street;
     private $house_number;
-    private $adress_extra;
+    private $address_extra;
     private $city;
     private $zip;
     private $country;
@@ -142,16 +142,16 @@ class Order{
 
     public function getAdressExtra()
     {
-        return $this->adress_extra;
+        return $this->address_extra;
     }
 
-    public function setAdressExtra($adress_extra)
+    public function setAdressExtra($address_extra)
     {   
-        if(empty($adress_extra)){
-            $adress_extra = null;
+        if(empty($address_extra)){
+            $address_extra = null;
         }
 
-        $this->adress_extra = $adress_extra;
+        $this->address_extra = $address_extra;
         return $this;
     }
 
@@ -217,16 +217,23 @@ class Order{
 
     public function save(){
         $conn = Db::getConnection();
-        $query = "INSERT INTO orders (alias, user, first_name, last_name, email, phone, street, house_number, adress_extra, city, zip, country, status) VALUES (
+
+        if($this->user == null){
+            $userQuery = ':user';
+        }else{
+            $userQuery = "(SELECT id FROM users WHERE email = :user)";
+        }
+
+        $query = "INSERT INTO orders (alias, user_id, first_name, last_name, email, phone, street, house_number, address_extra, city, zip, country, status) VALUES (
             :alias,
-            :user,
+            $userQuery,
             :first_name,
             :last_name,
             :email,
             :phone,
             :street,
             :house_number,
-            :adress_extra,
+            :address_extra,
             :city,
             :zip,
             :country,
@@ -243,7 +250,7 @@ class Order{
         $stmt->bindParam(":phone", $this->phone);
         $stmt->bindParam(":street", $this->street);
         $stmt->bindParam(":house_number", $this->house_number);
-        $stmt->bindParam(":adress_extra", $this->adress_extra);
+        $stmt->bindParam(":address_extra", $this->address_extra);
         $stmt->bindParam(":city", $this->city);
         $stmt->bindParam(":zip", $this->zip);
         $stmt->bindParam(":country", $this->country);
@@ -256,5 +263,24 @@ class Order{
         }else{
             throw new \Exception("Failed to save order");
         }
+    }
+
+    public static function getAll(){
+        $conn = Db::getConnection();
+        $query = "SELECT * FROM orders";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        return $result;
+    }
+
+    public static function getByAlias($alias){
+        $conn = Db::getConnection();
+        $query = "SELECT * FROM orders WHERE alias = :alias";
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(":alias", $alias);
+        $stmt->execute();
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $result;
     }
 }

@@ -53,11 +53,16 @@ class OrderProduct{
 
     public function save(){
         $conn = Db::getConnection();
-        $query = "INSERT INTO order_has_products (order_id, product_id, quantity) VALUES (:order_id, :product_id, :quantity)";
+
+        $query = "INSERT INTO order_has_products (order_id, product_id, quantity) VALUES (
+            (SELECT id FROM orders WHERE alias = :order), 
+            (SELECT id FROM products WHERE alias = :product), 
+            :quantity
+        )";
 
         $stmt = $conn->prepare($query);
-        $stmt->bindValue(':order_id', $this->order);
-        $stmt->bindValue(':product_id', $this->product);
+        $stmt->bindValue(':order', $this->order);
+        $stmt->bindValue(':product', $this->product);
         $stmt->bindValue(':quantity', $this->quantity);
         $result = $stmt->execute();
 
@@ -66,5 +71,18 @@ class OrderProduct{
         } else {
             throw new \Exception("Error saving order product");
         }
+    }
+
+    public static function getAllByOrder($order){
+        $conn = Db::getConnection();
+
+        $query = "SELECT * FROM order_has_products WHERE order_id = (SELECT id FROM orders WHERE alias = :order)";
+        
+        $stmt = $conn->prepare($query);
+        $stmt->bindValue(':order', $order);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        return $result;
     }
 }
