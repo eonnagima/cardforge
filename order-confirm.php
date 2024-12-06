@@ -36,9 +36,9 @@
         <p>We'll get started on your order as soon as possible.</p>
         <h3>Order Details</h3>
         <section class="order-details">
-            <h3>Status: </h3><span><?=htmlspecialchars($order['status'])?></span>
-            <h3>Order Date: </h3><span><?=$order['created']?></span>
-            <h3>Shipping Address: </h3><span><?=htmlspecialchars($order['street']." ".$order['house_number']." ".$order['address_extra'].", ".$order['zip']." ".$order['city']." ".$order['country'])?></span>
+            <h4>Status: </h4><p><?=htmlspecialchars($order['status'])?></p>
+            <h4>Order Date: </h4><p><?=$order['created']?></p>
+            <h4>Shipping Address: </h4><p><?=htmlspecialchars($order['street']." ".$order['house_number']." ".$order['address_extra'].", ".$order['zip']." ".$order['city']." ".$order['country'])?></p>
         </section>
         <div class="seperator"></div>
         <h3>Ordered Items</h3>
