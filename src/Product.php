@@ -307,6 +307,20 @@ class Product{
         }
     }
 
+    public static function getById($id){
+        $conn = Db::getConnection();
+        $stmt = $conn->prepare("SELECT * FROM products WHERE id = :id");
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
+        $result = $stmt->fetch();
+
+        if($result){
+            return $result;
+        }else{
+            throw new \Exception("Product not found");
+        }
+    }
+
     public static function getNewArrivals(){
         $conn = Db::getConnection();
         //get the 4 products with the most recent created field

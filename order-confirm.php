@@ -1,0 +1,57 @@
+<?php
+    require_once __DIR__."/bootstrap.php";
+    use Codinari\Cardforge\Product;
+    use Codinari\Cardforge\ProductImage;
+    use Codinari\Cardforge\Order;
+    use Codinari\Cardforge\OrderProduct;
+
+    $order = $_GET['o'] ?? null;
+
+    if(empty($order)){
+        header("Location: index.php");
+        exit();
+    }
+
+    $order = Order::getByAlias($order);
+    $orderProducts = OrderProduct::getAllByOrder($order['alias']);
+    $products = [];
+
+    foreach($orderProducts as $orderProduct){
+        $products[] = Product::getById($orderProduct['product_id']);
+    }
+
+?><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart | Cardforge</title>
+    <?php include_once __DIR__."/includes/stylesheets.inc.php";?>
+</head>
+<body>
+    <?php include_once(__DIR__."/includes/header.inc.php");?>
+    <main>
+        <h1>Order — <?=$order['alias']?></h1>
+        <h2>Thank you for your order <?htmlspecialchars($order['first_name'])?>!</h2>
+        <p>We'll get started on your order as soon as possible.</p>
+        <h3>Order Details</h3>
+        <section class="order-details">
+            <h3>Status: </h3><span><?=htmlspecialchars($order['status'])?></span>
+            <h3>Order Date: </h3><span><?=$order['created']?></span>
+            <h3>Shipping Address: </h3><span><?=htmlspecialchars($order['street']." ".$order['house_number']." ".$order['address_extra'].", ".$order['zip']." ".$order['city']." ".$order['country'])?></span>
+        </section>
+        <div class="seperator"></div>
+        <h3>Ordered Items</h3>
+        <section class="cart-items">
+                <?php foreach($products as $i => $product):?>
+                    <section class="cart-item">
+                        <img src="<?=ProductImage::getPrimaryByProduct($product['alias'])['url']?>" alt="" class="cart-img">
+                        <span class="product-name"><?=$product['name']?></span>
+                        <span class="price">x<?=$orderProducts[$i]['quantity']?></span>
+                    </section>
+                <?php endforeach;?>
+        </section>
+    </main>
+    <?php include_once __DIR__."/includes/footer.inc.php";?>
+</body>
+</html>
