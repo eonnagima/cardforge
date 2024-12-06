@@ -39,9 +39,9 @@ if(User::validateLogin()){
     $user->setAvatar($userData['avatar']);
     $user->setDate_of_birth($userData['date_of_birth']);
     $user->setPhone_number($userData['phone_number']);
-    $user->setAdress_street($userData['adress_street']);
-    $user->setAdress_number($userData['adress_number']);
-    $user->setAdress_extra($userData['adress_extra']);
-    $user->setAdress_zip($userData['adress_zip']);
-    $user->setAdress_country($userData['adress_country']);
+    $user->setAdress_street($userData['address_street']);
+    $user->setAdress_number($userData['address_number']);
+    $user->setAdress_extra($userData['address_extra']);
+    $user->setAdress_zip($userData['address_zip']);
+    $user->setAdress_country($userData['address_country']);
 }
