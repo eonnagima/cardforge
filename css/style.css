@@ -25,6 +25,9 @@ body {
     font-size: 16px;
     line-height: 1.5;
     background-color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 h1{
@@ -244,6 +247,7 @@ main{
     display: flex;
     flex-direction: column;
     gap: 32px;
+    flex: 1 0 0;
 }
 
 .seperator{

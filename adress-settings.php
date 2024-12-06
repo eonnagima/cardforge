@@ -56,23 +56,23 @@
             <section>
                 <div class="input-wrap">
                     <label for="street">Street</label>
-                    <input type="text" id="street" name="street" placeholder="<?=$user->getAdress_street()?>">
+                    <input type="text" id="street" name="street" value="<?=$user->getAdress_street()?>">
                 </div>
                 <div class="input-wrap">
                     <label for="house_number">House Number</label>
-                    <input type="text" id="house_number" name="house_number" placeholder="<?=$user->getAdress_number()?>">
+                    <input type="text" id="house_number" name="house_number" value="<?=$user->getAdress_number()?>">
                 </div>
                 <div class="input-wrap">
                     <label for="adress_extra">Extra</label>
-                    <input type="text" id="adress_extra" name="adress_extra" placeholder="<?=$user->getAdress_extra()?>">
+                    <input type="text" id="adress_extra" name="adress_extra" value="<?=$user->getAdress_extra()?>">
                 </div>
                 <div class="input-wrap">
                     <label for="city">City</label>
-                    <input type="text" id="city" name="city" placeholder="<?=$user->getAdress_city()?>">
+                    <input type="text" id="city" name="city" value="<?=$user->getAdress_city()?>">
                 </div>
                 <div class="input-wrap">
                     <label for="zip">Zip Code</label>
-                    <input type="text" id="zip" name="zip" placeholder="<?=$user->getAdress_zip()?>">
+                    <input type="text" id="zip" name="zip" value="<?=$user->getAdress_zip()?>">
                 </div>
                 <div class="input-wrap">
                     <label for="country">Country</label>

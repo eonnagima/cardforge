@@ -177,7 +177,7 @@ class User implements iUser{
     public function getAdress_street()
     {
         if(empty($this->adress_street)){
-            return "No street";
+            return "";
         }else{
             return $this->adress_street;
         }
@@ -197,7 +197,7 @@ class User implements iUser{
     public function getAdress_number()
     {
         if(empty($this->adress_number)){
-            return "No house number";
+            return "";
         }else{
             return $this->adress_number;
         }
@@ -217,7 +217,7 @@ class User implements iUser{
     public function getAdress_extra()
     {
         if(empty($this->adress_extra)){
-            return "No extra adress info";
+            return "";
         }else{
             return $this->adress_extra;
         }
@@ -238,7 +238,7 @@ class User implements iUser{
     public function getAdress_city()
     {
         if(empty($this->adress_city)){
-            return "No city";
+            return "";
         }else{
             return $this->adress_city;
         }
@@ -258,7 +258,7 @@ class User implements iUser{
     public function getAdress_zip()
     {
         if(empty($this->adress_zip)){
-            return "No zip code";
+            return "";
         }else{
             return $this->adress_zip;
         }
@@ -278,7 +278,7 @@ class User implements iUser{
     public function getAdress_country()
     {
         if(empty($this->adress_country)){
-            return "No country";
+            return "";
         }else{
             return $this->adress_country;
         }

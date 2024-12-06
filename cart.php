@@ -56,7 +56,9 @@
         <div class="seperator"></div>
         <!-- checkout btn and back to store btn -->
         <a href="store.php" class="btn btn--secondary">Back to store</a>
-        <a href="checkout.php" class="btn">Checkout</a>
+        <?php if (!empty($products)):?>
+            <a href="checkout.php" class="btn">Checkout</a>
+        <?php endif;?>
     </main>
     <?php include_once __DIR__."/includes/footer.inc.php";?>
     <script src="./js/pwToggle.js"></script>
