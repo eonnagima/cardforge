@@ -18,8 +18,8 @@
             if(!empty($_POST['house_number'])){
                 $user->setAdress_number($_POST['house_number']);
             }
-            if(!empty($_POST['adress_extra'])){
-                $user->setAdress_extra($_POST['adress_extra']);
+            if(!empty($_POST['address_extra'])){
+                $user->setAdress_extra($_POST['address_extra']);
             }
             if(!empty($_POST['city'])){
                 $user->setAdress_city($_POST['city']);
@@ -63,8 +63,8 @@
                     <input type="text" id="house_number" name="house_number" value="<?=$user->getAdress_number()?>">
                 </div>
                 <div class="input-wrap">
-                    <label for="adress_extra">Extra</label>
-                    <input type="text" id="adress_extra" name="adress_extra" value="<?=$user->getAdress_extra()?>">
+                    <label for="address_extra">Extra</label>
+                    <input type="text" id="address_extra" name="address_extra" value="<?=$user->getAdress_extra()?>">
                 </div>
                 <div class="input-wrap">
                     <label for="city">City</label>

@@ -86,7 +86,7 @@
                 <h3>Country</h3>
                 <span><?=$user->getAdress_country()?></span>
             </div>
-            <a href="adress-settings.php" class="btn">EDIT</a>
+            <a href="address-settings.php" class="btn">EDIT</a>
         </section>
     </main>
     <?php include_once __DIR__."/includes/footer.inc.php";?>

@@ -17,13 +17,13 @@ class User implements iUser{
     protected $avatar;
     protected $date_of_birth;
     protected $phone_number;
-    //optional adress properties
-    protected $adress_street;
-    protected $adress_number;
-    protected $adress_extra;
-    protected $adress_city;
-    protected $adress_zip;
-    protected $adress_country;
+    //optional address properties
+    protected $address_street;
+    protected $address_number;
+    protected $address_extra;
+    protected $address_city;
+    protected $address_zip;
+    protected $address_country;
     protected $wallet;
 
     use Traits\ImageUploadTrait;
@@ -176,19 +176,19 @@ class User implements iUser{
 
     public function getAdress_street()
     {
-        if(empty($this->adress_street)){
+        if(empty($this->address_street)){
             return "";
         }else{
-            return $this->adress_street;
+            return $this->address_street;
         }
     }
 
-    public function setAdress_street($adress_street)
+    public function setAdress_street($address_street)
     {
-        if(empty($adress_street)){
-            $this->adress_street = null;
+        if(empty($address_street)){
+            $this->address_street = null;
         }else{
-            $this->adress_street = $adress_street;
+            $this->address_street = $address_street;
         }
 
         return $this;
@@ -196,19 +196,19 @@ class User implements iUser{
 
     public function getAdress_number()
     {
-        if(empty($this->adress_number)){
+        if(empty($this->address_number)){
             return "";
         }else{
-            return $this->adress_number;
+            return $this->address_number;
         }
     }
 
-    public function setAdress_number($adress_number)
+    public function setAdress_number($address_number)
     {
-        if(empty($adress_number)){
-            $this->adress_number = null;
+        if(empty($address_number)){
+            $this->address_number = null;
         }else{
-            $this->adress_number = $adress_number;
+            $this->address_number = $address_number;
         }
 
         return $this;
@@ -216,20 +216,20 @@ class User implements iUser{
 
     public function getAdress_extra()
     {
-        if(empty($this->adress_extra)){
+        if(empty($this->address_extra)){
             return "";
         }else{
-            return $this->adress_extra;
+            return $this->address_extra;
         }
     }
 
     
-    public function setAdress_extra($adress_extra)
+    public function setAdress_extra($address_extra)
     {
-        if(empty($adress_extra)){
-            $this->adress_extra = null;
+        if(empty($address_extra)){
+            $this->address_extra = null;
         }else{
-            $this->adress_extra = $adress_extra;
+            $this->address_extra = $address_extra;
         }
 
         return $this;
@@ -237,19 +237,19 @@ class User implements iUser{
 
     public function getAdress_city()
     {
-        if(empty($this->adress_city)){
+        if(empty($this->address_city)){
             return "";
         }else{
-            return $this->adress_city;
+            return $this->address_city;
         }
     }
 
-    public function setAdress_city($adress_city)
+    public function setAdress_city($address_city)
     {
-        if(empty($adress_city)){
-            $this->adress_city = null;
+        if(empty($address_city)){
+            $this->address_city = null;
         }else{
-            $this->adress_city = $adress_city;
+            $this->address_city = $address_city;
         }
 
         return $this;
@@ -257,19 +257,19 @@ class User implements iUser{
 
     public function getAdress_zip()
     {
-        if(empty($this->adress_zip)){
+        if(empty($this->address_zip)){
             return "";
         }else{
-            return $this->adress_zip;
+            return $this->address_zip;
         }
     }
 
-    public function setAdress_zip($adress_zip)
+    public function setAdress_zip($address_zip)
     {
-        if(empty($adress_zip)){
-            $this->adress_zip = null;
+        if(empty($address_zip)){
+            $this->address_zip = null;
         }else{
-            $this->adress_zip = $adress_zip;
+            $this->address_zip = $address_zip;
         }
 
         return $this;
@@ -277,19 +277,19 @@ class User implements iUser{
 
     public function getAdress_country()
     {
-        if(empty($this->adress_country)){
+        if(empty($this->address_country)){
             return "";
         }else{
-            return $this->adress_country;
+            return $this->address_country;
         }
     }
 
-    public function setAdress_country($adress_country)
+    public function setAdress_country($address_country)
     {
-        if(empty($adress_country)){
-            $this->adress_country = null;
+        if(empty($address_country)){
+            $this->address_country = null;
         }else{
-            $this->adress_country = $adress_country;
+            $this->address_country = $address_country;
         }
 
         return $this;
@@ -475,11 +475,11 @@ class User implements iUser{
             avatar = :avatar, 
             date_of_birth = :date_of_birth, 
             phone_number = :phone_number, 
-            adress_street = :adress_street, 
-            adress_number = :adress_number, 
-            adress_extra = :adress_extra, 
-            adress_zip = :adress_zip, 
-            adress_country = :adress_country,
+            address_street = :address_street, 
+            address_number = :address_number, 
+            address_extra = :address_extra, 
+            address_zip = :address_zip, 
+            address_country = :address_country,
             updated = CURRENT_TIMESTAMP
             WHERE id = :id
         ";
@@ -492,11 +492,11 @@ class User implements iUser{
         $stmt->bindParam(':avatar', $this->avatar);
         $stmt->bindParam(':date_of_birth', $this->date_of_birth);
         $stmt->bindParam(':phone_number', $this->phone_number);
-        $stmt->bindParam(':adress_street', $this->adress_street);
-        $stmt->bindParam(':adress_number', $this->adress_number);
-        $stmt->bindParam(':adress_extra', $this->adress_extra);
-        $stmt->bindParam(':adress_zip', $this->adress_zip);
-        $stmt->bindParam(':adress_country', $this->adress_country);
+        $stmt->bindParam(':address_street', $this->address_street);
+        $stmt->bindParam(':address_number', $this->address_number);
+        $stmt->bindParam(':address_extra', $this->address_extra);
+        $stmt->bindParam(':address_zip', $this->address_zip);
+        $stmt->bindParam(':address_country', $this->address_country);
 
         return $stmt->execute();
     }
