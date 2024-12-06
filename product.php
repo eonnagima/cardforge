@@ -7,6 +7,12 @@
     use Codinari\Cardforge\Review;
 
     $product = $_GET["p"] ?? null;
+
+    if(empty($product)){
+        header("Location: index.php");
+        exit();
+    }
+
     $product = Product::getByAlias($product);
     
     $franchise = Franchise::getById($product['franchise_id']);
