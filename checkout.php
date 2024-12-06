@@ -83,29 +83,29 @@
                         <section>
                             <div class="input-wrap">
                                 <label for="street">Street</label>
-                                <input type="text" id="street" name="street" placeholder="Kerkstraat">
+                                <input type="text" id="street" name="street" placeholder="Kerkstraat" required>
                             </div>
                             <div class="input-wrap">
                                 <label for="house_number">House Number</label>
-                                <input type="text" id="house_number" name="house_number" placeholder="50">
+                                <input type="text" id="house_number" name="house_number" placeholder="50" required>
                             </div>
                             <div class="input-wrap">
                                 <label for="adress_extra">Extra</label>
-                                <input type="text" id="adress_extra" name="adress_extra" placeholder="bus 3">
+                                <input type="text" id="adress_extra" name="adress_extra" placeholder="bus 3" required>
                             </div>
                             <div class="input-wrap">
                                 <label for="city">City</label>
-                                <input type="text" id="city" name="city" placeholder="Mechelen">
+                                <input type="text" id="city" name="city" placeholder="Mechelen" required>
                             </div>
                             <div class="input-wrap">
                                 <label for="zip">Zip Code</label>
-                                <input type="text" id="zip" name="zip" placeholder="2800">
+                                <input type="text" id="zip" name="zip" placeholder="2800" required>
                             </div>
                             <div class="input-wrap">
                                 <label for="country">Country</label>
-                                <select name="country" id="country">
+                                <select name="country" id="country" required>
                                     <!-- nothing option -->
-                                    <option value="" default>-- Select a country -- </option>
+                                    <option value="" default disabled>-- Select a country -- </option>
                                     <?php foreach($countryList as $code => $country):?>
                                         <option value="<?=$code?>" <?php if($code == $user->getAdress_country()) echo "selected";?>><?=$country?></option>
                                     <?php endforeach;?>
@@ -134,30 +134,29 @@
                         <div class="seperator"></div>
                         <section>
                             <div class="input-wrap">
-                                <label for="street">Street</label>
-                                <input type="text" id="street" name="street" value="<?=$user->getAdress_street()?>" placeholder="Kerkstraat">
+                                <label for="street">Street<span>*</span></label>
+                                <input type="text" id="street" name="street" value="<?=$user->getAdress_street()?>" placeholder="Kerkstraat" required>
                             </div>
                             <div class="input-wrap">
-                                <label for="house_number">House Number</label>
-                                <input type="text" id="house_number" name="house_number" value="<?=$user->getAdress_number()?>" placeholder="50">
+                                <label for="house_number">House Number<span>*</span></label>
+                                <input type="text" id="house_number" name="house_number" value="<?=$user->getAdress_number()?>" placeholder="50" required>
                             </div>
                             <div class="input-wrap">
                                 <label for="adress_extra">Extra</label>
-                                <input type="text" id="adress_extra" name="adress_extra" value="<?=$user->getAdress_extra()?>" placeholder="bus 3">
+                                <input type="text" id="adress_extra" name="adress_extra" value="<?=$user->getAdress_extra()?>" placeholder="bus 3" required>
                             </div>
                             <div class="input-wrap">
-                                <label for="city">City</label>
-                                <input type="text" id="city" name="city" value="<?=$user->getAdress_city()?>" placeholder="Mechelen">
+                                <label for="city">City<span>*</span></label>
+                                <input type="text" id="city" name="city" value="<?=$user->getAdress_city()?>" placeholder="Mechelen" required>
                             </div>
                             <div class="input-wrap">
-                                <label for="zip">Zip Code</label>
-                                <input type="text" id="zip" name="zip" value="<?=$user->getAdress_zip()?>" placeholder="2800">
+                                <label for="zip">Zip Code<span>*</span></label>
+                                <input type="text" id="zip" name="zip" value="<?=$user->getAdress_zip()?>" placeholder="2800" required>
                             </div>
                             <div class="input-wrap">
-                                <label for="country">Country</label>
-                                <select name="country" id="country">
-                                    <!-- nothing option -->
-                                    <option value="" default>-- Select a country -- </option>
+                                <label for="country">Country<span>*</span></label>
+                                <select name="country" id="country" required>
+                                    <option value="" default disabled>-- Select a country -- </option>
                                     <?php foreach($countryList as $code => $country):?>
                                         <option value="<?=$code?>" <?php if($code == $user->getAdress_country()) echo "selected";?>><?=$country?></option>
                                     <?php endforeach;?>
