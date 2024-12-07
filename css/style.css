@@ -925,3 +925,37 @@ footer section a{
 .order-details p{
     padding: 0;
 }
+
+.orders-wrap .order{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.order-details-wrap{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.order-details-wrap .order-product{
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.order-details-wrap .order-product div{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.order-details-wrap .order-product p{
+    padding: 0;
+}
+
+.order-img{
+    width: 50%;
+    height: 100%;
+    object-fit: contain;
+    object-position: top;
+}
