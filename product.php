@@ -147,7 +147,7 @@
 
                     if($review['anonymous'] == 0){
                         $reviewer = User::getById($review['user_id']);
-                        $reviewer = $reviewer['first_name'];
+                        $reviewer = htmlspecialchars($reviewer['first_name']);
                     }
                 ?>
                 <div class="seperator"></div>
@@ -163,7 +163,7 @@
                         <span class="date"><?=$formattedDate?></span>
                         <span class="verified">| Verified Purchase</span>
                     </section>
-                    <p><?=$review['text']?></p>
+                    <p><?=htmlspecialchars($review['text'])?></p>
                 </section>
             <?php endforeach;?>
         </section>

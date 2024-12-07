@@ -64,7 +64,8 @@
         <h2>Cardgames</h2>
         <section class="franchises">
             <a href="store.php">
-                <img src="" alt="All Franchises">
+                <img src="https://res.cloudinary.com/codinari/image/upload/v1733609745/best-trading-card-games-2024_lb6jll.webp" alt="All Products" class="all-franchises-img">
+                <h3>All Products</h3>
             </a>
             <?php foreach($allFranchises as $franchise): ?>
                 <a href="store.php?f=<?=htmlspecialchars($franchise['alias'])?>">
