@@ -6,6 +6,7 @@
     use Codinari\Cardforge\ProductImage;
     use Codinari\Cardforge\Review;
     use Codinari\Cardforge\OrderProduct;
+    use Codinari\Cardforge\User;
 
     $product = $_GET["p"] ?? null;
 
@@ -41,6 +42,8 @@
     }else{
         $userFirstName = "Anonymous";
     }
+
+    $allReviews = Review::getAllReviewsByProduct($product['alias']);
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -136,28 +139,33 @@
                     <a href="#" class="btn" id="post-review" data-product="<?=$product['alias']?>" data-user="<?=$userFirstName?>" data-email="<?=$user->getEmail()?>">Post Review</a>
                 </section>
             <?php endif;?>
-            <div class="seperator"></div>
-            <section class="review">
-                <section class="header">
-                    <div class="rating">
-                        <!-- font awesome rounded stars *5 -->
-                        <span class="fa fa-star"></span>
-                        <span class="fa fa-star"></span> 
-                        <span class="fa fa-star"></span> 
-                        <span class="fa fa-star"></span> 
-                        <!-- font awesome star without fill -->
-                        <span class="far fa-star"></span>
-                    </div>
-                    <span class="reviewer">Anonymous</span>
+            <?php foreach($allReviews as $review):?>
+                <?php
+                    $dateString = $review['created'];
+                    $date = new DateTime($dateString);
+                    $formattedDate = $date->format('d M Y');
+
+                    if($review['anonymous'] == 0){
+                        $reviewer = User::getById($review['user_id']);
+                        $reviewer = $reviewer['first_name'];
+                    }
+                ?>
+                <div class="seperator"></div>
+
+                <section class="review">
+                    <section class="header">
+                        <div class="rating">
+                            <?= Review::drawRating(intval($review['rating']))?>
+                        </div>
+                        <span class="reviewer"><?=$reviewer?></span>
+                    </section>
+                    <section class="info">
+                        <span class="date">$formattedDate</span>
+                        <span class="verified">| Verified Purchase</span>
+                    </section>
+                    <p><?=$review['text']?></p>
                 </section>
-                <section class="info">
-                    <span class="date">16 oct 2024</span>
-                    <span class="verified">| Verified Purchase</span>
-                </section>
-                <p>
-                    Fast Delivery, everything is in great condition! Would buy from again!
-                </p>
-            </section>
+            <?php endforeach;?>
         </section>
     </main>
     <?php include_once __DIR__."/includes/footer.inc.php";?>

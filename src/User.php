@@ -449,6 +449,16 @@ class User implements iUser{
 
         return $user;
     }
+
+    public static function getById($id){
+        $conn = Db::getConnection();
+        $stmt = $conn->prepare("SELECT * FROM users WHERE id = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $user = $stmt->fetch();
+
+        return $user;
+    }
     
     public static function isAdmin($email){
         $conn = Db::getConnection();
@@ -527,4 +537,5 @@ class User implements iUser{
 
         return $stmt->execute();
     }
+    
 }

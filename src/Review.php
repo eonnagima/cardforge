@@ -153,4 +153,18 @@ class Review{
 
         return $stars;
     }
+
+    public static function getAllReviewsByProduct($product){
+        $conn = Db::getConnection();
+
+        $query = "SELECT * FROM product_reviews WHERE product_id = (SELECT products.id FROM products WHERE products.alias = :product)";
+
+        $stmt = $conn->prepare($query);
+        $stmt->bindValue(':product', $product);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll();
+
+        return $result;
+    }
 }
