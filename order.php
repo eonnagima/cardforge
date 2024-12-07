@@ -46,6 +46,7 @@
                         <img src="<?=ProductImage::getPrimaryByProduct($product['alias'])['url']?>" alt="" class="cart-img">
                         <span class="product-name"><?=$product['name']?></span>
                         <span class="price">x<?=$orderProducts[$i]['quantity']?></span>
+                        <span class="price">€<?=floatval($orderProducts[$i]['quantity']) * floatval($product['price'])?></span>
                     </section>
                 <?php endforeach;?>
         </section>

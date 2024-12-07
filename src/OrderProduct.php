@@ -76,12 +76,12 @@ class OrderProduct{
     public static function getAllByOrder($order){
         $conn = Db::getConnection();
 
-        $query = "SELECT * FROM order_has_products WHERE order_id = (SELECT id FROM orders WHERE alias = :order)";
+        $query = "SELECT * FROM order_has_products WHERE order_id = (SELECT orders.id FROM orders WHERE orders.alias = :order)";
         
         $stmt = $conn->prepare($query);
         $stmt->bindValue(':order', $order);
         $stmt->execute();
-        $result = $stmt->fetchAll();
+        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
         return $result;
     }

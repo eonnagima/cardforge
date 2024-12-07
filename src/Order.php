@@ -283,4 +283,16 @@ class Order{
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
         return $result;
     }
+
+    public static function getAllByUser($user){
+        $conn = Db::getConnection();
+        $query = "SELECT * FROM orders WHERE user_id = (SELECT users.id FROM users WHERE users.email = :user)";
+
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(":user", $user);
+        $stmt->execute();
+        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        
+        return $result;
+    }
 }
