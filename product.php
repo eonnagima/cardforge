@@ -36,6 +36,12 @@
         }
     }
 
+    if($user->getFirst_name()){
+        $userFirstName = $user->getFirst_name();
+    }else{
+        $userFirstName = "Anonymous";
+    }
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,13 +59,7 @@
                 <span>/</span> 
                 <a href="store.php?f=<?=$franchise['alias']?>"><?=$franchise['name']?></a>
                 <span>/</span> 
-                <?php if(!empty($set)):?>
-                    <a href="store.php?c=<?=$category['alias']?>"><?=$category['name']?></a>
-                    <span>/</span> 
-                    <a class="current" class="current" href="store.php?c=<?=$category['alias']?>&s=<?=$set?>"><?=$set?></a>
-                <?php else:?>
-                    <a class="current" href="store.php?c=<?=$category['alias']?>"><?=$category['name']?></>
-                <?php endif;?>
+                <a class="current" href="store.php?c=<?=$category['alias']?>"><?=$category['name']?></>
             </nav>
             <section class="productGallery">
                 <div class="slideshow-container" data-autoplay="false">
@@ -84,7 +84,7 @@
                 </div>
             </section>
             <div class="price-like-wrap">
-                <span class="price"><?=$product['price']?></span>
+                <span class="price">€<?=number_format(floatval($product['price']), 2)?></span>
                 <!-- font awesome heart no fill -->
                 <a href="#" class="like far fa-heart" id="wishlist-btn"></a>
             </div>
@@ -114,10 +114,27 @@
             </section>
         <?php endif;?>
         <div class="seperator"></div>
-        <section class="product-section">
+        <section class="product-section" id="review-section">
             <h3>Reviews</h3>
             <?php if($hasOrdered):?>
-                <a href="#" class="btn">Write Review</a>
+                <a href="#" class="btn" id="write-review">Write Review</a>
+                <section class="review-input hidden">
+                    <label for="rating">Rating:</label>
+                    <select name="rating" id="rating">
+                        <option value="1">1 Star</option>
+                        <option value="2">2 Stars</option>
+                        <option value="3">3 Stars</option>
+                        <option value="4">4 Stars</option>
+                        <option value="5">5 Stars</option>
+                    </select>
+                    <label for="review-txt">Review:</label>
+                    <textarea name="review-txt" id="review-txt" cols="30" rows="10"></textarea>
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" name="anonymous" id="anonymous">
+                        <label for="verified">Post as Anonymous?</label>
+                    </div>
+                    <a href="#" class="btn" id="post-review" data-product="<?=$product['alias']?>" data-user="<?=$userFirstName?>" data-email="<?=$user->getEmail()?>">Post Review</a>
+                </section>
             <?php endif;?>
             <div class="seperator"></div>
             <section class="review">
@@ -145,48 +162,7 @@
     </main>
     <?php include_once __DIR__."/includes/footer.inc.php";?>
     <script src="./js/slider.js"></script>
-    <script>
-        document.querySelector("#add-to-cart").addEventListener('click', function(e) {
-            e.preventDefault();
-
-            // Retrieve the product alias from the button's dataset
-            var productAlias = this.dataset.productAlias;
-            
-            // Create a new XMLHttpRequest object
-            var xhr = new XMLHttpRequest();
-            
-            // Configure the AJAX request
-            xhr.open('POST', 'ajax/add_to_cart.php', true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            
-            // Define a function to handle the server response
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        try {
-                            // Parse the JSON response from the server
-                            var response = JSON.parse(xhr.responseText);
-                            // Update the cart count in the header
-                            document.getElementById('cart-count').innerText = response.cartCount;
-                            // Log debugging information
-                            console.log('Debug info:', response.debug);
-                        } catch (e) {
-                            console.error('Error parsing JSON response:', e);
-                            console.error('Response text:', xhr.responseText);
-                        }
-                    } else {
-                        console.error('Request failed with status:', xhr.status);
-                        console.error('Response text:', xhr.responseText);
-                    }
-                }
-            };
-            
-            // Send the AJAX request with the product alias in JSON format
-            xhr.send(JSON.stringify({ product_alias: productAlias }));
-
-            document.querySelector("#go-to-cart").classList.toggle('hidden');
-            document.querySelector("#add-to-cart").classList.toggle('hidden');
-        });
-    </script>
+    <script src="./js/addToCart.js"></script>
+    <script src="./js/review.js"></script>
 </body>
 </html> 

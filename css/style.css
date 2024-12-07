@@ -124,10 +124,6 @@ header nav:nth-child(2) {
     border: 2px solid var(--red-hover)
 }
 
-.hidden{
-    display: none;
-}
-
 .header-cart{
     width: 24px;
     height: 24px;
@@ -582,9 +578,13 @@ footer section a{
 
 /*Form*/
 
-.form{
+.form, .review-input{
     display: flex;
     flex-direction: column;
+}
+
+.review-input{
+    gap: 16px;
 }
 
 .form section{
@@ -600,12 +600,17 @@ footer section a{
     gap: 8px;
 }
 
-.form label, .form .label{
+.form label, .form .label, .review-input label{
     color: var(--grey);
     text-transform: uppercase;
     font-size: 1.5em;
     font-weight: regular;
     line-height: 1em;
+}
+
+.review-input label{
+    font-size: 1.25em;
+    color: var(--dark-grey);
 }
 
 .form label span, .form .label span{
@@ -625,7 +630,7 @@ footer section a{
     font-family: "FontinSans", sans-serif;
 }
 
-.form textarea{
+.form textarea, .review-input textarea{
     padding: 12px 8px;
     border: 2px solid var(--grey);
     border-radius: 8px;
@@ -634,12 +639,16 @@ footer section a{
     height: 160px;
 }
 
-.form select, .product-filters select{
+.form select, .product-filters select, .review-input select{
     padding: 12px 8px;
     border: 2px solid var(--grey);
     border-radius: 8px;
     font-family: "FontinSans", sans-serif;
     background-color: #fff;
+}
+
+.review-input select{
+    width: 100px;
 }
 
 .form input[type="date"]{
@@ -965,4 +974,10 @@ footer section a{
     height: 100%;
     object-fit: contain;
     object-position: top;
+}
+
+/*hidden*/
+
+.hidden{
+    display: none;
 }

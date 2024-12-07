@@ -97,12 +97,11 @@ class Review{
         )';
 
         $stmt = $conn->prepare($query);
-        $stmt->bindValue(':user_id', $user);
-        $stmt->bindValue(':product_id', $product);
+        $stmt->bindValue(':user', $user);
+        $stmt->bindValue(':product', $product);
         $stmt->bindValue(':rating', $this->rating);
         $stmt->bindValue(':text', $this->text);
         $stmt->bindValue(':anonymous', $this->anonymous);
-        $stmt->bindValue(':date', $this->date);
 
         $result = $stmt->execute();
 
