@@ -27,6 +27,7 @@ class User implements iUser{
     protected $wallet;
 
     use Traits\ImageUploadTrait;
+    use Traits\isImageTrait;
 
     public function getId()
     {
@@ -110,14 +111,6 @@ class User implements iUser{
 
     public function setAvatar($avatar)
     {
-        if(empty($avatar)){
-            $avatar = "https://res.cloudinary.com/codinari/image/upload/v1732362678/rxtz6j9unmhj7wliqdya.jpg";
-        }
-
-        //check if $avatar is url
-        if (!filter_var($avatar, FILTER_VALIDATE_URL)) {
-            throw new \Exception("Invalid avatar url");
-        }
 
         $this->avatar = $avatar;
         return $this;
@@ -332,7 +325,7 @@ class User implements iUser{
         if (empty($password)) {
             throw new \Exception("Password can't be empty");
         } else {
-            $this->validatePassword($password);
+            //$this->validatePassword($password);
             $this->password = $password;
             return $this;
         }

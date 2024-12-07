@@ -20,7 +20,7 @@
                     throw new \Exception("Please upload an image file");
                 }
                 $logoUrl = $franchise->imageUpload($filePath);
-                $franchise->setImage($logoUrl);
+                $franchise->setImage(image: $logoUrl);
             }else{
                 throw new \Exception("Error uploading logo: " . $_FILES['logo']['error']);
             }

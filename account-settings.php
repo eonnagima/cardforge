@@ -9,17 +9,11 @@
         try{
             if(isset($_FILES['avatar']) && $_FILES['avatar']['error'] == UPLOAD_ERR_OK){
                 $filePath = $_FILES['avatar']['tmp_name'];
-                $newAvatar = $userUpdate->imageUpload($filePath);
+                if(!$user->isImage($filePath)){
+                    throw new \Exception("Please upload an image file");
+                }
+                $newAvatar = $user->imageUpload($filePath);
                 $user->setAvatar($newAvatar);
-                  
-                // $destinationPath = __DIR__."/assets/test/".basename($_FILES['avatar']['name']);
-                // if(move_uploaded_file($filePath, $destinationPath)){
-                //     // Display the image from the new location
-                //     $webPath = 'assets/test/' . basename($_FILES['avatar']['name']);
-                //     echo "<img src='$webPath' alt='' style='width: 100px; height: 100px;'>";
-                // }else{
-                //     $error = x"<img src='$webPath' alt='' style='width: 100px; height: 100px;'>";
-                // }
 
             }
             if(!empty($_POST['email'])){
@@ -68,7 +62,7 @@
                         <label for="avatar" class=" img-label">
                             <i class="fas fa-image"></i>
                         </label>
-                        <input type="file" id="avatar" name="avatar" accept="image/*">
+                        <input type="file" id="avatar" name="avatar" accept="image/*" class="input-image">
                     </div>
                 </div>
             </section>
@@ -80,4 +74,6 @@
         </form>
     </main>
     <?php include_once __DIR__."/includes/footer.inc.php";?>
+    <script src="./js/imageFeedback.js"></script>
 </body>
+</html>

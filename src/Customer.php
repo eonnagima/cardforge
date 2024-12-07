@@ -19,8 +19,11 @@ class Customer extends User{
         $stmt = $conn->prepare("INSERT INTO users (email, password) VALUES (:email, :password)");
         $stmt->bindParam(":email", $this->email);
         $stmt->bindParam(":password", $hash);
+        
         try{
-            return $stmt->execute();
+            $stmt->execute();
+            $this->login();
+            header("Location: index.php");
         }catch(\PDOException $e){
             throw new \Exception("Error: ".$e->getMessage());
         }
