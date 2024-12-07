@@ -160,7 +160,7 @@
                         <span class="reviewer"><?=$reviewer?></span>
                     </section>
                     <section class="info">
-                        <span class="date">$formattedDate</span>
+                        <span class="date"><?=$formattedDate?></span>
                         <span class="verified">| Verified Purchase</span>
                     </section>
                     <p><?=$review['text']?></p>
