@@ -86,7 +86,7 @@ class Category{
         $stmt = $conn->prepare($query);
         $stmt->execute();
 
-        $categories = $stmt->fetchAll();
+        $categories = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
         return $categories;
     }
@@ -100,7 +100,7 @@ class Category{
         $stmt->bindValue(':franchise', $franchise);
         $stmt->execute();
 
-        $categories = $stmt->fetchAll();
+        $categories = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
         return $categories;
     }
@@ -114,7 +114,21 @@ class Category{
         $stmt->bindValue(':id', $id);
         $stmt->execute();
 
-        $category = $stmt->fetch();
+        $category = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        return $category;
+    }
+
+    public static function getByAlias($alias){
+        $conn = Db::getConnection();
+
+        $query = 'SELECT * FROM categories WHERE alias = :alias';
+
+        $stmt = $conn->prepare($query);
+        $stmt->bindValue(':alias', $alias);
+        $stmt->execute();
+
+        $category = $stmt->fetch(\PDO::FETCH_ASSOC);
 
         return $category;
     }

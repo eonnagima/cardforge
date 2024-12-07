@@ -279,7 +279,7 @@ class Product{
     public static function getAllByFranchise($franchise){
         $conn = Db::getConnection();
         //query with inner join between products and franchises
-        $query = "SELECT products.* FROM products INNER JOIN franchises ON products.franchise_id = franchises.id WHERE franchises.alias = :franchise";
+        $query = "SELECT products.* FROM products WHERE (SELECT franchises.id FROM franchises WHERE franchises.alias = :franchise) = products.franchise_id";
 
         $stmt = $conn->prepare($query);
         $stmt->bindParam(":franchise", $franchise);
@@ -334,5 +334,63 @@ class Product{
         }else{
             throw new \Exception("No new arrivals found");
         }
+    }
+
+    public static function getAllSortBy($sort){
+        $conn = Db::getConnection();
+
+        switch($sort){
+            case "newest":
+                $sort = "created DESC";
+                break;
+            case "oldest":
+                $sort = "created ASC";
+                break;
+            case "cheapest":
+                $sort = "price ASC";
+                break;
+            case "expensive":
+                $sort = "price DESC";
+                break;
+            default:
+        }
+        
+        $query = "SELECT * FROM products ORDER BY $sort";
+
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public static function getAllByFranchiseSortBy($franchise, $sort){
+        $conn = Db::getConnection();
+
+        switch($sort){
+            case "newest":
+                $sort = "created DESCENDING";
+                break;
+            case "oldest":
+                $sort = "created ASCENDING";
+                break;
+            case "cheapest":
+                $sort = "price ASCENDING";
+                break;
+            case "expensive":
+                $sort = "price DESCENDING";
+                break;
+            default:
+        }
+        
+        $query = "SELECT * FROM products WHERE frachise_id = 
+            (SELECT franchises.id FROM franchises WHERE franchises.alias = :franchise)
+            ORDER BY $sort"
+        ;
+
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(":franchise", $franchise);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 }
