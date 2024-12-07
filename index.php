@@ -4,7 +4,7 @@
     use Codinari\Cardforge\Product;
     use Codinari\Cardforge\ProductImage;
 
-    $allFranchises = Franchise::getAll();
+    $allFranchises = Franchise::getAllExceptEverything();
     $newArrivals = Product::getNewArrivals();
 ?><!DOCTYPE html>
 <html lang="en">
@@ -63,6 +63,9 @@
         </section>
         <h2>Cardgames</h2>
         <section class="franchises">
+            <a href="store.php">
+                <img src="" alt="All Franchises">
+            </a>
             <?php foreach($allFranchises as $franchise): ?>
                 <a href="store.php?f=<?=htmlspecialchars($franchise['alias'])?>">
                     <img src="<?=$franchise['img']?>" alt="<?=htmlspecialchars($franchise['name'])?>">

@@ -136,7 +136,6 @@
     <script>
         document.querySelector("#add-to-cart").addEventListener('click', function(e) {
             e.preventDefault();
-            console.log('clicked');
 
             // Retrieve the product alias from the button's dataset
             var productAlias = this.dataset.productAlias;

@@ -414,6 +414,13 @@ main{
     cursor: pointer;
 }
 
+.product-filters{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
 /* Footer */
 
 footer{
@@ -627,7 +634,7 @@ footer section a{
     height: 160px;
 }
 
-.form select{
+.form select, .product-filters select{
     padding: 12px 8px;
     border: 2px solid var(--grey);
     border-radius: 8px;
