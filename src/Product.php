@@ -368,21 +368,21 @@ class Product{
 
         switch($sort){
             case "newest":
-                $sort = "created DESCENDING";
+                $sort = "created DESC";
                 break;
             case "oldest":
-                $sort = "created ASCENDING";
+                $sort = "created ASC";
                 break;
             case "cheapest":
-                $sort = "price ASCENDING";
+                $sort = "price ASC";
                 break;
             case "expensive":
-                $sort = "price DESCENDING";
+                $sort = "price DESC";
                 break;
             default:
         }
         
-        $query = "SELECT * FROM products WHERE frachise_id = 
+        $query = "SELECT * FROM products WHERE franchise_id = 
             (SELECT franchises.id FROM franchises WHERE franchises.alias = :franchise)
             ORDER BY $sort"
         ;
