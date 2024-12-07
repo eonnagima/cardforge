@@ -5,6 +5,7 @@
     use Codinari\Cardforge\Category;
     use Codinari\Cardforge\ProductImage;
     use Codinari\Cardforge\Review;
+    use Codinari\Cardforge\OrderProduct;
 
     $product = $_GET["p"] ?? null;
 
@@ -26,6 +27,14 @@
     $images = ProductImage::getOtherImagesByProduct($product['alias']);
 
     $imageCount = count($images) +1;
+
+    $hasOrdered = false;
+
+    if($user){
+        if(OrderProduct::hasOrdered($user->getEmail(), $product['alias'])){
+            $hasOrdered = true;
+        }
+    }
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -107,6 +116,9 @@
         <div class="seperator"></div>
         <section class="product-section">
             <h3>Reviews</h3>
+            <?php if($hasOrdered):?>
+                <a href="#" class="btn">Write Review</a>
+            <?php endif;?>
             <div class="seperator"></div>
             <section class="review">
                 <section class="header">

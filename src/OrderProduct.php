@@ -3,6 +3,7 @@
 namespace Codinari\Cardforge;
 
 use Codinari\Cardforge\Db;
+use Codinari\Cardforge\Order;
 
 class OrderProduct{
     private $order;
@@ -84,5 +85,30 @@ class OrderProduct{
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
         return $result;
+    }
+
+    public static function hasOrdered($user, $product){
+        $allOrders = Order::getAllByUser($user);
+
+        $conn = Db::getConnection();
+
+        $query = "SELECT * FROM order_has_products WHERE order_id = 
+        (SELECT id FROM orders WHERE email = :user) 
+        AND product_id = 
+        (SELECT id FROM products WHERE alias = :product)";
+
+        foreach($allOrders as $order){
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':user', $user);
+            $stmt->bindParam(':product', $product);
+            $stmt->execute();
+            $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+            if($result){
+                return true;
+            }
+        }
+
+        return false;
     }
 }
