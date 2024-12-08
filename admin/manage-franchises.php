@@ -43,8 +43,9 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Franchise Name</th>
-                        <th>Franchise Logo</th>
+                        <th>Name</th>
+                        <th>Logo</th>
+                        <th>Alias</th>
                         <th>Created</th>
                         <th>Updated</th>
                         <th>Actions</th>
@@ -55,6 +56,7 @@
                         <tr>
                             <td><?=$franchise['name']?></td>
                             <td class="table-img"><img src="<?=$franchise['img']?>" alt="<?=$franchise['name']?>"></td>
+                            <td><?=$franchise['alias']?></td>
                             <td><?=$franchise['created']?></td>
                             <td><?=$franchise['updated']?></td>
                             <td class="table-actions">

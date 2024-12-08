@@ -164,4 +164,25 @@ class Franchise implements iFranchise{
         $stmt->bindParam(":id", $id);
         return $stmt->execute();
     }
+
+    public function update($id){
+        $conn = Db::getConnection();
+        $stmt = $conn->prepare("UPDATE franchises SET 
+            name = :name, 
+            alias = :alias, 
+            img = :image,
+            updated = CURRENT_TIMESTAMP
+            WHERE id = :id");
+
+        $stmt->bindParam(":name", $this->name);
+        $stmt->bindParam(":alias", $this->alias);
+        $stmt->bindParam(":image", $this->image);
+        $stmt->bindParam(":id", $id);
+
+        try{
+            return $stmt->execute();
+        }catch(\PDOException $e){
+            throw new \Exception("Error: ".$e->getMessage());
+        }
+    }
 }
