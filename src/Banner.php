@@ -12,6 +12,8 @@ class Banner{
     private $logo_alt;
     private $active;
 
+    use Traits\ImageUploadTrait;
+    use Traits\IsImageTrait;
 
     public function getImg()
     {

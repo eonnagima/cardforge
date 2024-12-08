@@ -10,7 +10,7 @@
     </nav>
     <nav class="account-nav">
         <a href="../index.php">Back to Home</a>
-        <a href="./admin/dashboard.php">Admin Dashboard</a>
+        <a href="./dashboard.php">Admin Dashboard</a>
         <a href="../myaccount.php">My account</a>
         <div class="seperator"></div>
         <a class="btn" href="../logout.php">Logout</a>

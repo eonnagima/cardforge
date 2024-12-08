@@ -27,7 +27,7 @@ class User implements iUser{
     protected $wallet;
 
     use Traits\ImageUploadTrait;
-    use Traits\isImageTrait;
+    use Traits\IsImageTrait;
 
     public function getId()
     {

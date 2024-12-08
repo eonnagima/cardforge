@@ -11,7 +11,7 @@ class Franchise implements iFranchise{
     private $image;
 
     use Traits\ImageUploadTrait;
-    use Traits\isImageTrait;
+    use Traits\IsImageTrait;
 
     public function getName()
     {
