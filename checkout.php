@@ -63,6 +63,10 @@
                 $result = $orderProduct->save();
             }
 
+            foreach($cart as $item){
+                Product::updateStock($item, 1);
+            }
+
             $userWallet = $userWallet - $total;
             $user->setWallet($userWallet);
 

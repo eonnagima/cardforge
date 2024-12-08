@@ -419,4 +419,20 @@ class Product{
             throw new \Exception("Sorry, but we couldn't find any products based on your search");
         }
     }
+
+    public static function updateStock($product, $quantity){
+        $conn = Db::getConnection();
+
+        $query = "UPDATE products SET 
+            stock = stock - :quantity,
+            updated = CURRENT_TIMESTAMP
+            WHERE id = (SELECT id FROM products WHERE alias = :product)
+        ";
+
+        $stmt = $conn->prepare($query);
+
+        $stmt->bindParam(":quantity", $quantity);
+        $stmt->bindParam(":product", $product);
+        $stmt->execute();
+    }
 }
