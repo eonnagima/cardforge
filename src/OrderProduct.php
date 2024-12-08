@@ -92,23 +92,20 @@ class OrderProduct{
 
         $conn = Db::getConnection();
 
-        $query = "SELECT * FROM order_has_products WHERE order_id = 
-        (SELECT id FROM orders WHERE email = :user) 
-        AND product_id = 
-        (SELECT id FROM products WHERE alias = :product)";
+        $query = "SELECT 1 
+            FROM orders o
+            JOIN order_has_products ohp ON o.id = ohp.order_id
+            JOIN products p ON ohp.product_id = p.id
+            WHERE o.email = :user AND p.alias = :product
+            LIMIT 1
+        ";
 
-        foreach($allOrders as $order){
-            $stmt = $conn->prepare($query);
-            $stmt->bindParam(':user', $user);
-            $stmt->bindParam(':product', $product);
-            $stmt->execute();
-            $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(':user', $user);
+        $stmt->bindParam(':product', $product);
+        $stmt->execute();
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
 
-            if($result){
-                return true;
-            }
-        }
-
-        return false;
+        return $result ? true : false;
     }
 }

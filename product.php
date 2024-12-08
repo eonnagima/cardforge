@@ -31,17 +31,18 @@
 
     $hasOrdered = false;
 
-    if($user){
+    if(!empty($user)){
         if(OrderProduct::hasOrdered($user->getEmail(), $product['alias'])){
             $hasOrdered = true;
         }
-    }
 
-    if($user->getFirst_name()){
-        $userFirstName = $user->getFirst_name();
-    }else{
-        $userFirstName = "Anonymous";
+        if($user->getFirst_name()){
+            $userFirstName = $user->getFirst_name();
+        }else{
+            $userFirstName = "Anonymous";
+        }
     }
+   
 
     $allReviews = Review::getAllReviewsByProduct($product['alias']);
 
