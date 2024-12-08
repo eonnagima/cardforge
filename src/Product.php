@@ -435,4 +435,48 @@ class Product{
         $stmt->bindParam(":product", $product);
         $stmt->execute();
     }
+
+    public static function delete($id){
+        $conn = Db::getConnection();
+        $stmt = $conn->prepare("DELETE FROM products WHERE id = :id");
+        $stmt->bindValue(":id", $id);
+        return $stmt->execute();
+    }
+
+    public function update($id){
+        $conn = Db::getConnection();
+
+        $query = "UPDATE products SET
+            name = :name,
+            description, :description,
+            details, :details,
+            alias = :alias,
+            price = :price,
+            stock = :stock,
+            franchise_id = (SELECT franchise.id WHERE franchise.alias = :franchise),
+            category_id = (SELECT category.id WHERE category.alias = :category),
+            set_name = :set_name,
+            release_date = :release_date,
+            updated = CURRENT_TIMESTAMP
+        ";
+
+        $stmt = $conn->prepare($query);
+
+        $stmt->bindParam(":name", $this->name);
+        $stmt->bindParam(":description", $this->description);
+        $stmt->bindParam(":details", $this->details);
+        $stmt->bindParam(":alias", $this->alias);
+        $stmt->bindParam(":price", $this->price);
+        $stmt->bindParam(":stock", $this->stock);
+        $stmt->bindParam(":franchise", $this->franchise);
+        $stmt->bindParam(":category", $this->category);
+        $stmt->bindParam(":set_name", $this->setName);
+        $stmt->bindParam(":release_date", $this->releaseDate);
+
+        try{
+            return $stmt->execute();
+        }catch(\PDOException $e){
+            throw new \Exception("Error: ".$e->getMessage());
+        }
+    }
 }
