@@ -132,4 +132,32 @@ class Category{
 
         return $category;
     }
+
+    public static function delete($id){
+        $conn = Db::getConnection();
+
+        $query = 'DELETE FROM categories WHERE id = :id';
+
+        $stmt = $conn->prepare($query);
+        $stmt->bindValue(':id', $id);
+        return $stmt->execute();
+    }
+
+    public function update($id){
+        $conn = Db::getConnection();
+
+        $query = 'UPDATE categories SET 
+            name = :name, 
+            alias = :alias, 
+            franchise_id = (SELECT franchises.id FROM franchises WHERE franchises.alias = :franchise)
+            WHERE id = :id';
+
+        $stmt = $conn->prepare($query);
+        $stmt->bindValue(':name', $this->name);
+        $stmt->bindValue(':alias', $this->alias);
+        $stmt->bindValue(':franchise', $this->franchise);
+        $stmt->bindValue(':id', $id);
+
+        return $stmt->execute();
+    }
 }

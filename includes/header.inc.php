@@ -22,6 +22,9 @@
             <a class="btn" href="login.php">Login</a>
             <a class="btn btn--secondary" href="signup.php">Signup</a>
         <?php else:?>
+            <?php if($user->getRole() === "admin"):?>
+                <a href="admin/dashboard.php">Admin Dashboard</a>
+            <?php endif;?>
             <a href="myaccount.php">My account</a>
             <a href="cart.php">Cart</a>
             <a href="orders.php">My orders</a>
