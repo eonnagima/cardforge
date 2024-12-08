@@ -45,3 +45,12 @@ if(User::validateLogin()){
     $user->setAdress_zip($userData['address_zip']);
     $user->setAdress_country($userData['address_country']);
 }
+
+
+if(!empty($_POST)){
+    if(isset($_POST['search-btn'])){
+        $searchRequest = $_POST['search-request'];
+        header("Location: search.php?r=$searchRequest");
+        exit();
+    }
+}

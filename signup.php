@@ -11,7 +11,7 @@
     
             if($result){
                 $user->login();
-                //$user->loginRedirect();
+                $user->loginRedirect();
             }
         }catch(\Throwable $th){
             $error = $th->getMessage();

@@ -22,8 +22,6 @@ class Customer extends User{
         
         try{
             $stmt->execute();
-            $this->login();
-            header("Location: index.php");
         }catch(\PDOException $e){
             throw new \Exception("Error: ".$e->getMessage());
         }

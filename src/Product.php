@@ -393,4 +393,30 @@ class Product{
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public static function getAllBySearch($searchRequest){
+        // convert search request to lowercase
+        $searchRequest = strtolower($searchRequest);
+        $searchRequest = "%".$searchRequest."%";
+
+        $conn = Db::getConnection();
+        
+        $query = "SELECT * FROM products WHERE 
+            LOWER(name) LIKE :searchRequest1 OR
+            LOWER(description) LIKE :searchRequest2 OR
+            LOWER(alias) LIKE :searchRequest3";
+
+        $stmt = $conn->prepare($query);
+        $stmt->bindValue(":searchRequest1", $searchRequest);
+        $stmt->bindValue(":searchRequest2", $searchRequest);
+        $stmt->bindValue(":searchRequest3", $searchRequest);
+        $stmt->execute();
+        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        if($result){
+            return $result;
+        }else{
+            throw new \Exception("Sorry, but we couldn't find any products based on your search");
+        }
+    }
 }

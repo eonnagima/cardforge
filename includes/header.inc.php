@@ -14,7 +14,7 @@
         </a>
         <form class="search-bar" method="post" action="">
             <input type="text" name="search-request" placeholder="I'm looking for...">
-            <input type="submit" value="" class="search-icon">
+            <input type="submit" name="search-btn" value="" class="search-icon" class="search-btn">
         </form>
     </nav>
     <nav class="account-nav">

@@ -993,6 +993,13 @@ footer section a{
     object-position: top;
 }
 
+/*search*/
+
+.search-request{
+    color: var(--grey);
+    text-transform: initial;
+}
+
 /*hidden*/
 
 .hidden{
