@@ -35,7 +35,7 @@
             <section>
                 <div>
                     <h3>Current Balance</h3>
-                    <span>€<?=$user->getWallet()?></span>
+                    <span>€<?=number_format(floatval($user->getWallet()),2)?></span>
                 </div>
                 <div class="input-wrap">
                     <label for="ammount">Choose ammount</label>

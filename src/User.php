@@ -530,5 +530,19 @@ class User implements iUser{
 
         return $stmt->execute();
     }
+
+    public function withdrawFromWallet($ammount){
+        $conn = Db::getConnection();
+
+        $this->wallet -= $ammount;
+
+        $query = "UPDATE users SET wallet = :wallet WHERE id = :id";
+
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':wallet', $this->wallet);
+
+        return $stmt->execute();
+    }
     
 }

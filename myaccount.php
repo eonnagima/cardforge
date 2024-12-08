@@ -22,7 +22,7 @@
             <h2>Wallet</h2>
             <div>
                 <h3>Balance</h3>
-                <span>€<?=$user->getWallet()?></span>
+                <span>€<?=number_format(floatval($user->getWallet()),2)?></span>
             </div>
             <a href="top-up-wallet.php" class="btn">Top Up</a>
         <div class="seperator"></div>

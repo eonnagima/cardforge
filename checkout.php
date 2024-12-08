@@ -63,8 +63,7 @@
                 $result = $orderProduct->save();
             }
 
-            $userWallet = floatval($userWallet) - floatval($total);
-            $user->setWallet($userWallet);
+            $user->withdrawFromWallet($total);
 
             $_SESSION['cart'] = [];
 
