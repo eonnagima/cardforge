@@ -10,8 +10,13 @@
     $franchise = $_GET['id'];
 
     if(!empty($franchise)){
-        Franchise::delete($franchise);
-        header("Location: ./manage-franchises.php");
+        $result = Franchise::delete($franchise);
+        if(!$result){
+            header("Location: ./manage-franchises.php?error=".urlencode("Error deleting franchise"));
+            exit();
+        }else{
+            header("Location: ./manage-franchises.php?success=".urlencode("Franchise deleted successfully"));
+            exit();
+        }
     }
-
 ?>

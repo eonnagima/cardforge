@@ -7,6 +7,14 @@
         exit();
     }
 
+    if(!empty($_GET['error'])){
+        $error = $_GET['error'];
+    }
+
+    if(!empty($_GET['success'])){
+        $success = $_GET['success'];
+    }
+
     try{
         $allFranchises = Franchise::getAll();
     }catch(\Throwable $th){
@@ -28,6 +36,9 @@
         <?php if(isset($error)):?>
             <div class="error"><?=$error;?></div>
         <?php endif;?>
+        <?php if(isset($_GET['success'])): ?>
+            <div class="success"><?= htmlspecialchars($_GET['success']); ?></div>
+        <?php endif; ?>
         <section class="table-wrap">
             <table class="table">
                 <thead>
