@@ -110,6 +110,17 @@ class ProductImage{
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public static function getAllByProductId($product){
+        $conn = Db::getConnection();
+
+        $query = "SELECT * FROM product_images WHERE product_id = :product";
+
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(":product", $product);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     public static function getPrimaryByProduct($product){
         $conn = Db::getConnection();
 
@@ -153,5 +164,32 @@ class ProductImage{
         }else{
             throw new \Exception("Failed to delete image");
         }
+    }
+
+    public static function updatePrimary($product, $image){
+        $allImages = self::getAllByProductId($product);
+
+        foreach($allImages as $img){
+            if($img['id'] == $image){
+                $conn = Db::getConnection();
+
+                $query = "UPDATE product_images SET primary_image = 1 WHERE id = :id";
+
+                $stmt = $conn->prepare($query);
+                $stmt->bindParam(":id", $image);
+                $result = $stmt->execute();
+
+            }else{
+                $conn = Db::getConnection();
+
+                $query = "UPDATE product_images SET primary_image = 0 WHERE id = :id";
+
+                $stmt = $conn->prepare($query);
+                $stmt->bindParam(":id", $img['id']);
+                $stmt->execute();
+            }
+        }
+
+        return $result;
     }
 }

@@ -13,6 +13,10 @@
 
     $productId = intval($_GET['id']) ?? null;
 
+    if(isset($_GET['error'])){
+        $error = $_GET['error'];
+    }
+
     if(!empty($productId)){
         $productData = Product::getById(intval($productId));
 
@@ -209,8 +213,8 @@
                                 <td><?=$image['primary_image'] == 1 ? "True" : "False"?></td>
                                 <td><?=$image['created']?></td>
                                 <td>
-                                    <a href="./make-primary-image.php?id=<?=$image['id']?>?product=<?=$image['product_id']?>" class="btn btn-small">Make Primary</a>
-                                    <a href="./delete-product-image.php?id=<?=$image['id']?>?product=<?=$image['product_id']?>" class="btn btn--delete">Delete</a>
+                                    <a href="./make-primary-image.php?id=<?=$image['id']?>&product=<?=$image['product_id']?>" class="btn btn-small">Make Primary</a>
+                                    <a href="./delete-product-image.php?id=<?=$image['id']?>&product=<?=$image['product_id']?>" class="btn btn--delete">Delete</a>
                                 </td>
                             </tr>
                         <?php endforeach;?>

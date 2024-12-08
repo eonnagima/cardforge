@@ -13,10 +13,13 @@
     if(!empty($productImage)){
         $result = ProductImage::delete($productImage);
         if(!$result){
-            header("Location: ./manage-products.php?id=".$product."?error=".urlencode("Error deleting product image"));
+            header("Location: ./manage-products.php?id=".$product."&error=".urlencode("Error deleting product image"));
             exit();
         }else{
-            header("Location: ./manage-products.php?id=".$product."?success=".urlencode("Product image deleted successfully"));
+            header("Location: ./manage-products.php?id=".$product."&success=".urlencode("Product image deleted successfully"));
             exit();
         }
+    }else{
+        header("Location: ./manage-products.php?id=".$product."&error=".urlencode("Error deleting product image"));
+        exit();
     }
