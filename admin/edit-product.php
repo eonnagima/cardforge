@@ -44,41 +44,39 @@
     $allFranchises = Franchise::getAllExceptEverything();
     $allCategories = Category::getAll();
 
-    if(!empty($_POST)){
+    // save edit of product
+
+    if(!empty($_POST) && isset($_POST['save-edit'])){
         try{
-            $product = new Product();
-            $product->setName($_POST['name']);
-            $product->setDescription($_POST['description']);
-            $product->setDetails($_POST['details']);
-            $product->setAlias(null);
-            $product->setPrice($_POST['price']);
-            $product->setStock($_POST['stock']);
-            $product->setFranchise($_POST['franchise']);
-            $product->setCategory($_POST['category']); 
-            $product->setSetName($_POST['setName']);
-            $product->setReleaseDate($_POST['releaseDate']);    
-            
-            $result = $product->save();
-
-            if(!$result){
-                throw new \Exception("Error saving product");
+            if(!empty($_POST['name'])){
+                $product->setName($_POST['name']);
+            }
+            if(!empty($_POST['description'])){
+                $product->setDescription($_POST['description']);
+            }
+            if(!empty($_POST['details'])){
+                $product->setDetails($_POST['details']);
+            }
+            if(!empty($_POST['franchise'])){
+                $product->setFranchise($_POST['franchise']);
+            }
+            if(!empty($_POST['category'])){
+                $product->setCategory($_POST['category']);
+            }
+            if(!empty($_POST['setName'])){
+                $product->setSetName($_POST['setName']);
+            }
+            if(!empty($_POST['releaseDate'])){
+                $product->setReleaseDate($_POST['releaseDate']);
+            }
+            if(!empty($_POST['price'])){
+                $product->setPrice($_POST['price']);
+            }
+            if(!empty($_POST['stock'])){
+                $product->setStock($_POST['stock']);
             }
 
-            if(isset($_FILES['primary-image']) && $_FILES['primary-image']['error'] == UPLOAD_ERR_OK){
-                $image = new ProductImage();
-                $filePath = $_FILES['primary-image']['tmp_name'];
-                if(!$image->IsImage($filePath)){
-                    throw new \Exception("Please upload an image file");
-                }
-                $imageUrl = $image->imageUpload($filePath);
-                $image->setUrl($imageUrl);
-                $image->setPrimaryImg(1);
-                $image->setAlt($product->getName());
-                $image->setProduct($product->getAlias());
-                $image->save();
-            }else {
-                throw new \Exception("Error uploading primary image: " . $_FILES['primary-image']['error']);
-            }
+            $result = $product->update($productId);
 
             if(isset($_FILES['images'])){
                 foreach($_FILES['images']['error'] as $key => $error){
@@ -101,10 +99,10 @@
                     }
                 }
             }
-    
+
             if($result){
-                $success = "New product was added successfully";
-                header("Location: " . $_SERVER['PHP_SELF'] . "?success=" . urlencode($success));
+                $success = "Product ".urlencode($product->getName())." was edited succesfully";
+                header("Location: ./manage-products.php?success=" . urlencode($success));
                 exit();
             }
         }catch(\Throwable $th){

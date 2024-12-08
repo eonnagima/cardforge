@@ -448,17 +448,17 @@ class Product{
 
         $query = "UPDATE products SET
             name = :name,
-            description, :description,
-            details, :details,
+            description = :description,
+            details = :details,
             alias = :alias,
             price = :price,
             stock = :stock,
-            franchise_id = (SELECT franchise.id WHERE franchise.alias = :franchise),
-            category_id = (SELECT category.id WHERE category.alias = :category),
+            franchise_id = (SELECT franchises.id FROM franchises WHERE franchises.alias = :franchise),
+            category_id = (SELECT categories.id FROM categories WHERE categories.alias = :category),
             set_name = :set_name,
             release_date = :release_date,
             updated = CURRENT_TIMESTAMP
-        ";
+        WHERE id = :id";
 
         $stmt = $conn->prepare($query);
 
@@ -472,6 +472,7 @@ class Product{
         $stmt->bindParam(":category", $this->category);
         $stmt->bindParam(":set_name", $this->setName);
         $stmt->bindParam(":release_date", $this->releaseDate);
+        $stmt->bindParam(":id", $id);
 
         try{
             return $stmt->execute();
