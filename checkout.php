@@ -16,7 +16,7 @@
 
     foreach($cart as $item){ 
         $product = Product::getByAlias($item);
-        $total += $product['price'];
+        $total += floatval($product['price']);
         $products[] = $product;
     }
 
@@ -107,8 +107,7 @@
                         <section class="cart-item">
                             <img src="<?=ProductImage::getPrimaryByProduct($product['alias'])['url']?>" alt="" class="cart-img">
                             <span class="product-name"><?=$product['name']?></span>
-                            <span class="price">€<?=$product['price']?></span>
-                            <a href="" class="btn btn--remove" data-product-alias="<?=$product['alias']?>">-</a>
+                            <span class="price">€<?=number_format(floatval($product['price']), 2)?></span>
                         </section>
                     <?php endforeach;?>
                 <?php endif;?>
@@ -117,7 +116,7 @@
                 <div class="seperator"></div>
                 <section class="cart-total">
                     <h3>Total:</h3>
-                    <span class="price">€<?=$total?></span>
+                    <span class="price">€<?=number_format($total, 2)?></span>
                 </section>
                 <div class="seperator"></div>
                 <h2>Shipping Information</h2>

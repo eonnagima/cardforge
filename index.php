@@ -48,7 +48,7 @@
                 <a class="product-listing" href="product.php?p=<?=htmlspecialchars($product['alias'])?>">
                     <img src="<?=ProductImage::getPrimaryByProduct($product['alias'])['url']?>" alt="<?=htmlspecialchars($product['name'])?>">
                     <h5><?=htmlspecialchars($product['name'])?></h5>
-                    <span>$<?=htmlspecialchars($product['price'])?></span>
+                    <span>€<?=number_format(floatval($product['price']), 2)?></span>
                 </a>
             <?php endforeach;?>
             <!-- product listing template -->

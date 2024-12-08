@@ -87,7 +87,7 @@
             <select name="sort-by" id="sort-by">
                 <option value="newest" <?php if($sortBy === "newest"){echo "selected";}?>>Newest</option>
                 <option value="oldest" <?php if($sortBy === "oldest"){echo "selected";}?>>Oldest</option>
-                <option value="cheapest" <?php if($sortBy === "cheapest"){echo "selected";}?>>Price:  to High</option>
+                <option value="cheapest" <?php if($sortBy === "cheapest"){echo "selected";}?>>Price: Low to High</option>
                 <option value="expensive" <?php if($sortBy === "expensive"){echo "selected";}?>>Price: High to Low</option>
             </select>
         </section>
@@ -101,7 +101,7 @@
                         <a class="product-listing" href="product.php?p=<?=htmlspecialchars($product['alias'])?>">
                             <img src="<?=$productImage['url']?>" alt="<?=htmlspecialchars($productImage['alt'])?>">
                             <h5><?=htmlspecialchars($product['name'])?></h5>
-                            <span>$<?=htmlspecialchars($product['price'])?></span>
+                            <span>€<?=number_format(floatval($product['price']), 2)?></span>
                         </a>
                     <?php endif;?>
                 <?php else:?>
