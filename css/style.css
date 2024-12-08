@@ -16,15 +16,16 @@
     --red: #FB5E69;
     --red-hover: #de6b6f;
     --blue: #9bb4cb;
-    --off-white: #f4f8fa;
+    --off-white: #faf4f4;
     --off-white-hl: #f1e9e9;
 }
 
 body {
     font-family: Rowdies, sans-serif;
+    /* make font-size adaptive based on viewport width */
     font-size: 16px;
     line-height: 1.5;
-    background-color: #fff;
+    background-color: var(--off-white);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -33,32 +34,33 @@ body {
 h1{
     color: var(--black);
     text-transform: uppercase;
-    font-size: 2em;
+    font-size: calc(2em + 0.5vw);
     font-weight: regular;
 }
 
 h2{
     color: var(--dark-grey);
     text-transform: uppercase;
-    font-size: 1.7em;
+    font-size: clac(1.7em + 0.5vw);
     font-weight: regular;
 }
 
 h3{
     color: var(--grey);
     text-transform: uppercase;
-    font-size: 1.5em;
+    font-size: (1.5em + 0.5vw);
     font-weight: regular;
 }
 
 h4{
     text-transform: capitalize;
-    font-size: 1.25em;
+    font-size: calc(1.25em + 0.5vw);
     font-weight: normal;
 }
 
 p{
     font-family: 'FontinSans', sans-serif;
+    font-size: calc(1em + 0.5vw);
     padding: 1em 0;
 }
 
@@ -244,6 +246,8 @@ main{
     flex-direction: column;
     gap: 32px;
     flex: 1 0 0;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .seperator{
@@ -340,8 +344,8 @@ main{
     object-fit: contain;
 }
 
-.fracnhises a .all-franchises-img{
-    filter: brightness(0.3);
+.franchises a .all-franchises-img{
+    filter: brightness(0.7);
 }
 
 .franchises a h3{
@@ -385,14 +389,15 @@ main{
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    background-color: var(--off-white);
+    background-color: #fff;
     transition: 0.5s;
     border-radius: 8px;
     text-decoration: none;
+    padding: 0 8px 8px 8px;
 }
 
 .product-listing img {
-    height: 100px;
+    height: 25vw;
     object-fit: contain;
 }
 
@@ -783,7 +788,7 @@ footer section a{
 
 .slideshow-container{
     width: 100%;
-    max-width: 800px;
+    max-width: 1200px;
     overflow: hidden;
     display: flex;
     justify-content: space-between;
@@ -829,7 +834,7 @@ footer section a{
 
 .slide .slide-img{
     width: 100%;
-    height: 300px;
+    height: 100%;
     object-fit: contain;
     border-radius: 8px;
 }
@@ -844,7 +849,7 @@ footer section a{
     bottom: 16px;
     left: 50%;
     transform: translateX(-50%);
-    width: 250px;
+    height: 100px;
 }
 
 .prev, .next{
@@ -1074,6 +1079,78 @@ footer section a{
     margin: 0;
 }
 
+/* MAKE RESPONSIVE */
+
+@media only screen and (min-width: 700px){   
+
+    .product-listing img{
+        height: 20vw;
+    }
+}
+
+@media only screen and (min-width: 800px){
+    .franchises{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 24px;
+        row-gap: 40px;
+    }
+
+    .slider-wrap{
+        height: 400px;
+    }
+
+    .slide{
+        height: 400px;
+    }
+}
+
+@media only screen and (min-width: 900px){
+    .product-list{
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .product-listing img{
+        height: 15vw;
+    }
+
+    .slide .slide-logo{
+        height: 120px;
+    }
+}
+
+@media only screen and (min-width: 1000px){
+
+    .product-listing img{
+        height: 200px;
+    }
+
+    .slider-wrap{
+        height: 500px;
+    }
+
+    .slide{
+        height: 500px;
+    }
+
+    .slide .slide-logo{
+        height: 150px;
+    }
+}
+
+@media only screen and (min-width: 1200px){
+    .slider-wrap{
+        height: 600px;
+    }
+
+    .slide{
+        height: 600px;
+    }
+
+    .slide .slide-logo{
+        height: 180px;
+    }
+}
 
 /*hidden*/
 
