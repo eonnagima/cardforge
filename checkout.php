@@ -63,7 +63,7 @@
                 $result = $orderProduct->save();
             }
 
-            $userWallet = $userWallet - $total;
+            $userWallet = floatval($userWallet) - floatval($total);
             $user->setWallet($userWallet);
 
             $_SESSION['cart'] = [];
@@ -138,27 +138,28 @@
                         </section>
                         <section>
                             <div class="input-wrap">
-                                <label for="street">Street</label>
+                                <label for="street">Street<span>*</span></label>
                                 <input type="text" id="street" name="street" placeholder="Kerkstraat" required>
                             </div>
                             <div class="input-wrap">
-                                <label for="house_number">House Number</label>
+                                <label for="house_number">House Number<span>*</span></label>
                                 <input type="text" id="house_number" name="house_number" placeholder="50" required>
                             </div>
                             <div class="input-wrap">
                                 <label for="address_extra">Extra</label>
-                                <input type="text" id="address_extra" name="address_extra" placeholder="bus 3" required>
+                                <input type="text" id="address_extra" name="address_extra" placeholder="bus 3">
                             </div>
                             <div class="input-wrap">
-                                <label for="city">City</label>
+                                <label for="city">City<span>*</span></label>
                                 <input type="text" id="city" name="city" placeholder="Mechelen" required>
                             </div>
                             <div class="input-wrap">
-                                <label for="zip">Zip Code</label>
+                                <label for="zip">Zip Code<span>*</span></label>
                                 <input type="text" id="zip" name="zip" placeholder="2800" required>
                             </div>
                             <div class="input-wrap">
-                                <label for="country">Country</label>
+                                <label for="country">Country<span>*</span><
+                            </label>
                                 <select name="country" id="country" required>
                                     <!-- nothing option -->
                                     <option value="" default disabled>-- Select a country -- </option>
@@ -199,7 +200,7 @@
                             </div>
                             <div class="input-wrap">
                                 <label for="address_extra">Extra</label>
-                                <input type="text" id="address_extra" name="address_extra" value="<?=$user->getAdress_extra()?>" placeholder="bus 3" required>
+                                <input type="text" id="address_extra" name="address_extra" value="<?=$user->getAdress_extra()?>" placeholder="bus 3">
                             </div>
                             <div class="input-wrap">
                                 <label for="city">City<span>*</span></label>
@@ -227,7 +228,6 @@
                             <input class="btn" type="submit" value="Finalize Purchase" name="finalize-purchase">
                         <?php endif;?>
                     </section>
-
                 </form>
             </section>
         </div>
