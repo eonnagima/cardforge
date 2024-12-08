@@ -13,7 +13,7 @@
     --grey: #5e5959;
     --light-grey: #868686;
     --lighter-grey: #cdc5c5;
-    --main: #dc3944;
+    --main: #bd2846;
     --secondary: #f7a2a8;
     --red: #FB5E69;
     --red-hover: #de6b6f;
@@ -36,34 +36,38 @@ body {
 h1{
     color: var(--black);
     text-transform: uppercase;
-    font-size: calc(2em + 0.5vw);
+    font-size: calc(2em + 0.4vw);
     font-weight: regular;
 }
 
 h2{
     color: var(--dark-grey);
     text-transform: uppercase;
-    font-size: clac(1.7em + 0.5vw);
+    font-size: clac(1.7em + 0.4vw);
     font-weight: regular;
 }
 
 h3{
     color: var(--grey);
     text-transform: uppercase;
-    font-size: (1.5em + 0.5vw);
+    font-size: (1.5em + 0.4vw);
     font-weight: regular;
 }
 
 h4{
     text-transform: capitalize;
-    font-size: calc(1.25em + 0.5vw);
+    font-size: calc(1.25em + 0.4vw);
     font-weight: normal;
 }
 
 p{
     font-family: 'FontinSans', sans-serif;
-    font-size: calc(1em + 0.5vw);
+    font-size: calc(1em + 0.4vw);
     padding: 1em 0;
+}
+
+a:hover{
+    cursor: pointer;
 }
 
 /*HEADER*/
@@ -88,18 +92,19 @@ nav a{
     text-decoration: none;;
 }
 
+header .desktop-nav{
+    display: none;
+    background-color: var(--main);
+    z-index: 100;
+}
+
 header .mobile-nav{
+    display: flex;
     background-color: var(--main);
     z-index: 100;
 }
 header .mobile-search {
     background-color: var(--secondary);
-    z-index: 100;
-}
-
-header .desktop-nav{
-    display: none;
-    background-color: var(--main);
     z-index: 100;
 }
 
@@ -121,7 +126,7 @@ header .logo{
 
 .app-name{
     text-transform: uppercase;
-    font-size: 2em;
+    font-size: calc(2em + 0.4vw);
     color: #fff;
     text-decoration: none;
 }
@@ -230,7 +235,7 @@ header .logo{
     text-decoration: none;
     color: var(--off-white);
     font-family: 'Rowdies', sans-serif;
-    font-size: 1.125em;
+    font-size: calc(1.125em + 0.3vw);
     font-weight: 300;
     text-transform: uppercase;
 }
@@ -267,6 +272,7 @@ main{
     gap: 32px;
     flex: 1 0 0;
     max-width: 1200px;
+    min-width: 300px;
     margin: 0 auto;
 }
 
@@ -285,9 +291,9 @@ main{
     height: 48px;
     align-items: center;
     justify-content: center;
-    font-size: 1.25em;
+    font-size: calc(1.25em + 0.4vw);
     text-transform: uppercase;
-    font-size: 400;
+    font-weight: 400;
     background-color: var(--dark-grey);
     color: var(--off-white);
     text-decoration: none;
@@ -297,6 +303,7 @@ main{
     font-family: 'Rowdies', sans-serif;
     font-weight: 300;
     border: none;
+    padding: 0 16px;
 }
 
 .btn--buy{
@@ -310,7 +317,7 @@ main{
 .btn--remove{
     height: 32px;
     width: 32px;
-    font-size: 1.5em;
+    font-size: calc(1.5em + 0.4vw);
     font-weight: 500;
     background-color: var(--red);
     color: #fff;
@@ -422,7 +429,7 @@ main{
 }
 
 .product-listing h5 {
-    font-size: 1.125em;
+    font-size: calc(1.125 + 0.4vw);
     color: var(--black);
     font-family: 'Rowdies', sans-serif;
     font-weight: 300;
@@ -441,7 +448,7 @@ main{
 }
 
 .product-listing span{
-    font-size: 0.875em;
+    font-size: calc(0.875em + 0.3vw);
     color: var(--red);
     font-family: 'Rowdies', sans-serif;
     font-weight: 300;
@@ -481,7 +488,7 @@ footer section ul{
 footer section li{
     background-color: var(--grey);
     font-family: 'FontinSans', sans-serif;
-    font-size: 1.25em;
+    font-size: calc(1.25em + 0.4vw);
     font-weight: normal;
     padding: 8px 32px;
     color: #fff;
@@ -508,7 +515,7 @@ footer section a{
     color: var(--light-grey);
     gap: 4px 8px;
     padding: 0;
-    font-size: 1.25em;
+    font-size: calc(1.25em + 0.4vw);
 }
 
 .product-nav a{
@@ -517,6 +524,7 @@ footer section a{
     font-weight: 300;
     text-transform: capitalize;
     transition: color 0.3s ease;
+    font-size: calc(1em + 0.4vw);
 }
 
 .product-nav .current{
@@ -534,7 +542,7 @@ footer section a{
 }
 
 .price-like-wrap *{
-    font-size: 2em;
+    font-size: calc(2em + 0.4vw);
     font-weight: 200;
 }
 
@@ -556,7 +564,7 @@ footer section a{
 .product-header h1{
     font-weight: 400;
     text-transform: none;
-    font-size: 2em;
+    font-size: calc(2em + 0.4vw);
 }
 
 .product-header .reviews{
@@ -577,12 +585,12 @@ footer section a{
 }
 
 .product-header .reviews .rating span{
-    font-size: 1.5em;
+    font-size: calc(1.5em + 0.4vw);
 }
 
 .product-header .reviews .num-reviews{
     color: var(--grey);
-    font-size: 1.125em;
+    font-size: calc(1.125em + 0.4vw);
     font-family: 'fontinSans', sans-serif;
 }
 
@@ -611,7 +619,7 @@ footer section a{
 }
 
 .product-section .info span{
-    font-size: 0.8em;
+    font-size: calc(0.8em + 0.3vw);
 }
 
 .product-section p{
@@ -645,19 +653,19 @@ footer section a{
 .form label, .form .label, .review-input label{
     color: var(--grey);
     text-transform: uppercase;
-    font-size: 1.5em;
+    font-size: calc(1.5em + 0.4vw);
     font-weight: regular;
     line-height: 1em;
 }
 
 .review-input label{
-    font-size: 1.25em;
+    font-size: calc(1.25em + 0.4vw);
     color: var(--dark-grey);
 }
 
 .form label span, .form .label span{
     color: var(--red);
-    font-size: 1.5em;
+    font-size: calc(1.5em + 0.4vw);
     font-weight: 300;
 }
 
@@ -739,7 +747,7 @@ footer section a{
 
 .form .img-label i{
     color: var(--off-white);
-    font-size: calc(1em + 0.5vw);
+    font-size: calc(1em + 0.4vw);
 }
 
 .form .uploaded-images{
@@ -1103,8 +1111,17 @@ footer section a{
 
 @media only screen and (min-width: 700px){   
 
+    main{
+        min-width: 600px;
+    }
+    
     .product-listing img{
         height: 20vw;
+    }
+
+    .btn{
+        max-width: 400px;
+        margin: 0 auto;
     }
 }
 
@@ -1141,6 +1158,10 @@ footer section a{
 
 @media only screen and (min-width: 1000px){
 
+    main{
+        min-width: 800px;
+    }
+    
     header .mobile-nav{
         display: none;
     }
@@ -1173,9 +1194,18 @@ footer section a{
     .slide .slide-logo{
         height: 150px;
     }
+
+    .product-header{
+        max-width: 800px;
+        margin: 0 auto;
+    }
 }
 
 @media only screen and (min-width: 1200px){
+    main{
+        min-width: 1000px;
+    }
+    
     header .desktop-nav{
         gap: 40px;
     }

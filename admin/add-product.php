@@ -94,9 +94,9 @@
     <?php include_once __DIR__."/../includes/adminheader.inc.php";?>
     <main>
         <h1>Add New Product</h1>
-        <?php if(isset($error)):?>
+        <!-- <?php if(isset($error)):?>
             <div class="error"><?=$error;?></div>
-        <?php endif;?>
+        <?php endif;?> -->
         <?php if(isset($_GET['success'])): ?>
             <div class="success"><?= htmlspecialchars($_GET['success']); ?></div>
         <?php endif; ?>
@@ -164,7 +164,7 @@
                     </div>
                 </div>
                 <div class="input-wrap">
-                    <span class="label">Images<span>*</span></span>
+                    <span class="label">Images</span>
                     <span class="instruction">You can select more than one image. Make sure images aren't too big in filesize or to upload too many images at once. You can always add more images later.</span>
                     <div class="input-image-wrap input-image-wrap--product">
                         <label for="images" class=" img-label">

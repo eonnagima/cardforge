@@ -46,9 +46,9 @@
             <a href="myaccount.php">My account</a>
             <a href="cart.php">Cart</a>
             <a href="orders.php">My orders</a>
-            <a href="logout.php">Wishlist</a>
+            <!-- <a href="wishlist.php">Wishlist</a> -->
             <div class="seperator"></div>
-            <a class="btn" href="logout.php">Logout</a>
+            <a class="btn btn--secondary" href="logout.php">Logout</a>
         <?php endif;?>
     </nav>
     <script src="./js/accountNav.js"></script> <!--placed here so it's automatically included with the header-->
