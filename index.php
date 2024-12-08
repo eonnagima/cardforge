@@ -35,9 +35,9 @@
             <a href="#" class="next">&#10095;</a>
         </div>
         <div class="dots-container">
-            <span class="dot active" data-index="0"></span>
-            <span class="dot" data-index="1"></span>
-            <span class="dot" data-index="2"></span>
+            <?php foreach($activeBanners as $key=>$banner):?>
+                <span class="dot" data-index="<?=$key?>"></span>
+            <?php endforeach;?>
         </div>
     </section>
     <main>
