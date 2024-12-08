@@ -148,6 +148,8 @@
                     if($review['anonymous'] == 0){
                         $reviewer = User::getById($review['user_id']);
                         $reviewer = htmlspecialchars($reviewer['first_name']);
+                    }else{
+                        $reviewer = "Anonymous";
                     }
                 ?>
                 <div class="seperator"></div>
