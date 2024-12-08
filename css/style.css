@@ -88,7 +88,7 @@ header nav:first-child {
     background-color: var(--dark-grey);
     z-index: 100;
 }
-header nav:nth-child(2) {
+header .mobile-search {
     background-color: var(--lighter-grey);
     z-index: 100;
 }

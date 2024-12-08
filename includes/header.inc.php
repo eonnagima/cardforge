@@ -8,7 +8,7 @@
             <a href="login.php" class="header-avatar" style="background-image: url('<?=$user->getAvatar()?>');"></a>
         <?php endif;?>
     </nav>
-    <nav>
+    <nav class="mobile-search">
         <a href="./cart.php" class="header-cart cart-icon">
             <span id="cart-count"><?= count($_SESSION['cart'] ?? [])?></span>
         </a>
