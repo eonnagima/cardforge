@@ -165,7 +165,7 @@
                 </div>
                 <div class="input-wrap">
                     <span class="label">Images<span>*</span></span>
-                    <span class="instruction">You can select more than one image, but must select at least one</span>
+                    <span class="instruction">You can select more than one image. Make sure images aren't too big in filesize or to upload too many images at once. You can always add more images later.</span>
                     <div class="input-image-wrap input-image-wrap--product">
                         <label for="images" class=" img-label">
                             <i class="fas fa-image"></i>
