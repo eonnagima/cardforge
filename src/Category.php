@@ -30,12 +30,16 @@ class Category{
         return $this->alias;
     }
 
-    public function setAlias()
+    public function setAlias($alias)
     {
-        //generate a unique alias to be used in url
-        $alias = strtolower(str_replace(" ", "-", $this->name));
-        //also remove specialchars from alias
-        $alias = preg_replace('/[^A-Za-z0-9\-]/', '', $alias);
+        if(empty($alias)){
+
+            //generate a unique alias to be used in url
+            $alias = strtolower(str_replace(" ", "-", $this->name));
+            //also remove specialchars from alias
+            $alias = preg_replace('/[^A-Za-z0-9\-]/', '', $alias);
+        }
+        
         $this->alias = $alias;
         return $this;
     }

@@ -15,7 +15,7 @@
         try{
             $category = new Category();
             $category->setName($_POST['name']);
-            $category->setAlias();
+            $category->setAlias(null);
             $category->setFranchise($_POST['franchise']);
             $result = $category->save();
     

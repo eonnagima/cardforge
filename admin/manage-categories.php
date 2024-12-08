@@ -33,7 +33,7 @@
 <body>
     <?php include_once __DIR__."/../includes/adminheader.inc.php";?>
     <main>
-        <h1>Manage Franchises</h1>
+        <h1>Manage Categories</h1>
         <?php if(isset($error)):?>
             <div class="error"><?=$error;?></div>
         <?php endif;?>
@@ -65,8 +65,8 @@
                             <td><?=$category['created']?></td>
                             <td><?=$category['updated']?></td>
                             <td class="table-actions">
-                                <a href="./edit-franchise.php?id=<?=$category['id']?>" class="btn btn-small">Edit</a>
-                                <a href="./delete-franchise.php?id=<?=$category['id']?>" class="btn btn--delete">Delete</a>
+                                <a href="./edit-category.php?id=<?=$category['id']?>" class="btn btn-small">Edit</a>
+                                <a href="./delete-category.php?id=<?=$category['id']?>" class="btn btn--delete">Delete</a>
                             </td>
                         </tr>
                     <?php endforeach;?>
