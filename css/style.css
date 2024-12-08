@@ -1210,6 +1210,11 @@ footer section a{
     header .desktop-nav{
         gap: 40px;
     }
+
+    .slideshow-container{
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
     
     .slider-wrap{
         height: 600px;
