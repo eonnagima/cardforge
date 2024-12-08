@@ -102,10 +102,10 @@ class ProductImage{
     public static function getAllByProduct($product){
         $conn = Db::getConnection();
 
-        $query = "SELECT * FROM product_images INNER JOIN products ON product_images.product_id = products.id WHERE product.alias = :product";
+        $query = "SELECT * FROM product_images WHERE product_id = (SELECT products.id FROM products WHERE products.alias = :product)";
 
         $stmt = $conn->prepare($query);
-        $stmt->bindParam(":product_id", $product_id);
+        $stmt->bindParam(":product", $product);
         $stmt->execute();
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
@@ -137,5 +137,21 @@ class ProductImage{
         $image = "<div class='slide'><img class='slide-img' src='{$image}' alt='{$alt}'></div>";
 
         return $image;
+    }
+
+    public static function delete($id){
+        $conn = Db::getConnection();
+
+        $query = "DELETE FROM product_images WHERE id = :id";
+
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(":id", $id);
+        $result = $stmt->execute();
+
+        if($result){
+            return true;
+        }else{
+            throw new \Exception("Failed to delete image");
+        }
     }
 }
