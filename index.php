@@ -3,9 +3,12 @@
     use Codinari\Cardforge\Franchise;
     use Codinari\Cardforge\Product;
     use Codinari\Cardforge\ProductImage;
+    use Codinari\Cardforge\Banner;
 
     $allFranchises = Franchise::getAllExceptEverything();
     $newArrivals = Product::getNewArrivals();
+    $activeBanners = Banner::getAllActive();
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,18 +24,12 @@
             <a href="#" class="prev">&#10094;</a>
             <div class="slider-wrap">
                 <div class="slider">
-                    <div class="slide">
-                        <img class="slide-img" src="./assets/img/banner/sv08-banner.png" alt="Image 1">
-                        <img src="assets/img/banner/sv08-banner-logo.png" alt="Pokémon Scarlet & Violet Surging Sparks" class="slide-logo"> 
-                    </div>
-                    <div class="slide">
-                        <img class="slide-img" src="./assets/img/banner/mtg-foundations-banner.webp" alt="Image 2">
-                        <img src="assets/img/banner/mtg-foundations-banner-logo.png" alt="Magic: The Gathering Foundations" class="slide-logo"> 
-                    </div>
-                    <div class="slide">
-                        <img class="slide-img" src="./assets/img/banner/sv08-banner.png" alt="Image 3">
-                        <img src="assets/img/banner/sv08-banner-logo.png" alt="Pokémon Scarlet & Violet Surging Sparks" class="slide-logo"> 
-                    </div>
+                    <?php foreach($activeBanners as $banner):?>
+                        <div class="slide">
+                            <img class="slide-img" src="<?=$banner['img']?>" alt="<?=$banner['image_alt']?>">
+                            <img class="slide-logo" src="<?=$banner['logo']?>" alt="<?=$banner['logo_alt']?>"> 
+                        </div>
+                    <?php endforeach;?>
                 </div>  
             </div>
             <a href="#" class="next">&#10095;</a>
