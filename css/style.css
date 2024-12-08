@@ -1000,6 +1000,73 @@ footer section a{
     text-transform: initial;
 }
 
+/*admin table*/
+
+/* style .table, .table tr, .table th and .table td */
+
+.table-wrap{
+    overflow-x: auto;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.table{
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+}
+
+.table tr{
+    height: 124px;
+}
+
+.table th, .table td{
+    border: 1px solid var(--light-grey);
+    padding: 8px;
+    height: 100%;
+}
+
+.table .table-img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: stretch;
+} 
+
+.table th{
+    background-color: var(--dark-grey);
+    color: var(--off-white);
+    text-transform: uppercase;
+}
+
+.table tr:nth-child(even){
+    background-color: var(--off-white);
+}
+
+.table tr:nth-child(odd){
+    background-color: var(--off-white-hl);
+}
+
+.table td img{
+    width: 120px;
+    height: 80px;
+    object-fit: contain;
+    margin: 0 auto;
+}
+
+.table td .btn{
+    font-size: 1.125em;
+    background-color: rgb(47, 132, 47);
+    padding: 8px 8px;
+    margin-bottom: 8px;
+}
+
+.table td .btn--delete{
+    background-color: rgb(201, 55, 55);
+    margin: 0;
+}
+
+
 /*hidden*/
 
 .hidden{
