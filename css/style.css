@@ -13,6 +13,8 @@
     --grey: #5e5959;
     --light-grey: #868686;
     --lighter-grey: #cdc5c5;
+    --main: #dc3944;
+    --secondary: #f7a2a8;
     --red: #FB5E69;
     --red-hover: #de6b6f;
     --blue: #9bb4cb;
@@ -86,22 +88,35 @@ nav a{
     text-decoration: none;;
 }
 
-header nav:first-child {
-    background-color: var(--dark-grey);
+header .mobile-nav{
+    background-color: var(--main);
     z-index: 100;
 }
 header .mobile-search {
-    background-color: var(--lighter-grey);
+    background-color: var(--secondary);
     z-index: 100;
 }
 
-.logo{
+header .desktop-nav{
+    display: none;
+    background-color: var(--main);
+    z-index: 100;
+}
+
+header .logo{
+    display: inline-block;
     background-image: url("../assets/logo/cardforge-logo.svg");
     height: 40px;
     width: 40px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.logo-wrap{
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .app-name{
@@ -118,12 +133,12 @@ header .mobile-search {
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 50%;
-    border: 2px solid var(--dark-grey);
+    border: 2px solid var(--main);
 }
 
 .header-avatar:hover{
     cursor: pointer;
-    border: 2px solid var(--red-hover)
+    border: 2px solid var(--dark-grey)
 }
 
 .header-cart{
@@ -148,6 +163,10 @@ header .mobile-search {
     display: block;
 }
 
+.cart-icon--white{
+    background-image: url("../assets/icons/cart-white.svg");
+}
+
 .search-bar{
     display: flex;
     align-items: center;
@@ -165,6 +184,7 @@ header .mobile-search {
     border: none;
     padding: 16px 8px;
     flex: 1 0 0;
+    max-width: 800px;
 }
 
 .search-bar input[type="submit"]{
@@ -1121,6 +1141,23 @@ footer section a{
 
 @media only screen and (min-width: 1000px){
 
+    header .mobile-nav{
+        display: none;
+    }
+    
+    header .mobile-search{
+        display: none;
+    }
+
+    header .desktop-nav{
+        display: flex;
+        gap: 24px;
+    }
+
+    .header-cart #cart-count{
+        color: #000;
+    }
+    
     .product-listing img{
         height: 200px;
     }
@@ -1139,6 +1176,10 @@ footer section a{
 }
 
 @media only screen and (min-width: 1200px){
+    header .desktop-nav{
+        gap: 40px;
+    }
+    
     .slider-wrap{
         height: 600px;
     }
