@@ -157,4 +157,11 @@ class Franchise implements iFranchise{
         $stmt->execute();
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
+
+    public static function delete($id){
+        $conn = Db::getConnection();
+        $stmt = $conn->prepare("DELETE FROM franchises WHERE id = :id");
+        $stmt->bindParam(":id", $id);
+        return $stmt->execute();
+    }
 }

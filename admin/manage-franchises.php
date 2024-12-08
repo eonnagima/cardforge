@@ -54,7 +54,11 @@
                     <?php endforeach;?>
                 </tbody>
             </table>
-        </section>
+        </section>     
+        <div class="seperator"></div>
+        <section>
+            <a class="btn btn--secondary" href="./dashboard.php">Back to Dashboard</a>
+        </section>        
     </main>
 </body>
 </html>
